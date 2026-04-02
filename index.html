@@ -357,6 +357,44 @@
       font-size: 1.2rem; font-style: italic; color: var(--gold);
     }
 
+    /* ── FAQ ── */
+    #faq { background: var(--bg2); }
+    .faq-inner { max-width: 800px; margin: 0 auto; }
+    .faq-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 0; }
+    .faq-item {
+      border-bottom: 1px solid var(--gold-border);
+    }
+    .faq-item:first-child { border-top: 1px solid var(--gold-border); }
+    .faq-question {
+      width: 100%; background: none; border: none;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.6rem 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400;
+      color: var(--text); cursor: pointer;
+      text-align: left; gap: 1rem;
+      transition: color 0.3s;
+    }
+    .faq-question:hover { color: var(--gold); }
+    .faq-question.active { color: var(--gold); }
+    .faq-icon {
+      flex-shrink: 0;
+      font-size: 1rem; color: var(--gold);
+      transition: transform 0.35s ease;
+      line-height: 1;
+    }
+    .faq-question.active .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .faq-answer.open { max-height: 300px; }
+    .faq-answer p {
+      font-size: 0.92rem; line-height: 2;
+      color: var(--text-muted);
+      padding-bottom: 1.6rem;
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--bg2); padding: 3rem 4rem;
@@ -401,6 +439,7 @@
     <a href="#prestations" onclick="closeMobileMenu()">Prestations</a>
     <a href="#tarifs" onclick="closeMobileMenu()">Tarifs</a>
     <a href="#zone" onclick="closeMobileMenu()">Zone</a>
+    <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
     <a href="#contact" onclick="closeMobileMenu()">Contact</a>
   </div>
 
@@ -411,6 +450,7 @@
       <li><a href="#prestations">Prestations</a></li>
       <li><a href="#tarifs">Tarifs</a></li>
       <li><a href="#zone">Zone</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
@@ -606,6 +646,80 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="faq-inner">
+      <div class="fade-in">
+        <p class="section-label">FAQ</p>
+        <h2 class="section-title">Questions<br><em>fréquentes</em></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="faq-list fade-in">
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Combien de temps dure une prestation ?
+            <span class="faq-icon">✦</span>
+          </button>
+          <div class="faq-answer">
+            <p>Chaque prestation dure un minimum de 2 heures — le temps nécessaire pour créer de vrais moments de magie avec vos invités. Il n'y a pas de durée maximale : je m'adapte entièrement au rythme de votre soirée.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Y a-t-il un nombre d'invités minimum ?
+            <span class="faq-icon">✦</span>
+          </button>
+          <div class="faq-answer">
+            <p>Non, il n'y a pas de minimum d'invités. La seule condition est le temps minimum de prestation de 2 heures. Que vous soyez une poignée d'amis ou plusieurs centaines de convives, je m'adapte à votre événement.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Intervenez-vous pour des événements avec des enfants ?
+            <span class="faq-icon">✦</span>
+          </button>
+          <div class="faq-answer">
+            <p>Avec plaisir ! Les enfants sont souvent les stars de ces moments — leur réaction spontanée et leur émerveillement sincère rendent la magie encore plus belle. Je m'adapte naturellement à tous les âges pour que chacun vive une expérience unique.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Comment se passe la réservation ?
+            <span class="faq-icon">✦</span>
+          </button>
+          <div class="faq-answer">
+            <p>Rien de plus simple : contactez-moi par téléphone, par email ou via le formulaire de devis sur ce site. Je vous réponds en moins de 12 heures avec une proposition personnalisée. Ensemble, nous définirons les détails de votre événement avant de confirmer la réservation.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Intervenez-vous en dehors de l'Île-de-France ?
+            <span class="faq-icon">✦</span>
+          </button>
+          <div class="faq-answer">
+            <p>Oui, j'interviens partout en France. Des frais de déplacement sont à prévoir selon la distance, et je vous demanderai de réserver suffisamment à l'avance pour organiser au mieux mon déplacement. Tout est discuté ensemble de manière transparente lors du devis.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Avez-vous besoin d'un espace particulier pour intervenir ?
+            <span class="faq-icon">✦</span>
+          </button>
+          <div class="faq-answer">
+            <p>Aucun aménagement particulier n'est nécessaire. Il me suffit de la table de vos spectateurs — c'est là que la magie prend vie, entre leurs mains, au plus près d'eux. Pas de scène, pas de matériel encombrant, juste l'essentiel.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Moreau Lucas</div>
@@ -638,6 +752,20 @@
     function closeMobileMenu() {
       document.getElementById('mobile-menu').classList.remove('open');
       document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      // Ferme toutes les réponses ouvertes
+      document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-question.active').forEach(b => b.classList.remove('active'));
+      // Ouvre celle cliquée si elle était fermée
+      if (!isOpen) {
+        answer.classList.add('open');
+        btn.classList.add('active');
+      }
     }
 
     // Form submit
