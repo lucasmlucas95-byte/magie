@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>✦ Votre Carte</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; background: #060608; font-family: 'Cinzel', serif; color: #f5f0e8; overflow: hidden; }
+    body { display: flex; align-items: center; justify-content: center; }
+
+    .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .particle { position: absolute; width: 2px; height: 2px; background: #c9a84c; border-radius: 50%; opacity: 0; animation: float var(--d) var(--delay) ease-in infinite; left: var(--x); }
+    @keyframes float {
+      0%   { opacity: 0; transform: translateY(100vh) scale(0); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { opacity: 0; transform: translateY(-10vh) scale(1.5); }
+    }
+
+    .scene {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 2rem;
+      perspective: 1200px;
+    }
+
+    /* Flip card container */
+    .card-flip {
+      width: 200px; height: 300px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .card-inner {
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.34, 1.1, 0.64, 1);
+    }
+    .card-flip.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 16px;
+      border: 2px solid rgba(201,168,76,0.4);
+      box-shadow: 0 0 60px rgba(201,168,76,0.15), 0 20px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(201,168,76,0.2);
+      display: flex; flex-direction: column;
+      padding: 1rem;
+      overflow: hidden;
+    }
+    .card-face::before {
+      content: '';
+      position: absolute; inset: 6px;
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    /* Front = As de Pique */
+    .card-front {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      transform: rotateY(0deg);
+    }
+    /* Back = vraie carte */
+    .card-back {
+      background: linear-gradient(135deg, #1a0a0a 0%, #2e1616 50%, #3d0f0f 100%);
+      transform: rotateY(180deg);
+    }
+
+    .corner { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+    .corner.tl { align-self: flex-start; }
+    .corner.br { align-self: flex-end; transform: rotate(180deg); }
+    .corner .v { font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 600; }
+    .corner .s { font-size: 1rem; }
+    .center { flex: 1; display: flex; align-items: center; justify-content: center; }
+    .big-pip { font-size: 5rem; line-height: 1; }
+
+    .black-card { color: #e8e0d0; }
+    .red-card   { color: #e05050; }
+
+    .glow { filter: drop-shadow(0 0 20px currentColor); animation: pipGlow 2s ease-in-out infinite alternate; }
+    @keyframes pipGlow {
+      from { filter: drop-shadow(0 0 10px currentColor); }
+      to   { filter: drop-shadow(0 0 30px currentColor); }
+    }
+
+    /* Hint text */
+    .hint {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: rgba(201,168,76,0.45);
+      text-transform: uppercase;
+      text-align: center;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.45; }
+      50%       { opacity: 1; }
+    }
+    .hint.hidden { opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+
+    /* Card name revealed */
+    .card-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1rem, 5vw, 1.3rem);
+      color: #c9a84c;
+      text-align: center;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 30px rgba(201,168,76,0.5);
+      opacity: 0;
+      transition: opacity 0.6s ease 0.4s;
+    }
+    .card-name.visible { opacity: 1; }
+
+    /* Loader */
+    #loader { position: fixed; inset: 0; background: #060608; display: flex; align-items: center; justify-content: center; z-index: 100; transition: opacity 0.4s; }
+    #loader.hidden { opacity: 0; pointer-events: none; }
+    .spinner { width: 48px; height: 48px; border: 3px solid rgba(201,168,76,0.15); border-top-color: #c9a84c; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div id="loader"><div class="spinner"></div></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="scene">
+
+    <div class="card-flip" id="cardFlip" onclick="revealCard()">
+      <div class="card-inner">
+
+        <!-- FACE : As de Pique -->
+        <div class="card-face card-front">
+          <div class="corner tl">
+            <span class="v black-card">A</span>
+            <span class="s black-card">♠</span>
+          </div>
+          <div class="center">
+            <span class="big-pip black-card glow">♠</span>
+          </div>
+          <div class="corner br">
+            <span class="v black-card">A</span>
+            <span class="s black-card">♠</span>
+          </div>
+        </div>
+
+        <!-- DOS : vraie carte (remplie par JS) -->
+        <div class="card-face card-back">
+          <div class="corner tl">
+            <span class="v" id="val-tl"></span>
+            <span class="s" id="suit-tl"></span>
+          </div>
+          <div class="center">
+            <span class="big-pip glow" id="big-pip"></span>
+          </div>
+          <div class="corner br">
+            <span class="v" id="val-br"></span>
+            <span class="s" id="suit-br"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="hint" id="hint"></div>
+    <div class="card-name" id="card-name"></div>
+
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCcNRGjDMNkfOTU5OABlCqhc9C81pb_IbU",
+      authDomain: "magie-24417.firebaseapp.com",
+      databaseURL: "https://magie-24417-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "magie-24417",
+      storageBucket: "magie-24417.firebasestorage.app",
+      messagingSenderId: "196934613938",
+      appId: "1:196934613938:web:8e307470b202c391ed42ab"
+    };
+
+    const suits = {
+      'coeur':   { pip: '♥', label: 'Cœur',   color: 'red-card'   },
+      'carreau': { pip: '♦', label: 'Carreau', color: 'red-card'   },
+      'trefle':  { pip: '♣', label: 'Trèfle',  color: 'black-card' },
+      'pique':   { pip: '♠', label: 'Pique',   color: 'black-card' },
+    };
+    const valueNames = { 'A':'As', 'V':'Valet', 'D':'Dame', 'R':'Roi' };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getDatabase(app);
+
+    let cardReady = false;
+
+    try {
+      const snapshot = await get(ref(db, 'carte_active'));
+      const carteKey = snapshot.exists() ? snapshot.val() : 'A-coeur';
+
+      const lastDash = carteKey.lastIndexOf('-');
+      const val     = carteKey.substring(0, lastDash);
+      const suitKey = carteKey.substring(lastDash + 1);
+      const suit    = suits[suitKey] || suits['coeur'];
+      const fullName = `${valueNames[val] || val} de ${suit.label}`;
+
+      document.getElementById('val-tl').textContent  = val;
+      document.getElementById('suit-tl').textContent = suit.pip;
+      document.getElementById('val-br').textContent  = val;
+      document.getElementById('suit-br').textContent = suit.pip;
+
+      const bigPip = document.getElementById('big-pip');
+      bigPip.textContent = suit.pip;
+      bigPip.classList.add(suit.color);
+      document.querySelectorAll('#val-tl, #suit-tl, #val-br, #suit-br').forEach(el => el.classList.add(suit.color));
+
+      document.getElementById('card-name').textContent = fullName;
+      cardReady = true;
+    } catch(e) {
+      cardReady = true;
+    }
+
+    // Particles
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `--x:${Math.random()*100}%;--d:${3+Math.random()*5}s;--delay:${Math.random()*4}s`;
+      container.appendChild(p);
+    }
+
+    // Hide loader
+    const loader = document.getElementById('loader');
+    loader.classList.add('hidden');
+    setTimeout(() => loader.remove(), 500);
+
+    window.revealCard = function() {
+      if (!cardReady) return;
+      document.getElementById('cardFlip').classList.add('flipped');
+      document.getElementById('hint').classList.add('hidden');
+      setTimeout(() => {
+        document.getElementById('card-name').classList.add('visible');
+      }, 500);
+    };
+  </script>
+</body>
+</html>
