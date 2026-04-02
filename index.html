@@ -2,416 +2,150 @@
 <html lang="fr" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♠</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♠</text></svg>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Moreau Lucas — Magicien</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── THEMES ── */
     :root[data-theme="dark"] {
-      --gold: #c9a84c;
-      --gold-light: #e2c47a;
-      --gold-dim: rgba(201,168,76,0.15);
-      --gold-border: rgba(201,168,76,0.25);
-      --bg: #0d0d0d;
-      --bg2: #141414;
-      --bg3: #1a1a1a;
-      --text: #f0ebe0;
-      --text-muted: rgba(240,235,224,0.65);
-      --text-dim: rgba(240,235,224,0.45);
-      --nav-bg: rgba(13,13,13,0.96);
-      --card-bg: #181818;
-      --shadow: 0 4px 30px rgba(0,0,0,0.5);
+      --gold: #c9a84c; --gold-light: #e2c47a; --gold-dim: rgba(201,168,76,0.15);
+      --gold-border: rgba(201,168,76,0.25); --bg: #0d0d0d; --bg2: #141414; --bg3: #1a1a1a;
+      --text: #f0ebe0; --text-muted: rgba(240,235,224,0.65); --text-dim: rgba(240,235,224,0.45);
+      --nav-bg: rgba(13,13,13,0.96); --card-bg: #181818; --shadow: 0 4px 30px rgba(0,0,0,0.5);
     }
-
     :root[data-theme="light"] {
-      --gold: #9a6e1a;
-      --gold-light: #b8860b;
-      --gold-dim: rgba(154,110,26,0.1);
-      --gold-border: rgba(154,110,26,0.3);
-      --bg: #f7f3ec;
-      --bg2: #efe9de;
-      --bg3: #e8e1d4;
-      --text: #1a1612;
-      --text-muted: rgba(26,22,18,0.72);
-      --text-dim: rgba(26,22,18,0.50);
-      --nav-bg: rgba(247,243,236,0.97);
-      --card-bg: #f0ebe0;
-      --shadow: 0 4px 30px rgba(0,0,0,0.1);
+      --gold: #9a6e1a; --gold-light: #b8860b; --gold-dim: rgba(154,110,26,0.1);
+      --gold-border: rgba(154,110,26,0.3); --bg: #f7f3ec; --bg2: #efe9de; --bg3: #e8e1d4;
+      --text: #1a1612; --text-muted: rgba(26,22,18,0.72); --text-dim: rgba(26,22,18,0.50);
+      --nav-bg: rgba(247,243,236,0.97); --card-bg: #f0ebe0; --shadow: 0 4px 30px rgba(0,0,0,0.1);
     }
 
     html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; font-weight: 300; overflow-x: hidden; transition: background 0.4s, color 0.4s; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
-      transition: background 0.4s, color 0.4s;
-    }
-
-    /* ── THEME TOGGLE ── */
     .theme-toggle {
-      position: fixed;
-      bottom: 2rem; right: 2rem;
-      z-index: 200;
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: var(--bg2);
-      border: 1px solid var(--gold-border);
-      color: var(--gold);
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--shadow);
-      transition: all 0.3s;
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--bg2); border: 1px solid var(--gold-border); color: var(--gold);
+      font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow); transition: all 0.3s;
     }
-    .theme-toggle:hover {
-      background: var(--gold-dim);
-      border-color: var(--gold);
-      transform: scale(1.08);
-    }
+    .theme-toggle:hover { background: var(--gold-dim); border-color: var(--gold); transform: scale(1.08); }
 
-    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.4rem 4rem;
-      background: var(--nav-bg);
-      border-bottom: 1px solid var(--gold-border);
-      backdrop-filter: blur(10px);
+      padding: 1.4rem 4rem; background: var(--nav-bg);
+      border-bottom: 1px solid var(--gold-border); backdrop-filter: blur(10px);
       transition: background 0.4s, border-color 0.4s;
     }
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem; font-weight: 400; letter-spacing: 0.3em;
-      color: var(--gold); text-transform: uppercase; text-decoration: none;
-    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; text-decoration: none; }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--text-muted); text-decoration: none;
-      transition: color 0.3s;
-      font-weight: 400;
-    }
+    .nav-links a { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
     .nav-links a:hover { color: var(--gold); }
 
-    /* ── HAMBURGER ── */
-    .nav-hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; padding: 4px;
-      background: none; border: none;
-    }
-    .nav-hamburger span {
-      display: block; width: 22px; height: 1px;
-      background: var(--gold); transition: all 0.3s;
-    }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); transition: all 0.3s; }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-    .mobile-menu {
-      display: none;
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 99;
-      background: var(--bg);
-      flex-direction: column; align-items: center; justify-content: center;
-      gap: 2.5rem;
-      transition: background 0.4s;
-    }
+    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99; background: var(--bg); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
     .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; font-weight: 300;
-      color: var(--text); text-decoration: none; letter-spacing: 0.1em;
-      transition: color 0.3s;
-    }
+    .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--text); text-decoration: none; letter-spacing: 0.1em; transition: color 0.3s; }
     .mobile-menu a:hover { color: var(--gold); }
 
-    /* ── HERO ── */
-    #hero {
-      position: relative; height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 70% 60% at 50% 50%, var(--gold-dim) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-line {
-      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 1px; height: 100px;
-      background: linear-gradient(to bottom, transparent, var(--gold));
-      opacity: 0.5;
-    }
-    .hero-ornament {
-      font-size: 0.85rem; letter-spacing: 0.7em; color: var(--gold);
-      opacity: 0.9; margin-bottom: 2rem; text-transform: uppercase;
-      font-weight: 400;
-    }
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.5rem, 10vw, 7rem);
-      font-weight: 300; line-height: 0.95;
-      letter-spacing: 0.05em;
-      color: var(--text);
-    }
+    #hero { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 50%, var(--gold-dim) 0%, transparent 70%); pointer-events: none; }
+    .hero-line { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 100px; background: linear-gradient(to bottom, transparent, var(--gold)); opacity: 0.5; }
+    .hero-ornament { font-size: 0.85rem; letter-spacing: 0.7em; color: var(--gold); opacity: 0.9; margin-bottom: 2rem; text-transform: uppercase; font-weight: 400; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 300; line-height: 0.95; letter-spacing: 0.05em; color: var(--text); }
     h1 em { font-style: italic; color: var(--gold); }
-    .hero-sub {
-      margin-top: 1.5rem;
-      font-size: 0.78rem; letter-spacing: 0.35em; text-transform: uppercase;
-      color: var(--text-muted); font-weight: 400;
-    }
-    .hero-cta {
-      margin-top: 3.5rem;
-      display: inline-block; padding: 0.9rem 2.5rem;
-      border: 1px solid var(--gold-border);
-      font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--gold); text-decoration: none; font-weight: 400;
-      transition: all 0.3s;
-    }
-    .hero-cta:hover {
-      background: var(--gold-dim); border-color: var(--gold);
-    }
-    .hero-scroll {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase;
-      color: var(--text-dim); display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
-    }
-    .scroll-line {
-      width: 1px; height: 40px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
+    .hero-sub { margin-top: 1.5rem; font-size: 0.78rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-muted); font-weight: 400; }
+    .hero-cta { margin-top: 3.5rem; display: inline-block; padding: 0.9rem 2.5rem; border: 1px solid var(--gold-border); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); text-decoration: none; font-weight: 400; transition: all 0.3s; }
+    .hero-cta:hover { background: var(--gold-dim); border-color: var(--gold); }
+    .hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-dim); display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
     @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
 
-    /* ── SECTION BASE ── */
     section { padding: 7rem 4rem; }
-    .section-label {
-      font-size: 0.68rem; letter-spacing: 0.45em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 0.8rem; font-weight: 500;
-    }
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300;
-      line-height: 1.1; color: var(--text); margin-bottom: 2rem;
-    }
+    .section-label { font-size: 0.68rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; font-weight: 500; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.1; color: var(--text); margin-bottom: 2rem; }
     .section-title em { font-style: italic; color: var(--gold); }
-    .divider {
-      width: 60px; height: 1px;
-      background: linear-gradient(to right, var(--gold), transparent);
-      margin-bottom: 2.5rem;
-    }
+    .divider { width: 60px; height: 1px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 2.5rem; }
 
-    /* ── À PROPOS ── */
     #about { background: var(--bg2); }
-    .about-grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
-    }
-    .about-text p {
-      font-size: 1rem; line-height: 2; color: var(--text-muted);
-      margin-bottom: 1.2rem;
-    }
-    .about-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.55rem; font-style: italic; font-weight: 300;
-      color: var(--text); line-height: 1.6;
-      border-left: 2px solid var(--gold);
-      padding-left: 2rem;
-    }
+    .about-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .about-text p { font-size: 1rem; line-height: 2; color: var(--text-muted); margin-bottom: 1.2rem; }
+    .about-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-style: italic; font-weight: 300; color: var(--text); line-height: 1.6; border-left: 2px solid var(--gold); padding-left: 2rem; }
 
-    /* ── PRESTATIONS ── */
     #prestations { background: var(--bg); }
     .prestations-inner { max-width: 1100px; margin: 0 auto; }
-    .cards-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-      margin-top: 3rem;
-    }
-    .prest-card {
-      background: var(--card-bg); padding: 2.5rem 2rem;
-      border: 1px solid var(--gold-border);
-      transition: border-color 0.3s, background 0.3s;
-      position: relative; overflow: hidden;
-    }
-    .prest-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-      opacity: 0; transition: opacity 0.3s;
-    }
+    .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 3rem; }
+    .prest-card { background: var(--card-bg); padding: 2.5rem 2rem; border: 1px solid var(--gold-border); transition: border-color 0.3s, background 0.3s; position: relative; overflow: hidden; }
+    .prest-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.3s; }
     .prest-card:hover { background: var(--gold-dim); border-color: var(--gold); }
     .prest-card:hover::before { opacity: 1; }
     .prest-icon { font-size: 1.8rem; margin-bottom: 1.5rem; }
-    .prest-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem; font-weight: 400; color: var(--text);
-      margin-bottom: 0.8rem;
-    }
-    .prest-desc {
-      font-size: 0.88rem; line-height: 1.9; color: var(--text-muted);
-    }
-    .prest-tag {
-      display: inline-block; margin-top: 1.5rem;
-      font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--gold); border: 1px solid var(--gold-border);
-      padding: 0.3rem 0.8rem; font-weight: 500;
-    }
+    .prest-title { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400; color: var(--text); margin-bottom: 0.8rem; }
+    .prest-desc { font-size: 0.88rem; line-height: 1.9; color: var(--text-muted); }
+    .prest-tag { display: inline-block; margin-top: 1.5rem; font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-border); padding: 0.3rem 0.8rem; font-weight: 500; }
 
-    /* ── TARIFS ── */
     #tarifs { background: var(--bg2); }
     .tarifs-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-    .tarif-box {
-      border: 1px solid var(--gold-border);
-      padding: 3rem 3.5rem; margin-top: 3rem;
-      position: relative; background: var(--card-bg);
-    }
-    .tarif-box::before, .tarif-box::after {
-      content: '✦';
-      position: absolute; color: var(--gold); font-size: 0.8rem;
-    }
+    .tarif-box { border: 1px solid var(--gold-border); padding: 3rem 3.5rem; margin-top: 3rem; position: relative; background: var(--card-bg); }
+    .tarif-box::before, .tarif-box::after { content: '✦'; position: absolute; color: var(--gold); font-size: 0.8rem; }
     .tarif-box::before { top: -0.6rem; left: 50%; transform: translateX(-50%); background: var(--bg2); padding: 0 0.5rem; }
     .tarif-box::after { bottom: -0.6rem; left: 50%; transform: translateX(-50%); background: var(--bg2); padding: 0 0.5rem; }
-    .tarif-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; font-style: italic; color: var(--gold);
-      margin-bottom: 1rem;
-    }
-    .tarif-desc {
-      font-size: 0.92rem; line-height: 2; color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
-    .tarif-cta {
-      display: inline-block; padding: 0.9rem 2.5rem;
-      background: var(--gold); color: #fff;
-      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-      text-decoration: none; font-weight: 500;
-      transition: opacity 0.3s;
-    }
+    .tarif-label { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-style: italic; color: var(--gold); margin-bottom: 1rem; }
+    .tarif-desc { font-size: 0.92rem; line-height: 2; color: var(--text-muted); margin-bottom: 2rem; }
+    .tarif-cta { display: inline-block; padding: 0.9rem 2.5rem; background: var(--gold); color: #fff; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: opacity 0.3s; }
     [data-theme="dark"] .tarif-cta { color: #0d0d0d; }
     .tarif-cta:hover { opacity: 0.85; }
 
-    /* ── ZONE ── */
     #zone { background: var(--bg3); }
     .zone-inner { max-width: 1100px; margin: 0 auto; }
     .zone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; }
-    .zone-map {
-      aspect-ratio: 1; border: 1px solid var(--gold-border);
-      display: flex; align-items: center; justify-content: center;
-      background: var(--card-bg);
-    }
+    .zone-map { aspect-ratio: 1; border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; background: var(--card-bg); }
     .zone-map svg { width: 100%; height: 100%; }
-    .zone-text p {
-      font-size: 0.95rem; line-height: 2; color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-    .zone-highlight {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem; color: var(--gold); font-style: italic;
-      margin-bottom: 1.2rem;
-    }
+    .zone-text p { font-size: 0.95rem; line-height: 2; color: var(--text-muted); margin-bottom: 1rem; }
+    .zone-highlight { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold); font-style: italic; margin-bottom: 1.2rem; }
 
-    /* ── CONTACT ── */
     #contact { background: var(--bg); }
     .contact-inner { max-width: 700px; margin: 0 auto; }
-    .contact-intro {
-      font-size: 0.95rem; line-height: 2; color: var(--text-muted); margin-bottom: 3rem;
-    }
+    .contact-intro { font-size: 0.95rem; line-height: 2; color: var(--text-muted); margin-bottom: 3rem; }
     .form-group { margin-bottom: 1.8rem; }
-    .form-label {
-      display: block; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 0.6rem; font-weight: 500;
-    }
-    .form-input, .form-select, .form-textarea {
-      width: 100%; padding: 0.9rem 0;
-      background: transparent;
-      border: none; border-bottom: 1px solid var(--gold-border);
-      color: var(--text); font-family: 'Montserrat', sans-serif;
-      font-size: 0.95rem; font-weight: 300;
-      outline: none; transition: border-color 0.3s; appearance: none;
-    }
+    .form-label { display: block; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; font-weight: 500; }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 0.9rem 0; background: transparent; border: none; border-bottom: 1px solid var(--gold-border); color: var(--text); font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 300; outline: none; transition: border-color 0.3s; appearance: none; }
     .form-select option { background: var(--bg2); color: var(--text); }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-bottom-color: var(--gold);
-    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-bottom-color: var(--gold); }
     .form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); }
     .form-textarea { resize: none; min-height: 100px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .form-submit {
-      width: 100%; padding: 1.1rem;
-      background: transparent; border: 1px solid var(--gold-border);
-      color: var(--gold); font-family: 'Montserrat', sans-serif;
-      font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase;
-      cursor: pointer; transition: all 0.3s; margin-top: 1rem; font-weight: 400;
-    }
+    .form-submit { width: 100%; padding: 1.1rem; background: transparent; border: 1px solid var(--gold-border); color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 1rem; font-weight: 400; }
     .form-submit:hover { background: var(--gold-dim); border-color: var(--gold); }
-    #form-success {
-      display: none; text-align: center; padding: 2rem;
-      border: 1px solid var(--gold-border);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; font-style: italic; color: var(--gold);
-    }
+    #form-success { display: none; text-align: center; padding: 2rem; border: 1px solid var(--gold-border); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; color: var(--gold); }
 
-    /* ── FAQ ── */
     #faq { background: var(--bg2); }
     .faq-inner { max-width: 800px; margin: 0 auto; }
     .faq-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 0; }
-    .faq-item {
-      border-bottom: 1px solid var(--gold-border);
-    }
+    .faq-item { border-bottom: 1px solid var(--gold-border); }
     .faq-item:first-child { border-top: 1px solid var(--gold-border); }
-    .faq-question {
-      width: 100%; background: none; border: none;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.6rem 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem; font-weight: 400;
-      color: var(--text); cursor: pointer;
-      text-align: left; gap: 1rem;
-      transition: color 0.3s;
-    }
+    .faq-question { width: 100%; background: none; border: none; display: flex; align-items: center; justify-content: space-between; padding: 1.6rem 0; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--text); cursor: pointer; text-align: left; gap: 1rem; transition: color 0.3s; }
     .faq-question:hover { color: var(--gold); }
     .faq-question.active { color: var(--gold); }
-    .faq-icon {
-      flex-shrink: 0;
-      font-size: 1rem; color: var(--gold);
-      transition: transform 0.35s ease;
-      line-height: 1;
-    }
+    .faq-icon { flex-shrink: 0; font-size: 1rem; color: var(--gold); transition: transform 0.35s ease; line-height: 1; }
     .faq-question.active .faq-icon { transform: rotate(45deg); }
-    .faq-answer {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s ease;
-    }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
     .faq-answer.open { max-height: 300px; }
-    .faq-answer p {
-      font-size: 0.92rem; line-height: 2;
-      color: var(--text-muted);
-      padding-bottom: 1.6rem;
-    }
+    .faq-answer p { font-size: 0.92rem; line-height: 2; color: var(--text-muted); padding-bottom: 1.6rem; }
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--bg2); padding: 3rem 4rem;
-      display: flex; align-items: center; justify-content: space-between;
-      border-top: 1px solid var(--gold-border);
-      transition: background 0.4s;
-    }
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem; letter-spacing: 0.25em; color: var(--gold);
-    }
-    .footer-copy {
-      font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-dim);
-    }
+    footer { background: var(--bg2); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--gold-border); transition: background 0.4s; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1rem; letter-spacing: 0.25em; color: var(--gold); }
+    .footer-copy { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-dim); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 1.2rem 1.5rem; }
       .nav-links { display: none; }
@@ -422,19 +156,16 @@
       footer { flex-direction: column; gap: 1rem; text-align: center; }
     }
 
-    /* ── ANIMATIONS ── */
     .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
-  <!-- THEME TOGGLE -->
   <button class="theme-toggle" onclick="toggleTheme()" title="Changer le thème" aria-label="Basculer le mode sombre/clair">
     <span id="theme-icon">🌙</span>
   </button>
 
-  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobile-menu">
     <a href="#about" onclick="closeMobileMenu()">À propos</a>
     <a href="#prestations" onclick="closeMobileMenu()">Prestations</a>
@@ -459,7 +190,6 @@
     </button>
   </nav>
 
-  <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
     <div class="hero-line"></div>
@@ -467,13 +197,9 @@
     <h1>Moreau<br><em>Lucas</em></h1>
     <p class="hero-sub">Magie de table &nbsp;·&nbsp; Close-up &nbsp;·&nbsp; Île-de-France &amp; France entière</p>
     <a href="#contact" class="hero-cta">Demander un devis</a>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      Découvrir
-    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div>Découvrir</div>
   </section>
 
-  <!-- À PROPOS -->
   <section id="about">
     <div class="about-grid">
       <div class="about-text fade-in">
@@ -485,14 +211,11 @@
         <p>Basé en Île-de-France, j'interviens dans toute la France pour sublimer vos événements, qu'ils soient intimes ou d'envergure.</p>
       </div>
       <div class="fade-in" style="animation-delay:0.2s">
-        <blockquote class="about-quote">
-          "La magie ne fait pas que surprendre — elle réunit, elle émerveille, elle crée du lien."
-        </blockquote>
+        <blockquote class="about-quote">"La magie ne fait pas que surprendre — elle réunit, elle émerveille, elle crée du lien."</blockquote>
       </div>
     </div>
   </section>
 
-  <!-- PRESTATIONS -->
   <section id="prestations">
     <div class="prestations-inner">
       <div class="fade-in">
@@ -539,7 +262,6 @@
     </div>
   </section>
 
-  <!-- TARIFS -->
   <section id="tarifs">
     <div class="tarifs-inner fade-in">
       <p class="section-label" style="text-align:center">Tarifs</p>
@@ -547,15 +269,12 @@
       <div class="divider" style="margin:0 auto 2rem;"></div>
       <div class="tarif-box">
         <div class="tarif-label">Sur devis</div>
-        <p class="tarif-desc">
-          Chaque prestation est pensée et calibrée en fonction de votre événement : durée, nombre d'invités, lieu, format souhaité. Contactez-moi pour recevoir une proposition personnalisée et sans engagement.
-        </p>
+        <p class="tarif-desc">Chaque prestation est pensée et calibrée en fonction de votre événement : durée, nombre d'invités, lieu, format souhaité. Contactez-moi pour recevoir une proposition personnalisée et sans engagement.</p>
         <a href="#contact" class="tarif-cta">Demander un devis gratuit</a>
       </div>
     </div>
   </section>
 
-  <!-- ZONE D'INTERVENTION -->
   <section id="zone">
     <div class="zone-inner">
       <div class="fade-in">
@@ -584,7 +303,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact">
     <div class="contact-inner">
       <div class="fade-in">
@@ -593,30 +311,30 @@
         <div class="divider"></div>
         <p class="contact-intro">Remplissez ce formulaire et je vous réponds dans les 48h avec une proposition personnalisée. Toutes les demandes sont étudiées avec soin.</p>
       </div>
-      <form id="contact-form" class="fade-in" onsubmit="submitForm(event)">
+      <form id="contact-form" class="fade-in" action="https://formspree.io/f/mlgowzrl" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Prénom</label>
-            <input type="text" class="form-input" placeholder="Votre prénom" required/>
+            <input type="text" name="prenom" class="form-input" placeholder="Votre prénom" required/>
           </div>
           <div class="form-group">
             <label class="form-label">Nom</label>
-            <input type="text" class="form-input" placeholder="Votre nom" required/>
+            <input type="text" name="nom" class="form-input" placeholder="Votre nom" required/>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="votre@email.com" required/>
+            <input type="email" name="email" class="form-input" placeholder="votre@email.com" required/>
           </div>
           <div class="form-group">
             <label class="form-label">Téléphone</label>
-            <input type="tel" class="form-input" placeholder="+33 6 00 00 00 00"/>
+            <input type="tel" name="telephone" class="form-input" placeholder="+33 6 00 00 00 00"/>
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">Type d'événement</label>
-          <select class="form-select" required>
+          <select name="evenement" class="form-select" required>
             <option value="" disabled selected>Choisissez votre événement</option>
             <option>Mariage</option>
             <option>Soirée privée</option>
@@ -628,26 +346,23 @@
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Date de l'événement</label>
-            <input type="date" class="form-input"/>
+            <input type="date" name="date" class="form-input"/>
           </div>
           <div class="form-group">
             <label class="form-label">Lieu</label>
-            <input type="text" class="form-input" placeholder="Ville, département"/>
+            <input type="text" name="lieu" class="form-input" placeholder="Ville, département"/>
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">Votre message</label>
-          <textarea class="form-textarea" placeholder="Décrivez votre événement, le nombre d'invités, vos attentes..." required></textarea>
+          <textarea name="message" class="form-textarea" placeholder="Décrivez votre événement, le nombre d'invités, vos attentes..." required></textarea>
         </div>
         <button type="submit" class="form-submit">✦ &nbsp; Envoyer la demande &nbsp; ✦</button>
       </form>
-      <div id="form-success">
-        ✦ &nbsp; Merci pour votre message. Je vous réponds dans les 48h. &nbsp; ✦
-      </div>
+      <div id="form-success">✦ &nbsp; Merci pour votre message. Je vous réponds dans les 48h. &nbsp; ✦</div>
     </div>
   </section>
 
-  <!-- FAQ -->
   <section id="faq">
     <div class="faq-inner">
       <div class="fade-in">
@@ -656,85 +371,45 @@
         <div class="divider"></div>
       </div>
       <div class="faq-list fade-in">
-
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Combien de temps dure une prestation ?
-            <span class="faq-icon">✦</span>
-          </button>
-          <div class="faq-answer">
-            <p>Chaque prestation dure un minimum de 2 heures — le temps nécessaire pour créer de vrais moments de magie avec vos invités. Il n'y a pas de durée maximale : je m'adapte entièrement au rythme de votre soirée.</p>
-          </div>
+          <button class="faq-question" onclick="toggleFaq(this)">Combien de temps dure une prestation ?<span class="faq-icon">✦</span></button>
+          <div class="faq-answer"><p>Chaque prestation dure un minimum de 2 heures — le temps nécessaire pour créer de vrais moments de magie avec vos invités. Il n'y a pas de durée maximale : je m'adapte entièrement au rythme de votre soirée.</p></div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Y a-t-il un nombre d'invités minimum ?
-            <span class="faq-icon">✦</span>
-          </button>
-          <div class="faq-answer">
-            <p>Non, il n'y a pas de minimum d'invités. La seule condition est le temps minimum de prestation de 2 heures. Que vous soyez une poignée d'amis ou plusieurs centaines de convives, je m'adapte à votre événement.</p>
-          </div>
+          <button class="faq-question" onclick="toggleFaq(this)">Y a-t-il un nombre d'invités minimum ?<span class="faq-icon">✦</span></button>
+          <div class="faq-answer"><p>Non, il n'y a pas de minimum d'invités. La seule condition est le temps minimum de prestation de 2 heures. Que vous soyez une poignée d'amis ou plusieurs centaines de convives, je m'adapte à votre événement.</p></div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Intervenez-vous pour des événements avec des enfants ?
-            <span class="faq-icon">✦</span>
-          </button>
-          <div class="faq-answer">
-            <p>Avec plaisir ! Les enfants sont souvent les stars de ces moments — leur réaction spontanée et leur émerveillement sincère rendent la magie encore plus belle. Je m'adapte naturellement à tous les âges pour que chacun vive une expérience unique.</p>
-          </div>
+          <button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous pour des événements avec des enfants ?<span class="faq-icon">✦</span></button>
+          <div class="faq-answer"><p>Avec plaisir ! Les enfants sont souvent les stars de ces moments — leur réaction spontanée et leur émerveillement sincère rendent la magie encore plus belle. Je m'adapte naturellement à tous les âges.</p></div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Comment se passe la réservation ?
-            <span class="faq-icon">✦</span>
-          </button>
-          <div class="faq-answer">
-            <p>Rien de plus simple : contactez-moi par téléphone, par email ou via le formulaire de devis sur ce site. Je vous réponds en moins de 12 heures avec une proposition personnalisée. Ensemble, nous définirons les détails de votre événement avant de confirmer la réservation.</p>
-          </div>
+          <button class="faq-question" onclick="toggleFaq(this)">Comment se passe la réservation ?<span class="faq-icon">✦</span></button>
+          <div class="faq-answer"><p>Rien de plus simple : contactez-moi via le formulaire de devis sur ce site. Je vous réponds en moins de 48 heures avec une proposition personnalisée. Ensemble, nous définirons les détails de votre événement avant de confirmer la réservation.</p></div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Intervenez-vous en dehors de l'Île-de-France ?
-            <span class="faq-icon">✦</span>
-          </button>
-          <div class="faq-answer">
-            <p>Oui, j'interviens partout en France. Des frais de déplacement sont à prévoir selon la distance, et je vous demanderai de réserver suffisamment à l'avance pour organiser au mieux mon déplacement. Tout est discuté ensemble de manière transparente lors du devis.</p>
-          </div>
+          <button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous en dehors de l'Île-de-France ?<span class="faq-icon">✦</span></button>
+          <div class="faq-answer"><p>Oui, j'interviens partout en France. Des frais de déplacement sont à prévoir selon la distance. Tout est discuté ensemble de manière transparente lors du devis.</p></div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Avez-vous besoin d'un espace particulier pour intervenir ?
-            <span class="faq-icon">✦</span>
-          </button>
-          <div class="faq-answer">
-            <p>Aucun aménagement particulier n'est nécessaire. Il me suffit de la table de vos spectateurs — c'est là que la magie prend vie, entre leurs mains, au plus près d'eux. Pas de scène, pas de matériel encombrant, juste l'essentiel.</p>
-          </div>
+          <button class="faq-question" onclick="toggleFaq(this)">Avez-vous besoin d'un espace particulier pour intervenir ?<span class="faq-icon">✦</span></button>
+          <div class="faq-answer"><p>Aucun aménagement particulier n'est nécessaire. Il me suffit de la table de vos spectateurs — c'est là que la magie prend vie, entre leurs mains. Pas de scène, pas de matériel encombrant, juste l'essentiel.</p></div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Moreau Lucas</div>
     <div class="footer-copy">© 2025 &nbsp;·&nbsp; Magicien close-up &nbsp;·&nbsp; Île-de-France &amp; France entière</div>
   </footer>
 
   <script>
-    // Fade-in on scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.12 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Theme toggle
     function toggleTheme() {
       const html = document.documentElement;
       const isDark = html.getAttribute('data-theme') === 'dark';
@@ -742,39 +417,43 @@
       document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
     }
 
-
-    // Mobile menu
     function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      const btn = document.getElementById('hamburger');
-      menu.classList.toggle('open');
-      btn.classList.toggle('open');
+      document.getElementById('mobile-menu').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
     }
     function closeMobileMenu() {
       document.getElementById('mobile-menu').classList.remove('open');
       document.getElementById('hamburger').classList.remove('open');
     }
 
-    // FAQ accordion
     function toggleFaq(btn) {
       const answer = btn.nextElementSibling;
       const isOpen = answer.classList.contains('open');
-      // Ferme toutes les réponses ouvertes
       document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
       document.querySelectorAll('.faq-question.active').forEach(b => b.classList.remove('active'));
-      // Ouvre celle cliquée si elle était fermée
-      if (!isOpen) {
-        answer.classList.add('open');
-        btn.classList.add('active');
-      }
+      if (!isOpen) { answer.classList.add('open'); btn.classList.add('active'); }
     }
 
-    // Form submit
-    function submitForm(e) {
+    // Formspree AJAX
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
       e.preventDefault();
-      document.getElementById('contact-form').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
-    }
+      const form = e.target;
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        } else {
+          alert('Une erreur est survenue. Merci de réessayer.');
+        }
+      } catch(err) {
+        alert('Une erreur est survenue. Merci de réessayer.');
+      }
+    });
   </script>
 </body>
 </html>
