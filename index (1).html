@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Moreau Lucas — Magicien</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── THEMES ── */
+    :root[data-theme="dark"] {
+      --gold: #c9a84c;
+      --gold-light: #e2c47a;
+      --gold-dim: rgba(201,168,76,0.15);
+      --gold-border: rgba(201,168,76,0.25);
+      --bg: #0d0d0d;
+      --bg2: #141414;
+      --bg3: #1a1a1a;
+      --text: #f0ebe0;
+      --text-muted: rgba(240,235,224,0.65);
+      --text-dim: rgba(240,235,224,0.45);
+      --nav-bg: rgba(13,13,13,0.96);
+      --card-bg: #181818;
+      --shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+
+    :root[data-theme="light"] {
+      --gold: #9a6e1a;
+      --gold-light: #b8860b;
+      --gold-dim: rgba(154,110,26,0.1);
+      --gold-border: rgba(154,110,26,0.3);
+      --bg: #f7f3ec;
+      --bg2: #efe9de;
+      --bg3: #e8e1d4;
+      --text: #1a1612;
+      --text-muted: rgba(26,22,18,0.72);
+      --text-dim: rgba(26,22,18,0.50);
+      --nav-bg: rgba(247,243,236,0.97);
+      --card-bg: #f0ebe0;
+      --shadow: 0 4px 30px rgba(0,0,0,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      z-index: 200;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 1px solid var(--gold-border);
+      color: var(--gold);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow);
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      transform: scale(1.08);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--gold-border);
+      backdrop-filter: blur(10px);
+      transition: background 0.4s, border-color 0.4s;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 400; letter-spacing: 0.3em;
+      color: var(--gold); text-transform: uppercase; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 400;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+      background: none; border: none;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 1px;
+      background: var(--gold); transition: all 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 99;
+      background: var(--bg);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 2.5rem;
+      transition: background 0.4s;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300;
+      color: var(--text); text-decoration: none; letter-spacing: 0.1em;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 50%, var(--gold-dim) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-line {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 1px; height: 100px;
+      background: linear-gradient(to bottom, transparent, var(--gold));
+      opacity: 0.5;
+    }
+    .hero-ornament {
+      font-size: 0.75rem; letter-spacing: 0.7em; color: var(--gold);
+      opacity: 0.9; margin-bottom: 2rem; text-transform: uppercase;
+      font-weight: 400;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 300; line-height: 0.95;
+      letter-spacing: 0.05em;
+      color: var(--text);
+    }
+    h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--text-muted); font-weight: 400;
+    }
+    .hero-cta {
+      margin-top: 3.5rem;
+      display: inline-block; padding: 0.9rem 2.5rem;
+      border: 1px solid var(--gold-border);
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); text-decoration: none; font-weight: 400;
+      transition: all 0.3s;
+    }
+    .hero-cta:hover {
+      background: var(--gold-dim); border-color: var(--gold);
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--text-dim); display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 4rem; }
+    .section-label {
+      font-size: 0.58rem; letter-spacing: 0.45em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.8rem; font-weight: 500;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300;
+      line-height: 1.1; color: var(--text); margin-bottom: 2rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .divider {
+      width: 60px; height: 1px;
+      background: linear-gradient(to right, var(--gold), transparent);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── À PROPOS ── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    }
+    .about-text p {
+      font-size: 0.9rem; line-height: 2; color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+    .about-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem; font-style: italic; font-weight: 300;
+      color: var(--text); line-height: 1.6;
+      border-left: 2px solid var(--gold);
+      padding-left: 2rem;
+    }
+
+    /* ── PRESTATIONS ── */
+    #prestations { background: var(--bg); }
+    .prestations-inner { max-width: 1100px; margin: 0 auto; }
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      margin-top: 3rem;
+    }
+    .prest-card {
+      background: var(--card-bg); padding: 2.5rem 2rem;
+      border: 1px solid var(--gold-border);
+      transition: border-color 0.3s, background 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .prest-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .prest-card:hover { background: var(--gold-dim); border-color: var(--gold); }
+    .prest-card:hover::before { opacity: 1; }
+    .prest-icon { font-size: 1.8rem; margin-bottom: 1.5rem; }
+    .prest-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 400; color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+    .prest-desc {
+      font-size: 0.8rem; line-height: 1.9; color: var(--text-muted);
+    }
+    .prest-tag {
+      display: inline-block; margin-top: 1.5rem;
+      font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--gold-border);
+      padding: 0.3rem 0.8rem; font-weight: 500;
+    }
+
+    /* ── TARIFS ── */
+    #tarifs { background: var(--bg2); }
+    .tarifs-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .tarif-box {
+      border: 1px solid var(--gold-border);
+      padding: 3rem 3.5rem; margin-top: 3rem;
+      position: relative; background: var(--card-bg);
+    }
+    .tarif-box::before, .tarif-box::after {
+      content: '✦';
+      position: absolute; color: var(--gold); font-size: 0.8rem;
+    }
+    .tarif-box::before { top: -0.6rem; left: 50%; transform: translateX(-50%); background: var(--bg2); padding: 0 0.5rem; }
+    .tarif-box::after { bottom: -0.6rem; left: 50%; transform: translateX(-50%); background: var(--bg2); padding: 0 0.5rem; }
+    .tarif-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-style: italic; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .tarif-desc {
+      font-size: 0.82rem; line-height: 2; color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .tarif-cta {
+      display: inline-block; padding: 0.9rem 2.5rem;
+      background: var(--gold); color: #fff;
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      text-decoration: none; font-weight: 500;
+      transition: opacity 0.3s;
+    }
+    [data-theme="dark"] .tarif-cta { color: #0d0d0d; }
+    .tarif-cta:hover { opacity: 0.85; }
+
+    /* ── ZONE ── */
+    #zone { background: var(--bg3); }
+    .zone-inner { max-width: 1100px; margin: 0 auto; }
+    .zone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; }
+    .zone-map {
+      aspect-ratio: 1; border: 1px solid var(--gold-border);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card-bg);
+    }
+    .zone-map svg { width: 100%; height: 100%; }
+    .zone-text p {
+      font-size: 0.85rem; line-height: 2; color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .zone-highlight {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; color: var(--gold); font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg); }
+    .contact-inner { max-width: 700px; margin: 0 auto; }
+    .contact-intro {
+      font-size: 0.85rem; line-height: 2; color: var(--text-muted); margin-bottom: 3rem;
+    }
+    .form-group { margin-bottom: 1.8rem; }
+    .form-label {
+      display: block; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.6rem; font-weight: 500;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 0.9rem 0;
+      background: transparent;
+      border: none; border-bottom: 1px solid var(--gold-border);
+      color: var(--text); font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem; font-weight: 300;
+      outline: none; transition: border-color 0.3s; appearance: none;
+    }
+    .form-select option { background: var(--bg2); color: var(--text); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-bottom-color: var(--gold);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); }
+    .form-textarea { resize: none; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .form-submit {
+      width: 100%; padding: 1.1rem;
+      background: transparent; border: 1px solid var(--gold-border);
+      color: var(--gold); font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s; margin-top: 1rem; font-weight: 400;
+    }
+    .form-submit:hover { background: var(--gold-dim); border-color: var(--gold); }
+    #form-success {
+      display: none; text-align: center; padding: 2rem;
+      border: 1px solid var(--gold-border);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-style: italic; color: var(--gold);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2); padding: 3rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--gold-border);
+      transition: background 0.4s;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; letter-spacing: 0.25em; color: var(--gold);
+    }
+    .footer-copy {
+      font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-dim);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      section { padding: 5rem 1.5rem; }
+      .about-grid, .zone-grid, .form-row { grid-template-columns: 1fr; gap: 2.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- THEME TOGGLE -->
+  <button class="theme-toggle" onclick="toggleTheme()" title="Changer le thème" aria-label="Basculer le mode sombre/clair">
+    <span id="theme-icon">☀️</span>
+  </button>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#about" onclick="closeMobileMenu()">À propos</a>
+    <a href="#prestations" onclick="closeMobileMenu()">Prestations</a>
+    <a href="#tarifs" onclick="closeMobileMenu()">Tarifs</a>
+    <a href="#zone" onclick="closeMobileMenu()">Zone</a>
+    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  </div>
+
+  <nav>
+    <a href="#hero" class="nav-logo">Moreau Lucas</a>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#prestations">Prestations</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#zone">Zone</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-line"></div>
+    <div class="hero-ornament">✦ &nbsp; Magicien &nbsp; ✦</div>
+    <h1>Moreau<br><em>Lucas</em></h1>
+    <p class="hero-sub">Magie de table &nbsp;·&nbsp; Close-up &nbsp;·&nbsp; Île-de-France &amp; France entière</p>
+    <a href="#contact" class="hero-cta">Demander un devis</a>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Découvrir
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p class="section-label">À propos</p>
+        <h2 class="section-title">L'art de<br>l'<em>impossible</em></h2>
+        <div class="divider"></div>
+        <p>Passionné de magie depuis toujours, je me spécialise dans la magie de proximité — cette forme d'art intime qui se joue entre vos mains, au cœur de vos soirées.</p>
+        <p>Mon objectif : créer des moments de stupeur authentique et de complicité, des souvenirs que vos invités emporteront longtemps après la soirée.</p>
+        <p>Basé en Île-de-France, j'interviens dans toute la France pour sublimer vos événements, qu'ils soient intimes ou d'envergure.</p>
+      </div>
+      <div class="fade-in" style="animation-delay:0.2s">
+        <blockquote class="about-quote">
+          "La magie ne fait pas que surprendre — elle réunit, elle émerveille, elle crée du lien."
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESTATIONS -->
+  <section id="prestations">
+    <div class="prestations-inner">
+      <div class="fade-in">
+        <p class="section-label">Prestations</p>
+        <h2 class="section-title">Des expériences<br><em>sur mesure</em></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="cards-grid fade-in">
+        <div class="prest-card">
+          <div class="prest-icon">💍</div>
+          <div class="prest-title">Mariage</div>
+          <p class="prest-desc">Vin d'honneur, dîner, soirée — je m'adapte à chaque moment de votre grand jour pour créer des souvenirs magiques pour vous et vos convives.</p>
+          <span class="prest-tag">Vin d'honneur · Dîner</span>
+        </div>
+        <div class="prest-card">
+          <div class="prest-icon">🥂</div>
+          <div class="prest-title">Soirée privée</div>
+          <p class="prest-desc">Anniversaire, réception, dîner entre amis — j'apporte une dimension d'émerveillement unique à vos moments les plus précieux.</p>
+          <span class="prest-tag">Tous types d'événements</span>
+        </div>
+        <div class="prest-card">
+          <div class="prest-icon">🏢</div>
+          <div class="prest-title">Corporate</div>
+          <p class="prest-desc">Séminaire, soirée d'entreprise, lancement de produit — la magie comme outil de cohésion, d'animation et d'image de marque mémorable.</p>
+          <span class="prest-tag">Entreprises · Séminaires</span>
+        </div>
+        <div class="prest-card">
+          <div class="prest-icon">🎭</div>
+          <div class="prest-title">Magie de table</div>
+          <p class="prest-desc">La magie close-up dans son expression la plus pure : des tours époustouflants réalisés directement entre les mains de vos invités, table après table.</p>
+          <span class="prest-tag">Close-up · Proximité</span>
+        </div>
+        <div class="prest-card">
+          <div class="prest-icon">🎪</div>
+          <div class="prest-title">Tout événement</div>
+          <p class="prest-desc">Fête de famille, gala, inauguration, cocktail... Quelle que soit votre occasion, je crée une prestation adaptée à votre public et à vos ambitions.</p>
+          <span class="prest-tag">Sur mesure</span>
+        </div>
+        <div class="prest-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--gold);margin-bottom:1.5rem;line-height:1.6;">Votre événement mérite quelque chose d'extraordinaire.</div>
+          <a href="#contact" class="tarif-cta" style="font-size:0.6rem;">Nous contacter</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section id="tarifs">
+    <div class="tarifs-inner fade-in">
+      <p class="section-label" style="text-align:center">Tarifs</p>
+      <h2 class="section-title" style="text-align:center">Chaque événement<br>est <em>unique</em></h2>
+      <div class="divider" style="margin:0 auto 2rem;"></div>
+      <div class="tarif-box">
+        <div class="tarif-label">Sur devis</div>
+        <p class="tarif-desc">
+          Chaque prestation est pensée et calibrée en fonction de votre événement : durée, nombre d'invités, lieu, format souhaité. Contactez-moi pour recevoir une proposition personnalisée et sans engagement.
+        </p>
+        <a href="#contact" class="tarif-cta">Demander un devis gratuit</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZONE D'INTERVENTION -->
+  <section id="zone">
+    <div class="zone-inner">
+      <div class="fade-in">
+        <p class="section-label">Zone d'intervention</p>
+        <h2 class="section-title">Île-de-France &amp;<br><em>France entière</em></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="zone-grid">
+        <div class="zone-map fade-in">
+          <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <path d="M95 20 L140 40 L160 80 L150 130 L120 170 L90 185 L60 165 L40 130 L45 80 L70 40 Z" stroke="var(--gold)" stroke-width="1.5" fill="var(--gold-dim)"/>
+            <circle cx="100" cy="95" r="6" fill="var(--gold)" opacity="0.9"/>
+            <circle cx="100" cy="95" r="14" stroke="var(--gold)" stroke-width="1" opacity="0.4"/>
+            <circle cx="100" cy="95" r="22" stroke="var(--gold)" stroke-width="0.5" opacity="0.2"/>
+            <text x="100" y="130" text-anchor="middle" font-family="Cormorant Garamond" font-size="9" fill="var(--gold)" opacity="0.85">Île-de-France</text>
+          </svg>
+        </div>
+        <div class="zone-text fade-in">
+          <p class="zone-highlight">Basé en Île-de-France</p>
+          <p>Je suis disponible pour tous vos événements en région parisienne et dans tout le territoire français.</p>
+          <p>Les déplacements en province sont possibles — les frais de transport sont pris en charge selon les conditions convenues ensemble lors de l'établissement du devis.</p>
+          <p>N'hésitez pas à me contacter quelle que soit votre localisation, nous trouverons ensemble la meilleure organisation.</p>
+          <a href="#contact" class="hero-cta" style="margin-top:2rem;display:inline-block;">Prendre contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="fade-in">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Parlons de votre<br><em>événement</em></h2>
+        <div class="divider"></div>
+        <p class="contact-intro">Remplissez ce formulaire et je vous réponds dans les 48h avec une proposition personnalisée. Toutes les demandes sont étudiées avec soin.</p>
+      </div>
+      <form id="contact-form" class="fade-in" onsubmit="submitForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Prénom</label>
+            <input type="text" class="form-input" placeholder="Votre prénom" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nom</label>
+            <input type="text" class="form-input" placeholder="Votre nom" required/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="votre@email.com" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Téléphone</label>
+            <input type="tel" class="form-input" placeholder="+33 6 00 00 00 00"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type d'événement</label>
+          <select class="form-select" required>
+            <option value="" disabled selected>Choisissez votre événement</option>
+            <option>Mariage</option>
+            <option>Soirée privée</option>
+            <option>Événement corporate</option>
+            <option>Anniversaire</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Date de l'événement</label>
+            <input type="date" class="form-input"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Lieu</label>
+            <input type="text" class="form-input" placeholder="Ville, département"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Votre message</label>
+          <textarea class="form-textarea" placeholder="Décrivez votre événement, le nombre d'invités, vos attentes..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">✦ &nbsp; Envoyer la demande &nbsp; ✦</button>
+      </form>
+      <div id="form-success">
+        ✦ &nbsp; Merci pour votre message. Je vous réponds dans les 48h. &nbsp; ✦
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Moreau Lucas</div>
+    <div class="footer-copy">© 2025 &nbsp;·&nbsp; Magicien close-up &nbsp;·&nbsp; Île-de-France &amp; France entière</div>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Theme toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+    }
+
+    // Mobile menu
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const btn = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // Form submit
+    function submitForm(e) {
+      e.preventDefault();
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
