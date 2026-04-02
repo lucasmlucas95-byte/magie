@@ -4,55 +4,18 @@
   <meta charset="UTF-8">
   <title>Mes Sites</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-
-    h1 {
-      color: #333;
-      margin-bottom: 40px;
-    }
-
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .site-button {
-      text-decoration: none;
-      padding: 15px 30px;
-      font-size: 18px;
-      color: white;
-      border-radius: 8px;
-      transition: 0.3s;
-      text-align: center;
-      width: 250px;
-      font-weight: bold;
-    }
-
-    .site-button:hover {
-      transform: scale(1.05);
-    }
-
-    .reveal { background-color: #f39c12; }   /* orange */
-    .admin { background-color: #27ae60; }    /* vert */
-    .site { background-color: #2980b9; }     /* bleu */
+    body { font-family: Arial, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; background:#060608; color:#f5f0e8; }
+    h1 { margin-bottom:30px; }
+    .button { display:block; margin:10px; padding:15px 30px; background:#c9a84c; color:#060608; text-decoration:none; font-weight:bold; border-radius:8px; text-align:center; width:200px; }
+    .button:hover { background:#e0c45c; }
   </style>
 </head>
 <body>
   <h1>Mes Sites</h1>
-  <div class="button-container">
-    <a class="site-button reveal" href="/magie/reveal/">Reveal</a>
-    <a class="site-button admin" href="/magie/admin/">Admin</a>
-    <a class="site-button site" href="/magie/site/">Site Principal</a>
-  </div>
+
+  <a class="button" href="reveal/">Reveal</a>
+  <a class="button" href="admin/">Admin</a>
+  <a class="button" href="site/">Site Principal</a>
+
 </body>
 </html>
