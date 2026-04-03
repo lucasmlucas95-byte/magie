@@ -25,62 +25,43 @@
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; font-weight: 300; overflow-x: hidden; transition: background 0.4s, color 0.4s; }
 
-    /* ── FLOATING CARDS ── */
-    .cards-scene {
-      position: absolute; inset: 0;
-      pointer-events: none; overflow: hidden; z-index: 0;
-    }
-    .float-card {
-      position: absolute; border-radius: 8px; opacity: 0;
-      filter: drop-shadow(0 8px 28px rgba(0,0,0,0.3));
-      animation: cardFloat linear infinite;
-    }
+    /* ── FLOATING CARDS — plus rapides et toutes visibles dès le début ── */
+    .cards-scene { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .float-card { position: absolute; border-radius: 8px; filter: drop-shadow(0 8px 28px rgba(0,0,0,0.3)); animation: cardFloat linear infinite; }
     .float-card svg { width: 100%; border-radius: 8px; display: block; }
+
     @keyframes cardFloat {
       0%   { opacity: 0;              transform: translateY(0) rotate(var(--rot)) scale(0.9); }
-      8%   { opacity: var(--max-op); }
-      88%  { opacity: var(--max-op); }
+      10%  { opacity: var(--max-op); }
+      85%  { opacity: var(--max-op); }
       100% { opacity: 0;              transform: translateY(var(--travel)) rotate(calc(var(--rot) + var(--rotd))) scale(1.05); }
     }
-    .float-card:nth-child(1){left:4%;   top:12%;    width:110px; --rot:-12deg; --rotd:8deg;   --travel:-70px;  --max-op:.55; animation-duration:15s; animation-delay:0s;}
-    .float-card:nth-child(2){right:5%;  top:18%;    width:130px; --rot:15deg;  --rotd:-10deg; --travel:-85px;  --max-op:.50; animation-duration:19s; animation-delay:3s;}
-    .float-card:nth-child(3){left:11%;  bottom:15%; width:100px; --rot:7deg;   --rotd:15deg;  --travel:-75px;  --max-op:.45; animation-duration:17s; animation-delay:6s;}
-    .float-card:nth-child(4){right:13%; bottom:20%; width:115px; --rot:-9deg;  --rotd:-18deg; --travel:-90px;  --max-op:.48; animation-duration:21s; animation-delay:9s;}
-    .float-card:nth-child(5){left:27%;  top:8%;     width:90px;  --rot:20deg;  --rotd:-12deg; --travel:-55px;  --max-op:.40; animation-duration:23s; animation-delay:2s;}
-    .float-card:nth-child(6){right:26%; bottom:8%;  width:105px; --rot:-22deg; --rotd:14deg;  --travel:-80px;  --max-op:.45; animation-duration:18s; animation-delay:11s;}
-    .float-card:nth-child(7){left:1%;   bottom:38%; width:85px;  --rot:11deg;  --rotd:-9deg;  --travel:-65px;  --max-op:.38; animation-duration:26s; animation-delay:5s;}
-    .float-card:nth-child(8){right:1%;  top:42%;    width:105px; --rot:-16deg; --rotd:22deg;  --travel:-60px;  --max-op:.42; animation-duration:20s; animation-delay:14s;}
+
+    /* ✅ Durées réduites + delays courts pour tout voir rapidement */
+    .float-card:nth-child(1){left:4%;   top:12%;    width:110px; --rot:-12deg; --rotd:8deg;   --travel:-70px;  --max-op:.55; animation-duration:9s;  animation-delay:0s;}
+    .float-card:nth-child(2){right:5%;  top:18%;    width:130px; --rot:15deg;  --rotd:-10deg; --travel:-85px;  --max-op:.50; animation-duration:11s; animation-delay:0.5s;}
+    .float-card:nth-child(3){left:11%;  bottom:15%; width:100px; --rot:7deg;   --rotd:15deg;  --travel:-75px;  --max-op:.45; animation-duration:10s; animation-delay:1s;}
+    .float-card:nth-child(4){right:13%; bottom:20%; width:115px; --rot:-9deg;  --rotd:-18deg; --travel:-90px;  --max-op:.48; animation-duration:12s; animation-delay:1.5s;}
+    .float-card:nth-child(5){left:27%;  top:8%;     width:90px;  --rot:20deg;  --rotd:-12deg; --travel:-55px;  --max-op:.40; animation-duration:8s;  animation-delay:0.8s;}
+    .float-card:nth-child(6){right:26%; bottom:8%;  width:105px; --rot:-22deg; --rotd:14deg;  --travel:-80px;  --max-op:.45; animation-duration:10s; animation-delay:0.3s;}
+    .float-card:nth-child(7){left:1%;   bottom:38%; width:85px;  --rot:11deg;  --rotd:-9deg;  --travel:-65px;  --max-op:.38; animation-duration:13s; animation-delay:1.2s;}
+    .float-card:nth-child(8){right:1%;  top:42%;    width:105px; --rot:-16deg; --rotd:22deg;  --travel:-60px;  --max-op:.42; animation-duration:11s; animation-delay:0.6s;}
 
     /* ── THEME TOGGLE ── */
-    .theme-toggle {
-      position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
-      width: 48px; height: 48px; border-radius: 50%;
-      background: var(--bg2); border: 1px solid var(--gold-border);
-      color: var(--gold); font-size: 1.1rem; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--shadow); transition: all 0.3s;
-    }
+    .theme-toggle { position: fixed; bottom: 2rem; right: 2rem; z-index: 200; width: 48px; height: 48px; border-radius: 50%; background: var(--bg2); border: 1px solid var(--gold-border); color: var(--gold); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); transition: all 0.3s; }
     .theme-toggle:hover { background: var(--gold-dim); border-color: var(--gold); transform: scale(1.08); }
 
     /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.4rem 4rem;
-      background: var(--nav-bg); border-bottom: 1px solid var(--gold-border);
-      backdrop-filter: blur(10px); transition: background 0.4s, border-color 0.4s;
-    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 4rem; background: var(--nav-bg); border-bottom: 1px solid var(--gold-border); backdrop-filter: blur(10px); transition: background 0.4s, border-color 0.4s; }
     .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; text-decoration: none; }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
     .nav-links a:hover { color: var(--gold); }
-
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
     .nav-hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); transition: all 0.3s; }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
     .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99; background: var(--bg); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transition: background 0.4s; }
     .mobile-menu.open { display: flex; }
     .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--text); text-decoration: none; letter-spacing: 0.1em; transition: color 0.3s; }
@@ -100,7 +81,7 @@
     .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
     @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
 
-    /* ── SECTION BASE ── */
+    /* ── SECTIONS ── */
     section { padding: 7rem 4rem; }
     .section-label { font-size: 0.68rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; font-weight: 500; }
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.1; color: var(--text); margin-bottom: 2rem; }
@@ -128,14 +109,94 @@
 
     /* ── TARIFS ── */
     #tarifs { background: var(--bg2); }
-    .tarifs-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-    .tarif-box { border: 1px solid var(--gold-border); padding: 3rem 3.5rem; margin-top: 3rem; position: relative; background: var(--card-bg); }
-    .tarif-box::before, .tarif-box::after { content: '✦'; position: absolute; color: var(--gold); font-size: 0.8rem; }
-    .tarif-box::before { top: -0.6rem; left: 50%; transform: translateX(-50%); background: var(--bg2); padding: 0 0.5rem; }
-    .tarif-box::after { bottom: -0.6rem; left: 50%; transform: translateX(-50%); background: var(--bg2); padding: 0 0.5rem; }
-    .tarif-label { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-style: italic; color: var(--gold); margin-bottom: 1rem; }
-    .tarif-desc { font-size: 0.92rem; line-height: 2; color: var(--text-muted); margin-bottom: 2rem; }
-    .tarif-cta { display: inline-block; padding: 0.9rem 2.5rem; background: var(--gold); color: #fff; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: opacity 0.3s; }
+    .tarifs-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+
+    /* Grille tarifaire */
+    .tarif-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+    .tarif-card {
+      border: 1px solid var(--gold-border);
+      background: var(--card-bg);
+      padding: 2.5rem 1.5rem;
+      position: relative;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .tarif-card:hover { border-color: var(--gold); background: var(--gold-dim); }
+    .tarif-card.featured {
+      border-color: var(--gold);
+      background: var(--gold-dim);
+    }
+    .tarif-card.featured::before {
+      content: '✦ Populaire ✦';
+      position: absolute;
+      top: -0.65rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: #fff;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    [data-theme="dark"] .tarif-card.featured::before { color: #0d0d0d; }
+    .tarif-card-icon { font-size: 1.6rem; margin-bottom: 1.2rem; }
+    .tarif-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .tarif-card-duration {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .tarif-card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .tarif-card-price span { font-size: 1.2rem; }
+    .tarif-card-note {
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .tarif-card-features {
+      list-style: none;
+      text-align: left;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 2;
+    }
+    .tarif-card-features li::before { content: '✦ '; color: var(--gold); font-size: 0.6rem; }
+
+    .tarif-disclaimer {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      font-style: italic;
+      border: 1px solid var(--gold-border);
+      padding: 1.5rem 2rem;
+      margin-top: 1rem;
+      background: var(--card-bg);
+    }
+    .tarif-cta { display: inline-block; padding: 0.9rem 2.5rem; background: var(--gold); color: #fff; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: opacity 0.3s; margin-top: 2rem; }
     [data-theme="dark"] .tarif-cta { color: #0d0d0d; }
     .tarif-cta:hover { opacity: 0.85; }
 
@@ -167,15 +228,15 @@
     /* ── FAQ ── */
     #faq { background: var(--bg2); }
     .faq-inner { max-width: 800px; margin: 0 auto; }
-    .faq-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 0; }
+    .faq-list { margin-top: 3rem; display: flex; flex-direction: column; }
     .faq-item { border-bottom: 1px solid var(--gold-border); }
     .faq-item:first-child { border-top: 1px solid var(--gold-border); }
     .faq-question { width: 100%; background: none; border: none; display: flex; align-items: center; justify-content: space-between; padding: 1.6rem 0; font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400; color: var(--text); cursor: pointer; text-align: left; gap: 1rem; transition: color 0.3s; }
     .faq-question:hover { color: var(--gold); }
     .faq-question.active { color: var(--gold); }
-    .faq-icon { flex-shrink: 0; font-size: 1rem; color: var(--gold); transition: transform 0.35s ease; line-height: 1; }
+    .faq-icon { flex-shrink: 0; font-size: 1rem; color: var(--gold); transition: transform 0.35s ease; }
     .faq-question.active .faq-icon { transform: rotate(45deg); }
-    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
     .faq-answer.open { max-height: 300px; }
     .faq-answer p { font-size: 1rem; line-height: 2; color: var(--text-muted); padding-bottom: 1.6rem; }
 
@@ -216,13 +277,12 @@
       .nav-hamburger { display: flex; }
       section { padding: 5rem 1.5rem; }
       .about-grid, .zone-grid, .form-row { grid-template-columns: 1fr; gap: 2.5rem; }
-      .cards-grid { grid-template-columns: 1fr; }
+      .cards-grid, .tarif-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
       .float-card { display: none; }
       .float-card:nth-child(1), .float-card:nth-child(2) { display: block; }
     }
 
-    /* ── ANIMATIONS ── */
     .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
   </style>
@@ -259,101 +319,35 @@
     </button>
   </nav>
 
-  <!-- HERO avec cartes flottantes -->
+  <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
     <div class="hero-line"></div>
 
-    <!-- CARTES FLOTTANTES -->
     <div class="cards-scene">
       <!-- As de cœur -->
-      <div class="float-card">
-        <svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg">
-          <rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/>
-          <text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">A</text>
-          <text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">&#9829;</text>
-          <text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">&#9829;</text>
-          <text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle" transform="rotate(180,63,89)">A</text>
-        </svg>
-      </div>
+      <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">A</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">&#9829;</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">&#9829;</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle" transform="rotate(180,63,89)">A</text></svg></div>
       <!-- As de pique -->
-      <div class="float-card">
-        <svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg">
-          <rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/>
-          <text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">A</text>
-          <text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">&#9824;</text>
-          <text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">&#9824;</text>
-          <text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle" transform="rotate(180,63,89)">A</text>
-        </svg>
-      </div>
+      <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">A</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">&#9824;</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">&#9824;</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle" transform="rotate(180,63,89)">A</text></svg></div>
       <!-- Roi de carreau -->
-      <div class="float-card">
-        <svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg">
-          <rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/>
-          <text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">K</text>
-          <text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">&#9830;</text>
-          <text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">&#9830;</text>
-          <text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle" transform="rotate(180,63,89)">K</text>
-        </svg>
-      </div>
+      <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">K</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">&#9830;</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">&#9830;</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle" transform="rotate(180,63,89)">K</text></svg></div>
       <!-- Dame de trèfle -->
-      <div class="float-card">
-        <svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg">
-          <rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/>
-          <text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">Q</text>
-          <text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">&#9827;</text>
-          <text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">&#9827;</text>
-          <text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle" transform="rotate(180,63,89)">Q</text>
-        </svg>
-      </div>
-      <!-- Dos de carte doré -->
-      <div class="float-card">
-        <svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg">
-          <rect width="70" height="100" rx="6" fill="#1a1a2e"/>
-          <rect x="4" y="4" width="62" height="92" rx="4" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.7"/>
-          <rect x="9" y="9" width="52" height="82" rx="3" fill="none" stroke="#c9a84c" stroke-width="0.4" opacity="0.3"/>
-          <text x="35" y="56" font-family="Georgia,serif" font-size="24" fill="#c9a84c" text-anchor="middle" dominant-baseline="middle" opacity="0.85">&#10022;</text>
-        </svg>
-      </div>
+      <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">Q</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">&#9827;</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">&#9827;</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle" transform="rotate(180,63,89)">Q</text></svg></div>
+      <!-- Dos doré -->
+      <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="#1a1a2e"/><rect x="4" y="4" width="62" height="92" rx="4" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.7"/><rect x="9" y="9" width="52" height="82" rx="3" fill="none" stroke="#c9a84c" stroke-width="0.4" opacity="0.3"/><text x="35" y="56" font-family="Georgia,serif" font-size="24" fill="#c9a84c" text-anchor="middle" dominant-baseline="middle" opacity="0.85">&#10022;</text></svg></div>
       <!-- Valet de cœur -->
-      <div class="float-card">
-        <svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg">
-          <rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/>
-          <text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">J</text>
-          <text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">&#9829;</text>
-          <text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">&#9829;</text>
-          <text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle" transform="rotate(180,63,89)">J</text>
-        </svg>
-      </div>
-      <!-- Dos de carte doré (2) -->
-      <div class="float-card">
-        <svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg">
-          <rect width="70" height="100" rx="6" fill="#1a1a2e"/>
-          <rect x="4" y="4" width="62" height="92" rx="4" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.7"/>
-          <rect x="9" y="9" width="52" height="82" rx="3" fill="none" stroke="#c9a84c" stroke-width="0.4" opacity="0.3"/>
-          <text x="35" y="56" font-family="Georgia,serif" font-size="24" fill="#c9a84c" text-anchor="middle" dominant-baseline="middle" opacity="0.85">&#10022;</text>
-        </svg>
-      </div>
+      <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">J</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">&#9829;</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">&#9829;</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle" transform="rotate(180,63,89)">J</text></svg></div>
+      <!-- Dos doré 2 -->
+      <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="#1a1a2e"/><rect x="4" y="4" width="62" height="92" rx="4" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.7"/><rect x="9" y="9" width="52" height="82" rx="3" fill="none" stroke="#c9a84c" stroke-width="0.4" opacity="0.3"/><text x="35" y="56" font-family="Georgia,serif" font-size="24" fill="#c9a84c" text-anchor="middle" dominant-baseline="middle" opacity="0.85">&#10022;</text></svg></div>
       <!-- As de trèfle -->
-      <div class="float-card">
-        <svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg">
-          <rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/>
-          <text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">A</text>
-          <text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">&#9827;</text>
-          <text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">&#9827;</text>
-          <text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle" transform="rotate(180,63,89)">A</text>
-        </svg>
-      </div>
+      <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">A</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">&#9827;</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">&#9827;</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle" transform="rotate(180,63,89)">A</text></svg></div>
     </div>
 
     <div class="hero-ornament">✦ &nbsp; Magicien &nbsp; ✦</div>
     <h1><em>Lucas</em></h1>
     <p class="hero-sub">Magie de table &nbsp;·&nbsp; Close-up &nbsp;·&nbsp; Île-de-France &amp; France entière</p>
     <a href="#contact" class="hero-cta">Demander un devis</a>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      Découvrir
-    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div>Découvrir</div>
   </section>
 
   <!-- À PROPOS -->
@@ -368,9 +362,7 @@
         <p>Basé en Île-de-France, j'interviens dans toute la France pour sublimer vos événements, qu'ils soient intimes ou d'envergure.</p>
       </div>
       <div class="fade-in" style="animation-delay:0.2s">
-        <blockquote class="about-quote">
-          "La magie ne fait pas que surprendre — elle réunit, elle émerveille, elle crée du lien."
-        </blockquote>
+        <blockquote class="about-quote">"La magie ne fait pas que surprendre — elle réunit, elle émerveille, elle crée du lien."</blockquote>
       </div>
     </div>
   </section>
@@ -384,59 +376,78 @@
         <div class="divider"></div>
       </div>
       <div class="cards-grid fade-in">
-        <div class="prest-card">
-          <div class="prest-icon">💍</div>
-          <div class="prest-title">Mariage</div>
-          <p class="prest-desc">Vin d'honneur, dîner, soirée — je m'adapte à chaque moment de votre grand jour pour créer des souvenirs magiques pour vous et vos convives.</p>
-          <span class="prest-tag">Vin d'honneur · Dîner</span>
-        </div>
-        <div class="prest-card">
-          <div class="prest-icon">🥂</div>
-          <div class="prest-title">Soirée privée</div>
-          <p class="prest-desc">Anniversaire, réception, dîner entre amis — j'apporte une dimension d'émerveillement unique à vos moments les plus précieux.</p>
-          <span class="prest-tag">Tous types d'événements</span>
-        </div>
-        <div class="prest-card">
-          <div class="prest-icon">🏢</div>
-          <div class="prest-title">Corporate</div>
-          <p class="prest-desc">Séminaire, soirée d'entreprise, lancement de produit — la magie comme outil de cohésion, d'animation et d'image de marque mémorable.</p>
-          <span class="prest-tag">Entreprises · Séminaires</span>
-        </div>
-        <div class="prest-card">
-          <div class="prest-icon">🎭</div>
-          <div class="prest-title">Magie de table</div>
-          <p class="prest-desc">La magie close-up dans son expression la plus pure : des tours époustouflants réalisés directement entre les mains de vos invités, table après table.</p>
-          <span class="prest-tag">Close-up · Proximité</span>
-        </div>
-        <div class="prest-card">
-          <div class="prest-icon">🎪</div>
-          <div class="prest-title">Tout événement</div>
-          <p class="prest-desc">Fête de famille, gala, inauguration, cocktail... Quelle que soit votre occasion, je crée une prestation adaptée à votre public et à vos ambitions.</p>
-          <span class="prest-tag">Sur mesure</span>
-        </div>
-        <div class="prest-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--gold);margin-bottom:1.5rem;line-height:1.6;">Votre événement mérite quelque chose d'extraordinaire.</div>
-          <a href="#contact" class="tarif-cta" style="font-size:0.6rem;">Nous contacter</a>
-        </div>
+        <div class="prest-card"><div class="prest-icon">💍</div><div class="prest-title">Mariage</div><p class="prest-desc">Vin d'honneur, dîner, soirée — je m'adapte à chaque moment de votre grand jour pour créer des souvenirs magiques pour vous et vos convives.</p><span class="prest-tag">Vin d'honneur · Dîner</span></div>
+        <div class="prest-card"><div class="prest-icon">🥂</div><div class="prest-title">Soirée privée</div><p class="prest-desc">Anniversaire, réception, dîner entre amis — j'apporte une dimension d'émerveillement unique à vos moments les plus précieux.</p><span class="prest-tag">Tous types d'événements</span></div>
+        <div class="prest-card"><div class="prest-icon">🏢</div><div class="prest-title">Corporate</div><p class="prest-desc">Séminaire, soirée d'entreprise, lancement de produit — la magie comme outil de cohésion, d'animation et d'image de marque mémorable.</p><span class="prest-tag">Entreprises · Séminaires</span></div>
+        <div class="prest-card"><div class="prest-icon">🎭</div><div class="prest-title">Magie de table</div><p class="prest-desc">La magie close-up dans son expression la plus pure : des tours époustouflants réalisés directement entre les mains de vos invités, table après table.</p><span class="prest-tag">Close-up · Proximité</span></div>
+        <div class="prest-card"><div class="prest-icon">🎪</div><div class="prest-title">Tout événement</div><p class="prest-desc">Fête de famille, gala, inauguration, cocktail... Quelle que soit votre occasion, je crée une prestation adaptée à votre public et à vos ambitions.</p><span class="prest-tag">Sur mesure</span></div>
+        <div class="prest-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--gold);margin-bottom:1.5rem;line-height:1.6;">Votre événement mérite quelque chose d'extraordinaire.</div><a href="#contact" class="tarif-cta" style="font-size:0.6rem;">Nous contacter</a></div>
       </div>
     </div>
   </section>
 
   <!-- TARIFS -->
   <section id="tarifs">
-    <div class="tarifs-inner fade-in">
-      <p class="section-label" style="text-align:center">Tarifs</p>
-      <h2 class="section-title" style="text-align:center">Chaque événement<br>est <em>unique</em></h2>
-      <div class="divider" style="margin:0 auto 2rem;"></div>
-      <div class="tarif-box">
-        <div class="tarif-label">Sur devis</div>
-        <p class="tarif-desc">Chaque prestation est pensée et calibrée en fonction de votre événement : durée, nombre d'invités, lieu, format souhaité. Vous pouvez me contacter directement par téléphone ou par email pour en discuter librement, ou remplir le formulaire de devis ci-dessous pour recevoir une proposition personnalisée et sans engagement.</p>
-        <a href="#contact" class="tarif-cta">Me contacter ou demander un devis</a>
+    <div class="tarifs-inner">
+      <div class="fade-in">
+        <p class="section-label" style="text-align:center">Tarifs</p>
+        <h2 class="section-title" style="text-align:center">Une idée des<br><em>prix</em></h2>
+        <div class="divider" style="margin:0 auto 0.5rem;"></div>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem;">Tarif de base : <strong style="color:var(--gold)">200 € / heure</strong> — chaque devis est personnalisé selon votre événement.</p>
       </div>
+
+      <!-- Grille tarifaire -->
+      <div class="tarif-grid fade-in">
+        <div class="tarif-card">
+          <div class="tarif-card-icon">🥂</div>
+          <div class="tarif-card-name">Essentiel</div>
+          <div class="tarif-card-duration">2 heures</div>
+          <div class="tarif-card-price"><span>à partir de </span>400<span>€</span></div>
+          <div class="tarif-card-note">Selon devis personnalisé</div>
+          <ul class="tarif-card-features">
+            <li>Animation cocktail ou vin d'honneur</li>
+            <li>Magie de table close-up</li>
+            <li>Nombre d'invités illimité</li>
+            <li>Île-de-France inclus</li>
+          </ul>
+        </div>
+        <div class="tarif-card featured">
+          <div class="tarif-card-icon">💍</div>
+          <div class="tarif-card-name">Confort</div>
+          <div class="tarif-card-duration">3 heures</div>
+          <div class="tarif-card-price"><span>à partir de </span>600<span>€</span></div>
+          <div class="tarif-card-note">Selon devis personnalisé</div>
+          <ul class="tarif-card-features">
+            <li>Cocktail + début de dîner</li>
+            <li>Magie de table close-up</li>
+            <li>Nombre d'invités illimité</li>
+            <li>Île-de-France inclus</li>
+          </ul>
+        </div>
+        <div class="tarif-card">
+          <div class="tarif-card-icon">🏢</div>
+          <div class="tarif-card-name">Premium</div>
+          <div class="tarif-card-duration">4h et plus</div>
+          <div class="tarif-card-price"><span>à partir de </span>800<span>€</span></div>
+          <div class="tarif-card-note">Selon devis personnalisé</div>
+          <ul class="tarif-card-features">
+            <li>Soirée complète ou événement corporate</li>
+            <li>Magie de table close-up</li>
+            <li>Nombre d'invités illimité</li>
+            <li>France entière (déplacements en sus)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tarif-disclaimer fade-in">
+        Ces tarifs sont donnés à titre indicatif et peuvent varier selon la nature de l'événement, le nombre d'invités, le lieu et les options souhaitées. Chaque prestation fait l'objet d'un devis personnalisé et gratuit, établi après échange avec vous sur vos besoins.
+      </div>
+
+      <a href="#contact" class="tarif-cta">Demander un devis gratuit</a>
     </div>
   </section>
 
-  <!-- ZONE D'INTERVENTION -->
+  <!-- ZONE -->
   <section id="zone">
     <div class="zone-inner">
       <div class="fade-in">
@@ -453,11 +464,6 @@
             <circle cx="100" cy="95" r="22" stroke="var(--gold)" stroke-width="0.5" opacity="0.2"/>
             <text x="100" y="80" text-anchor="middle" font-family="Cormorant Garamond" font-size="9" fill="var(--gold)" font-weight="400">Paris</text>
             <text x="100" y="130" text-anchor="middle" font-family="Cormorant Garamond" font-size="8" fill="var(--gold)" opacity="0.85" font-style="italic">Île-de-France</text>
-            <line x1="100" y1="95" x2="55" y2="45" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4,4"/>
-            <line x1="100" y1="95" x2="148" y2="48" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4,4"/>
-            <line x1="100" y1="95" x2="152" y2="130" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4,4"/>
-            <line x1="100" y1="95" x2="95" y2="178" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4,4"/>
-            <line x1="100" y1="95" x2="42" y2="128" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4,4"/>
           </svg>
         </div>
         <div class="zone-text fade-in">
@@ -480,52 +486,28 @@
         <div class="divider"></div>
         <p class="contact-intro">Remplissez ce formulaire et je vous réponds en moins de 12h avec une proposition personnalisée. Toutes les demandes sont étudiées avec soin.</p>
       </div>
-      <form id="contact-form" class="fade-in" onsubmit="submitForm(event)">
+      <form id="contact-form" class="fade-in" action="https://formspree.io/f/mlgowzrl" method="POST">
+        <input type="hidden" name="_subject" value="Nouvelle demande de devis — Lucas Moreau Magicien"/>
         <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Prénom</label>
-            <input type="text" class="form-input" placeholder="Votre prénom" required/>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Nom</label>
-            <input type="text" class="form-input" placeholder="Votre nom" required/>
-          </div>
+          <div class="form-group"><label class="form-label">Prénom</label><input type="text" name="prenom" class="form-input" placeholder="Votre prénom" required/></div>
+          <div class="form-group"><label class="form-label">Nom</label><input type="text" name="nom" class="form-input" placeholder="Votre nom" required/></div>
         </div>
         <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="votre@email.com" required/>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Téléphone</label>
-            <input type="tel" class="form-input" placeholder="+33 6 00 00 00 00"/>
-          </div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" name="email" class="form-input" placeholder="votre@email.com" required/></div>
+          <div class="form-group"><label class="form-label">Téléphone</label><input type="tel" name="telephone" class="form-input" placeholder="+33 6 00 00 00 00"/></div>
         </div>
         <div class="form-group">
           <label class="form-label">Type d'événement</label>
-          <select class="form-select" required>
+          <select name="evenement" class="form-select" required>
             <option value="" disabled selected>Choisissez votre événement</option>
-            <option>Mariage</option>
-            <option>Soirée privée</option>
-            <option>Événement corporate</option>
-            <option>Anniversaire</option>
-            <option>Autre</option>
+            <option>Mariage</option><option>Soirée privée</option><option>Événement corporate</option><option>Anniversaire</option><option>Autre</option>
           </select>
         </div>
         <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Date de l'événement</label>
-            <input type="date" class="form-input"/>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Lieu</label>
-            <input type="text" class="form-input" placeholder="Ville, département"/>
-          </div>
+          <div class="form-group"><label class="form-label">Date de l'événement</label><input type="date" name="date" class="form-input"/></div>
+          <div class="form-group"><label class="form-label">Lieu</label><input type="text" name="lieu" class="form-input" placeholder="Ville, département"/></div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Votre message</label>
-          <textarea class="form-textarea" placeholder="Décrivez votre événement, le nombre d'invités, vos attentes..." required></textarea>
-        </div>
+        <div class="form-group"><label class="form-label">Votre message</label><textarea name="message" class="form-textarea" placeholder="Décrivez votre événement, le nombre d'invités, vos attentes..." required></textarea></div>
         <button type="submit" class="form-submit">✦ &nbsp; Envoyer la demande &nbsp; ✦</button>
       </form>
       <div id="form-success">✦ &nbsp; Merci pour votre message. Je vous réponds en moins de 12h. &nbsp; ✦</div>
@@ -541,30 +523,12 @@
         <div class="divider"></div>
       </div>
       <div class="faq-list fade-in">
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">Combien de temps dure une prestation ?<span class="faq-icon">✦</span></button>
-          <div class="faq-answer"><p>Chaque prestation dure un minimum de 2 heures — le temps nécessaire pour créer de vrais moments de magie avec vos invités. Il n'y a pas de durée maximale : je m'adapte entièrement au rythme de votre soirée.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">Y a-t-il un nombre d'invités minimum ?<span class="faq-icon">✦</span></button>
-          <div class="faq-answer"><p>Non, il n'y a pas de minimum d'invités. La seule condition est le temps minimum de prestation de 2 heures. Que vous soyez une poignée d'amis ou plusieurs centaines de convives, je m'adapte à votre événement.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous pour des événements avec des enfants ?<span class="faq-icon">✦</span></button>
-          <div class="faq-answer"><p>Avec plaisir ! Les enfants sont souvent les stars de ces moments — leur réaction spontanée et leur émerveillement sincère rendent la magie encore plus belle. Je m'adapte naturellement à tous les âges pour que chacun vive une expérience unique.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">Comment se passe la réservation ?<span class="faq-icon">✦</span></button>
-          <div class="faq-answer"><p>Rien de plus simple : contactez-moi par téléphone, par email ou via le formulaire de devis sur ce site. Je vous réponds en moins de 12 heures avec une proposition personnalisée. Ensemble, nous définirons les détails de votre événement avant de confirmer la réservation.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous en dehors de l'Île-de-France ?<span class="faq-icon">✦</span></button>
-          <div class="faq-answer"><p>Oui, j'interviens partout en France. Des frais de déplacement sont à prévoir selon la distance, et je vous demanderai de réserver suffisamment à l'avance pour organiser au mieux mon déplacement. Tout est discuté ensemble de manière transparente lors du devis.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">Avez-vous besoin d'un espace particulier pour intervenir ?<span class="faq-icon">✦</span></button>
-          <div class="faq-answer"><p>Aucun aménagement particulier n'est nécessaire. Il me suffit de la table de vos spectateurs — c'est là que la magie prend vie, entre leurs mains, au plus près d'eux. Pas de scène, pas de matériel encombrant, juste l'essentiel.</p></div>
-        </div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Combien de temps dure une prestation ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Chaque prestation dure un minimum de 2 heures — le temps nécessaire pour créer de vrais moments de magie avec vos invités. Il n'y a pas de durée maximale : je m'adapte entièrement au rythme de votre soirée.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Y a-t-il un nombre d'invités minimum ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Non, il n'y a pas de minimum d'invités. La seule condition est le temps minimum de prestation de 2 heures. Que vous soyez une poignée d'amis ou plusieurs centaines de convives, je m'adapte à votre événement.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous pour des événements avec des enfants ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Avec plaisir ! Les enfants sont souvent les stars de ces moments — leur réaction spontanée et leur émerveillement sincère rendent la magie encore plus belle. Je m'adapte naturellement à tous les âges.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Comment se passe la réservation ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Contactez-moi par téléphone, par email ou via le formulaire sur ce site. Je vous réponds en moins de 12h avec une proposition personnalisée. Ensemble, nous définirons les détails avant de confirmer la réservation.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous en dehors de l'Île-de-France ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Oui, j'interviens partout en France. Des frais de déplacement sont à prévoir selon la distance. Tout est discuté ensemble de manière transparente lors du devis.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Avez-vous besoin d'un espace particulier pour intervenir ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Aucun aménagement particulier n'est nécessaire. Il me suffit de la table de vos spectateurs — c'est là que la magie prend vie, entre leurs mains. Pas de scène, pas de matériel encombrant.</p></div></div>
       </div>
     </div>
   </section>
@@ -580,7 +544,7 @@
       <div class="galerie-lock fade-in" id="galerie-lock">
         <div class="lock-icon">🔒</div>
         <div class="lock-title">Espace réservé</div>
-        <p class="lock-subtitle">Cette galerie est actuellement en cours de constitution. Si vous avez reçu un code d'accès, entrez-le ci-dessous pour la découvrir en avant-première.</p>
+        <p class="lock-subtitle">Cette galerie est en cours de constitution. Si vous avez reçu un code d'accès, entrez-le ci-dessous pour la découvrir en avant-première.</p>
         <div class="lock-form">
           <label class="lock-label">Code d'accès</label>
           <input type="password" class="lock-input" id="lock-input" placeholder="· · · · · · · ·" maxlength="20"/>
@@ -592,13 +556,12 @@
         <div class="galerie-coming">
           <div class="galerie-coming-icon">📸</div>
           <div class="galerie-coming-title">Bientôt disponible</div>
-          <p class="galerie-coming-text">Les photos et vidéos de mes prestations arrivent très prochainement.<br>Revenez dans quelques semaines pour découvrir mes meilleurs moments de magie.</p>
+          <p class="galerie-coming-text">Les photos et vidéos de mes prestations arrivent très prochainement.<br>Revenez dans quelques semaines pour découvrir mes meilleurs moments.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Moreau Lucas</div>
     <div class="footer-copy">© 2026 &nbsp;·&nbsp; Magicien close-up &nbsp;·&nbsp; Île-de-France &amp; France entière</div>
@@ -616,7 +579,6 @@
       html.setAttribute('data-theme', isDark ? 'light' : 'dark');
       document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
     }
-
     function toggleMobileMenu() {
       document.getElementById('mobile-menu').classList.toggle('open');
       document.getElementById('hamburger').classList.toggle('open');
@@ -625,7 +587,6 @@
       document.getElementById('mobile-menu').classList.remove('open');
       document.getElementById('hamburger').classList.remove('open');
     }
-
     function toggleFaq(btn) {
       const answer = btn.nextElementSibling;
       const isOpen = answer.classList.contains('open');
@@ -633,7 +594,6 @@
       document.querySelectorAll('.faq-question.active').forEach(b => b.classList.remove('active'));
       if (!isOpen) { answer.classList.add('open'); btn.classList.add('active'); }
     }
-
     function unlockGalerie() {
       const input = document.getElementById('lock-input').value;
       const error = document.getElementById('lock-error');
@@ -650,11 +610,29 @@
       if (e.key === 'Enter') unlockGalerie();
     });
 
-    function submitForm(e) {
+    // Formspree AJAX
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
       e.preventDefault();
-      document.getElementById('contact-form').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
-    }
+      const form = e.target;
+      const btn = form.querySelector('.form-submit');
+      btn.textContent = 'Envoi en cours...';
+      btn.disabled = true;
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        } else {
+          btn.textContent = '✦ Envoyer la demande ✦';
+          btn.disabled = false;
+        }
+      } catch(err) {
+        btn.textContent = '✦ Envoyer la demande ✦';
+        btn.disabled = false;
+      }
+    });
   </script>
 </body>
 </html>
