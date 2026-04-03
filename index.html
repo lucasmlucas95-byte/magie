@@ -396,6 +396,83 @@
       padding-bottom: 1.6rem;
     }
 
+    /* ── GALERIE ── */
+    #galerie { background: var(--bg3); }
+    .galerie-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+
+    /* Écran de verrouillage */
+    .galerie-lock {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 2rem; padding: 3rem 0;
+    }
+    .lock-icon {
+      font-size: 3rem; opacity: 0.6;
+      animation: lockPulse 3s ease-in-out infinite;
+    }
+    @keyframes lockPulse { 0%,100%{opacity:0.4} 50%{opacity:0.9} }
+    .lock-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-style: italic; color: var(--gold);
+      line-height: 1.4;
+    }
+    .lock-subtitle {
+      font-size: 0.85rem; color: var(--text-muted); line-height: 2;
+      max-width: 480px;
+    }
+    .lock-form {
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+      margin-top: 1rem;
+    }
+    .lock-label {
+      font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500;
+    }
+    .lock-input {
+      background: transparent;
+      border: none; border-bottom: 1px solid var(--gold-border);
+      color: var(--text); font-family: 'Montserrat', sans-serif;
+      font-size: 1rem; font-weight: 300; letter-spacing: 0.2em;
+      text-align: center; width: 220px; padding: 0.6rem 0;
+      outline: none; transition: border-color 0.3s;
+    }
+    .lock-input:focus { border-bottom-color: var(--gold); }
+    .lock-btn {
+      padding: 0.8rem 2.2rem;
+      background: transparent; border: 1px solid var(--gold-border);
+      color: var(--gold); font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s; font-weight: 400;
+    }
+    .lock-btn:hover { background: var(--gold-dim); border-color: var(--gold); }
+    .lock-error {
+      font-size: 0.75rem; color: #c0392b; opacity: 0;
+      transition: opacity 0.3s; letter-spacing: 0.1em;
+    }
+    .lock-error.show { opacity: 1; }
+
+    /* Contenu galerie déverrouillé */
+    .galerie-content { display: none; }
+    .galerie-coming {
+      padding: 4rem 2rem;
+      border: 1px solid var(--gold-border);
+      background: var(--card-bg);
+      position: relative;
+    }
+    .galerie-coming::before, .galerie-coming::after {
+      content: '✦'; position: absolute; color: var(--gold); font-size: 0.8rem;
+    }
+    .galerie-coming::before { top: -0.6rem; left: 50%; transform: translateX(-50%); background: var(--bg3); padding: 0 0.5rem; }
+    .galerie-coming::after { bottom: -0.6rem; left: 50%; transform: translateX(-50%); background: var(--bg3); padding: 0 0.5rem; }
+    .galerie-coming-icon { font-size: 2.5rem; margin-bottom: 1.5rem; opacity: 0.5; }
+    .galerie-coming-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-style: italic; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .galerie-coming-text {
+      font-size: 0.88rem; line-height: 2; color: var(--text-muted);
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--bg2); padding: 3rem 4rem;
@@ -440,6 +517,7 @@
     <a href="#prestations" onclick="closeMobileMenu()">Prestations</a>
     <a href="#tarifs" onclick="closeMobileMenu()">Tarifs</a>
     <a href="#zone" onclick="closeMobileMenu()">Zone</a>
+    <a href="#galerie" onclick="closeMobileMenu()">Galerie</a>
     <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
     <a href="#contact" onclick="closeMobileMenu()">Contact</a>
   </div>
@@ -451,6 +529,7 @@
       <li><a href="#prestations">Prestations</a></li>
       <li><a href="#tarifs">Tarifs</a></li>
       <li><a href="#zone">Zone</a></li>
+      <li><a href="#galerie">Galerie</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -548,9 +627,9 @@
       <div class="tarif-box">
         <div class="tarif-label">Sur devis</div>
         <p class="tarif-desc">
-          Chaque prestation est pensée et calibrée en fonction de votre événement : durée, nombre d'invités, lieu, format souhaité. Contactez-moi pour recevoir une proposition personnalisée et sans engagement.
+          Chaque prestation est pensée et calibrée en fonction de votre événement : durée, nombre d'invités, lieu, format souhaité. Vous pouvez me contacter directement par téléphone ou par email pour en discuter librement, ou remplir le formulaire de devis ci-dessous pour recevoir une proposition personnalisée et sans engagement.
         </p>
-        <a href="#contact" class="tarif-cta">Demander un devis gratuit</a>
+        <a href="#contact" class="tarif-cta">Me contacter ou demander un devis</a>
       </div>
     </div>
   </section>
@@ -570,7 +649,13 @@
             <circle cx="100" cy="95" r="6" fill="var(--gold)" opacity="0.9"/>
             <circle cx="100" cy="95" r="14" stroke="var(--gold)" stroke-width="1" opacity="0.4"/>
             <circle cx="100" cy="95" r="22" stroke="var(--gold)" stroke-width="0.5" opacity="0.2"/>
-            <text x="100" y="130" text-anchor="middle" font-family="Cormorant Garamond" font-size="9" fill="var(--gold)" opacity="0.85">Île-de-France</text>
+            <text x="100" y="80" text-anchor="middle" font-family="Cormorant Garamond" font-size="9" fill="var(--gold)" font-weight="400">Paris</text>
+            <text x="100" y="130" text-anchor="middle" font-family="Cormorant Garamond" font-size="8" fill="var(--gold)" opacity="0.85" font-style="italic">Île-de-France</text>
+            <line x1="100" y1="95" x2="55" y2="45" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4,4"/>
+            <line x1="100" y1="95" x2="148" y2="48" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4,4"/>
+            <line x1="100" y1="95" x2="152" y2="130" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4,4"/>
+            <line x1="100" y1="95" x2="95" y2="178" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4,4"/>
+            <line x1="100" y1="95" x2="42" y2="128" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4,4"/>
           </svg>
         </div>
         <div class="zone-text fade-in">
@@ -721,6 +806,42 @@
     </div>
   </section>
 
+  <!-- GALERIE -->
+  <section id="galerie">
+    <div class="galerie-inner">
+      <div class="fade-in">
+        <p class="section-label" style="text-align:center">Galerie</p>
+        <h2 class="section-title" style="text-align:center">Mes <em>prestations</em></h2>
+        <div class="divider" style="margin:0 auto 2.5rem;"></div>
+      </div>
+
+      <!-- Écran verrouillé -->
+      <div class="galerie-lock fade-in" id="galerie-lock">
+        <div class="lock-icon">🔒</div>
+        <div class="lock-title">Espace réservé</div>
+        <p class="lock-subtitle">Cette galerie est actuellement en cours de constitution. Si vous avez reçu un code d'accès, entrez-le ci-dessous pour la découvrir en avant-première.</p>
+        <div class="lock-form">
+          <label class="lock-label">Code d'accès</label>
+          <input type="password" class="lock-input" id="lock-input" placeholder="· · · · · · · ·" maxlength="20"/>
+          <div class="lock-error" id="lock-error">Code incorrect. Veuillez réessayer.</div>
+          <button class="lock-btn" onclick="unlockGalerie()">✦ &nbsp; Accéder &nbsp; ✦</button>
+        </div>
+      </div>
+
+      <!-- Contenu déverrouillé -->
+      <div class="galerie-content" id="galerie-content">
+        <div class="galerie-coming">
+          <div class="galerie-coming-icon">📸</div>
+          <div class="galerie-coming-title">Bientôt disponible</div>
+          <p class="galerie-coming-text">
+            Les photos et vidéos de mes prestations arrivent très prochainement.<br>
+            Revenez dans quelques semaines pour découvrir mes meilleurs moments de magie.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Moreau Lucas</div>
@@ -768,6 +889,24 @@
         btn.classList.add('active');
       }
     }
+
+    // Galerie - déverrouillage
+    function unlockGalerie() {
+      const input = document.getElementById('lock-input').value;
+      const error = document.getElementById('lock-error');
+      if (input === '7zbnl3I1') {
+        document.getElementById('galerie-lock').style.display = 'none';
+        document.getElementById('galerie-content').style.display = 'block';
+        error.classList.remove('show');
+      } else {
+        error.classList.add('show');
+        document.getElementById('lock-input').value = '';
+      }
+    }
+    // Permettre validation avec la touche Entrée
+    document.getElementById('lock-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') unlockGalerie();
+    });
 
     // Form submit
     function submitForm(e) {
