@@ -3,127 +3,109 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <meta name="robots" content="noindex, nofollow"/>
   <title>✦ Admin Magie</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; min-height: 100%; background: #060608; font-family: 'Cinzel', serif; color: #f5f0e8; touch-action: manipulation; }
-    body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem 1.5rem; gap: 1.8rem; }
-
-    h1 { font-family: 'Cinzel Decorative', serif; font-size: clamp(0.9rem, 4vw, 1.2rem); color: #c9a84c; letter-spacing: 0.2em; text-align: center; text-shadow: 0 0 30px rgba(201,168,76,0.4); }
+    body { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; padding: 2rem 1.5rem; gap: 1.5rem; }
+    h1 { font-family: 'Cinzel Decorative', serif; font-size: clamp(0.9rem, 4vw, 1.1rem); color: #c9a84c; letter-spacing: 0.2em; text-align: center; text-shadow: 0 0 30px rgba(201,168,76,0.4); }
     .divider { width: 160px; height: 1px; background: linear-gradient(to right, transparent, #c9a84c, transparent); }
-    p.sub { font-size: 0.65rem; letter-spacing: 0.25em; color: rgba(201,168,76,0.5); text-transform: uppercase; text-align: center; }
-
-    /* Bloc code */
-    .bloc { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 0.6rem; }
-    .bloc-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: #c9a84c; font-weight: 600; }
-    .bloc-input {
-      width: 100%; padding: 0.8rem 1rem;
-      background: rgba(201,168,76,0.05);
-      border: 1px solid rgba(201,168,76,0.25);
-      border-radius: 8px;
-      color: #f5f0e8;
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      letter-spacing: 0.2em;
-      outline: none;
-      transition: border-color 0.2s;
-      text-align: center;
-    }
+    p.sub { font-size: 0.6rem; letter-spacing: 0.25em; color: rgba(201,168,76,0.5); text-transform: uppercase; text-align: center; }
+    .bloc { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 0.5rem; }
+    .bloc-label { font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: #c9a84c; font-weight: 600; }
+    .bloc-input { width: 100%; padding: 0.8rem 1rem; background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.25); border-radius: 8px; color: #f5f0e8; font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 0.3em; outline: none; transition: border-color 0.2s; text-align: center; -webkit-appearance: none; }
     .bloc-input:focus { border-color: #c9a84c; }
-    .bloc-hint { font-size: 0.58rem; color: rgba(201,168,76,0.45); letter-spacing: 0.2em; text-align: center; }
+    .bloc-hint { font-size: 0.55rem; color: rgba(201,168,76,0.4); letter-spacing: 0.15em; text-align: center; }
 
-    /* Grille cartes */
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; width: 100%; max-width: 360px; }
-    .card-btn {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 0.35rem; padding: 1rem 0.6rem;
-      border-radius: 10px; border: 2px solid rgba(201,168,76,0.2);
-      background: rgba(201,168,76,0.03);
-      cursor: pointer; transition: all 0.2s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .card-btn:active { transform: scale(0.97); }
-    .card-btn.active { background: rgba(201,168,76,0.15); border-color: #c9a84c; box-shadow: 0 0 20px rgba(201,168,76,0.2); }
-    .card-btn .pip { font-size: 1.8rem; line-height: 1; }
-    .card-btn .name { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; text-align: center; color: rgba(245,240,232,0.75); }
-    .card-btn.active .name { color: #c9a84c; }
-    .red-pip { color: #e05050; }
-    .black-pip { color: #e8e0d0; }
+    /* Sélecteur couleur */
+    .color-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; width: 100%; max-width: 400px; }
+    .color-tab { padding: 0.6rem; border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.03); border-radius: 6px; cursor: pointer; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; transition: all 0.2s; color: rgba(245,240,232,0.6); }
+    .color-tab.active-red { border-color: #e05050; background: rgba(224,80,80,0.1); color: #e05050; }
+    .color-tab.active-black { border-color: #c9a84c; background: rgba(201,168,76,0.1); color: #c9a84c; }
 
-    /* Bouton save */
-    .save-btn {
-      width: 100%; max-width: 360px;
-      padding: 0.9rem;
-      background: #c9a84c;
-      border: none;
-      border-radius: 8px;
-      color: #060608;
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      font-weight: 600;
-    }
+    /* Sélecteur valeur */
+    .value-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; width: 100%; max-width: 400px; }
+    .val-btn { padding: 0.7rem 0.3rem; border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.03); border-radius: 6px; cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.85rem; text-align: center; transition: all 0.2s; color: rgba(245,240,232,0.7); -webkit-tap-highlight-color: transparent; }
+    .val-btn:active { transform: scale(0.96); }
+    .val-btn.active { background: rgba(201,168,76,0.18); border-color: #c9a84c; color: #c9a84c; }
+
+    /* Sélecteur couleur de carte */
+    .suit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; width: 100%; max-width: 400px; }
+    .suit-btn { padding: 0.9rem 0.3rem; border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.03); border-radius: 6px; cursor: pointer; font-size: 1.6rem; text-align: center; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
+    .suit-btn:active { transform: scale(0.96); }
+    .suit-btn.active { background: rgba(201,168,76,0.18); border-color: #c9a84c; }
+
+    /* Aperçu carte sélectionnée */
+    .preview-box { width: 100%; max-width: 400px; padding: 1rem; border: 1px solid rgba(201,168,76,0.15); background: rgba(201,168,76,0.03); border-radius: 8px; text-align: center; min-height: 60px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.3rem; }
+    .preview-label { font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(201,168,76,0.4); }
+    .preview-card { font-size: 1.2rem; color: #c9a84c; letter-spacing: 0.1em; }
+
+    .save-btn { width: 100%; max-width: 400px; padding: 0.9rem; background: #c9a84c; border: none; border-radius: 8px; color: #060608; font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: background 0.2s, transform 0.1s; font-weight: 600; }
     .save-btn:hover { background: #e2c47a; }
     .save-btn:active { transform: scale(0.98); }
     .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    #status { font-size: 0.68rem; letter-spacing: 0.2em; text-align: center; min-height: 1rem; transition: color 0.3s; }
+    #status { font-size: 0.65rem; letter-spacing: 0.2em; text-align: center; min-height: 1rem; transition: color 0.3s; }
     #status.ok { color: #4caf50; }
     #status.err { color: #f44336; }
     #status.loading { color: rgba(201,168,76,0.6); }
-
-    #active-display { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
-    #active-display .label { font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(201,168,76,0.45); }
-    #active-display .value { font-family: 'Cinzel Decorative', serif; font-size: 0.9rem; color: #c9a84c; text-align: center; }
+    .current-box { width: 100%; max-width: 400px; padding: 0.8rem 1rem; border: 1px solid rgba(201,168,76,0.12); border-radius: 6px; text-align: center; }
+    .current-label { font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(201,168,76,0.35); margin-bottom: 0.3rem; }
+    .current-value { font-size: 0.8rem; color: #c9a84c; }
   </style>
 </head>
 <body>
-
   <h1>✦ Admin Tour de Magie ✦</h1>
   <div class="divider"></div>
   <p class="sub">Configurez le tour avant le spectacle</p>
 
   <!-- Code spectateur -->
   <div class="bloc">
-    <div class="bloc-label">Code du spectateur (date de naissance)</div>
-    <input type="text" class="bloc-input" id="code-input" placeholder="ex: 15031995" maxlength="20"/>
-    <div class="bloc-hint">Format libre — tapez exactement ce que le spectateur devra entrer</div>
+    <div class="bloc-label">Date de naissance du spectateur (6 chiffres)</div>
+    <input type="tel" class="bloc-input" id="code-input" placeholder="JJMMAA" maxlength="6" inputmode="numeric"/>
+    <div class="bloc-hint">Ex : 150395 pour le 15 mars 1995</div>
   </div>
 
   <div class="divider"></div>
-  <p class="sub">Carte à révéler</p>
+  <p class="sub">Valeur de la carte</p>
 
-  <!-- Sélection carte -->
-  <div class="grid">
-    <button class="card-btn" id="btn-3-carreau" onclick="selectCard('3-carreau')">
-      <span class="pip red-pip">♦</span><span class="name">3 de Carreau</span>
-    </button>
-    <button class="card-btn" id="btn-7-trefle" onclick="selectCard('7-trefle')">
-      <span class="pip black-pip">♣</span><span class="name">7 de Trèfle</span>
-    </button>
-    <button class="card-btn" id="btn-valet-coeur" onclick="selectCard('valet-coeur')">
-      <span class="pip red-pip">♥</span><span class="name">Valet de Cœur</span>
-    </button>
-    <button class="card-btn" id="btn-10-pique" onclick="selectCard('10-pique')">
-      <span class="pip black-pip">♠</span><span class="name">10 de Pique</span>
-    </button>
-    <button class="card-btn" id="btn-as-pique" onclick="selectCard('as-pique')">
-      <span class="pip black-pip">♠</span><span class="name">As de Pique</span>
-    </button>
-    <button class="card-btn" id="btn-as-coeur" onclick="selectCard('as-coeur')">
-      <span class="pip red-pip">♥</span><span class="name">As de Cœur</span>
-    </button>
+  <div class="value-grid" id="value-grid">
+    <button class="val-btn" onclick="selectVal('A')">A</button>
+    <button class="val-btn" onclick="selectVal('2')">2</button>
+    <button class="val-btn" onclick="selectVal('3')">3</button>
+    <button class="val-btn" onclick="selectVal('4')">4</button>
+    <button class="val-btn" onclick="selectVal('5')">5</button>
+    <button class="val-btn" onclick="selectVal('6')">6</button>
+    <button class="val-btn" onclick="selectVal('7')">7</button>
+    <button class="val-btn" onclick="selectVal('8')">8</button>
+    <button class="val-btn" onclick="selectVal('9')">9</button>
+    <button class="val-btn" onclick="selectVal('10')">10</button>
+    <button class="val-btn" onclick="selectVal('J')">J</button>
+    <button class="val-btn" onclick="selectVal('Q')">Q</button>
+    <button class="val-btn" onclick="selectVal('K')" style="grid-column:span 4">K</button>
+  </div>
+
+  <p class="sub">Couleur de la carte</p>
+
+  <div class="suit-grid" id="suit-grid">
+    <button class="suit-btn" onclick="selectSuit('coeur','♥')">♥</button>
+    <button class="suit-btn" onclick="selectSuit('carreau','♦')">♦</button>
+    <button class="suit-btn" onclick="selectSuit('trefle','♣')">♣</button>
+    <button class="suit-btn" onclick="selectSuit('pique','♠')">♠</button>
+  </div>
+
+  <!-- Aperçu -->
+  <div class="preview-box">
+    <div class="preview-label">Carte sélectionnée</div>
+    <div class="preview-card" id="preview-card">— Aucune sélection —</div>
   </div>
 
   <button class="save-btn" id="save-btn" onclick="save()">✦ Enregistrer le tour ✦</button>
 
-  <div id="active-display">
-    <div class="label">Configuration actuelle</div>
-    <div class="value" id="active-value">Chargement...</div>
+  <div class="current-box">
+    <div class="current-label">Configuration actuelle en base</div>
+    <div class="current-value" id="active-value">Chargement...</div>
   </div>
 
   <div id="status" class="loading">Connexion...</div>
@@ -132,38 +114,54 @@
     const URL = 'https://dfxnaazkbcrvltlcbtsh.supabase.co';
     const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmeG5hYXprYmNydmx0bGNidHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTIxNDAsImV4cCI6MjA5MDY2ODE0MH0.I1rlwrHSwjEnk82v8Ac-vEBofdMUyUGFTnYTepYGuFw';
 
-    const names = {
-      '3-carreau':  '♦ 3 de Carreau',
-      '7-trefle':   '♣ 7 de Trèfle',
-      'valet-coeur':'♥ Valet de Cœur',
-      '10-pique':   '♠ 10 de Pique',
-      'as-pique':   '♠ As de Pique',
-      'as-coeur':   '♥ As de Cœur'
-    };
+    const suitNames = { coeur:'Cœur', carreau:'Carreau', trefle:'Trèfle', pique:'Pique' };
+    const suitSymbols = { coeur:'♥', carreau:'♦', trefle:'♣', pique:'♠' };
+    const valNames = { A:'As', J:'Valet', Q:'Dame', K:'Roi' };
 
-    let selectedCard = null;
+    let selVal = null, selSuit = null, selSuitName = null, selSymbol = null;
 
-    function selectCard(carte) {
-      document.querySelectorAll('.card-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('btn-' + carte).classList.add('active');
-      selectedCard = carte;
+    function selectVal(v) {
+      selVal = v;
+      document.querySelectorAll('.val-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      updatePreview();
     }
-
-    function setDisplay(code, carte) {
-      document.getElementById('active-value').textContent =
-        'Code : ' + code + '  |  Carte : ' + (names[carte] || carte);
+    function selectSuit(s, sym) {
+      selSuit = s; selSuitName = suitNames[s]; selSymbol = sym;
+      document.querySelectorAll('.suit-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      updatePreview();
+    }
+    function updatePreview() {
+      if (selVal && selSuit) {
+        const vName = valNames[selVal] || selVal;
+        const color = (selSuit==='coeur'||selSuit==='carreau') ? '#e05050' : '#c9a84c';
+        document.getElementById('preview-card').innerHTML =
+          `<span style="color:${color};font-size:1.4rem">${selSymbol} </span>${vName} de ${selSuitName}`;
+      }
+    }
+    function getCardKey() {
+      if (!selVal || !selSuit) return null;
+      const vKey = selVal === 'A' ? 'as' : selVal === 'J' ? 'valet' : selVal === 'Q' ? 'dame' : selVal === 'K' ? 'roi' : selVal;
+      return `${vKey}-${selSuit}`;
+    }
+    function getCardLabel(key) {
+      if (!key) return '—';
+      const parts = key.split('-');
+      const v = parts[0]; const s = parts.slice(1).join('-');
+      const vName = {as:'As',valet:'Valet',dame:'Dame',roi:'Roi'}[v] || v;
+      const sym = suitSymbols[s] || '';
+      const color = (s==='coeur'||s==='carreau') ? '#e05050' : '#c9a84c';
+      return `<span style="color:${color}">${sym} ${vName} de ${suitNames[s]||s}</span>`;
     }
 
     async function load() {
       try {
-        const res = await fetch(URL + '/rest/v1/magie?select=code,carte&limit=1', {
-          headers: { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY }
-        });
+        const res = await fetch(URL+'/rest/v1/magie?select=code,carte&limit=1',{headers:{'apikey':KEY,'Authorization':'Bearer '+KEY}});
         const data = await res.json();
         if (data && data[0]) {
           document.getElementById('code-input').value = data[0].code;
-          selectCard(data[0].carte);
-          setDisplay(data[0].code, data[0].carte);
+          document.getElementById('active-value').innerHTML = 'Code&nbsp;: '+data[0].code+'  |  Carte&nbsp;: '+getCardLabel(data[0].carte);
         }
         document.getElementById('status').textContent = '✦ Prêt';
         document.getElementById('status').className = 'ok';
@@ -175,39 +173,26 @@
 
     async function save() {
       const code = document.getElementById('code-input').value.trim();
-      if (!code) { alert('Entrez un code.'); return; }
-      if (!selectedCard) { alert('Choisissez une carte.'); return; }
-
+      if (!code || code.length < 4) { alert('Entrez la date de naissance (minimum 4 chiffres).'); return; }
+      const carte = getCardKey();
+      if (!carte) { alert('Choisissez une valeur ET une couleur de carte.'); return; }
       const btn = document.getElementById('save-btn');
-      btn.disabled = true;
-      btn.textContent = 'Enregistrement...';
+      btn.disabled = true; btn.textContent = 'Enregistrement...';
       document.getElementById('status').textContent = 'Mise à jour...';
       document.getElementById('status').className = 'loading';
-
       try {
-        const res = await fetch(URL + '/rest/v1/magie?id=gte.0', {
-          method: 'PATCH',
-          headers: {
-            'apikey': KEY,
-            'Authorization': 'Bearer ' + KEY,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify({ code, carte: selectedCard })
-        });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        setDisplay(code, selectedCard);
+        const res = await fetch(URL+'/rest/v1/magie?id=gte.0',{method:'PATCH',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({code,carte})});
+        if (!res.ok) throw new Error('HTTP '+res.status);
+        document.getElementById('active-value').innerHTML = 'Code&nbsp;: '+code+'  |  Carte&nbsp;: '+getCardLabel(carte);
         document.getElementById('status').textContent = '✦ Tour configuré !';
         document.getElementById('status').className = 'ok';
       } catch(e) {
-        document.getElementById('status').textContent = 'Erreur : ' + e.message;
+        document.getElementById('status').textContent = 'Erreur : '+e.message;
         document.getElementById('status').className = 'err';
       } finally {
-        btn.disabled = false;
-        btn.textContent = '✦ Enregistrer le tour ✦';
+        btn.disabled = false; btn.textContent = '✦ Enregistrer le tour ✦';
       }
     }
-
     load();
   </script>
 </body>
