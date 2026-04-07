@@ -172,6 +172,104 @@
     }
     .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── MAGIC REVEAL TRIGGER ── */
+    .footer-card-trigger {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-dim); padding: 4px 8px;
+      transition: color 0.4s, opacity 0.4s;
+      opacity: 0.3; display: flex; align-items: center;
+    }
+    .footer-card-trigger:hover { opacity: 1; color: var(--gold); }
+
+    /* ── MAGIC REVEAL OVERLAY ── */
+    #magic-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: #080608;
+      flex-direction: column; align-items: center; justify-content: center;
+    }
+    #magic-overlay.open { display: flex; }
+    #magic-overlay-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 50%, #1a0e08 0%, #080608 100%);
+    }
+    #magic-overlay-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 65%);
+      animation: mglow 4s ease-in-out infinite;
+    }
+    @keyframes mglow { 0%,100%{opacity:.4} 50%{opacity:1} }
+    #magic-overlay-vignette {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 25%, rgba(8,6,8,0.55) 65%, rgba(8,6,8,0.92) 100%);
+    }
+    .magic-close {
+      position: absolute; top: 1.5rem; right: 1.5rem; z-index: 10;
+      background: none; border: none; color: rgba(201,168,76,0.4);
+      font-size: 1.4rem; cursor: pointer; transition: color 0.3s;
+      font-family: 'Cormorant Garamond', serif; line-height: 1;
+    }
+    .magic-close:hover { color: #c9a84c; }
+    .magic-scene {
+      position: relative; z-index: 5;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 1.6rem; padding: 3rem 2rem; width: 100%; max-width: 440px;
+    }
+    .magic-ornament { font-size: 0.72rem; letter-spacing: 0.7em; color: rgba(201,168,76,0.8); text-transform: uppercase; }
+    .magic-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 5vw, 2.4rem); font-style: italic; color: #f5f0e8; text-align: center; line-height: 1.3; }
+    .magic-title em { color: #c9a84c; }
+    .magic-divider { width: 60px; height: 1px; background: linear-gradient(to right, transparent, #c9a84c, transparent); }
+    .magic-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; color: rgba(245,240,232,0.6); text-align: center; line-height: 1.7; }
+    .magic-code-box {
+      width: 100%; padding: 2rem; border: 1px solid rgba(201,168,76,0.2);
+      background: rgba(201,168,76,0.03); display: flex; flex-direction: column;
+      align-items: center; gap: 1.1rem; position: relative;
+    }
+    .magic-code-box::before, .magic-code-box::after { content: '✦'; position: absolute; color: rgba(201,168,76,0.5); font-size: 0.7rem; background: #080608; padding: 0 0.4rem; }
+    .magic-code-box::before { top: -0.5rem; left: 50%; transform: translateX(-50%); }
+    .magic-code-box::after  { bottom: -0.5rem; left: 50%; transform: translateX(-50%); }
+    .magic-code-label { font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(201,168,76,0.7); font-weight: 500; text-align: center; font-family: 'Montserrat', sans-serif; }
+    .magic-code-hint { font-size: 0.55rem; letter-spacing: 0.18em; color: rgba(201,168,76,0.35); text-align: center; font-family: 'Montserrat', sans-serif; }
+    .magic-code-input {
+      width: 100%; padding: 0.8rem 0; background: transparent; border: none;
+      border-bottom: 1px solid rgba(201,168,76,0.25); color: #f5f0e8;
+      font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300;
+      letter-spacing: 0.4em; text-align: center; outline: none; transition: border-color 0.3s;
+    }
+    .magic-code-input:focus { border-bottom-color: #c9a84c; }
+    .magic-code-input::placeholder { color: rgba(245,240,232,0.2); font-size: 1.2rem; letter-spacing: 0.2em; }
+    .magic-lock-error { font-size: 0.72rem; color: #e05555; opacity: 0; transition: opacity 0.3s; letter-spacing: 0.1em; font-family: 'Cormorant Garamond', serif; font-style: italic; text-align: center; }
+    .magic-lock-error.show { opacity: 1; }
+    .magic-unlock-btn {
+      width: 100%; padding: 1rem 2rem; background: transparent;
+      border: 1px solid rgba(201,168,76,0.35); color: #c9a84c;
+      font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-style: italic;
+      letter-spacing: 0.15em; cursor: pointer; transition: all 0.3s;
+    }
+    .magic-unlock-btn:hover { background: rgba(201,168,76,0.08); border-color: #c9a84c; }
+    #magic-reveal-bloc { display: none; flex-direction: column; align-items: center; gap: 1.5rem; width: 100%; }
+    .magic-reveal-msg { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem, 3.5vw, 1.3rem); font-style: italic; color: rgba(245,240,232,0.75); text-align: center; line-height: 1.8; }
+    #magic-card-wrap {
+      width: min(220px, 58vw); aspect-ratio: 63/88; position: relative;
+      filter: drop-shadow(0 0 40px rgba(201,168,76,0.25)) drop-shadow(0 16px 40px rgba(0,0,0,0.7));
+      animation: cardAppearMagic 1s cubic-bezier(0.23,1,0.32,1) both;
+    }
+    @keyframes cardAppearMagic { from{transform:scale(0.7) translateY(30px) rotateY(90deg);opacity:0} to{transform:none;opacity:1} }
+    #magic-card-wrap svg { width: 100%; height: 100%; display: block; }
+    .magic-card-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.1rem, 3.5vw, 1.6rem); font-style: italic; color: #c9a84c; text-align: center; letter-spacing: 0.05em; text-shadow: 0 0 30px rgba(201,168,76,0.4); }
+    .magic-replay-btn { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(245,240,232,0.3); background: none; border: none; cursor: pointer; transition: color 0.3s; font-family: 'Montserrat', sans-serif; }
+    .magic-replay-btn:hover { color: #c9a84c; }
+    #magic-flash { position: fixed; inset: 0; z-index: 1010; background: white; opacity: 0; pointer-events: none; transition: opacity 0.06s; }
+    #magic-flash.go { opacity: 0.2; }
+
+    /* Floating cards in overlay */
+    #magic-overlay .m-float-card { position: absolute; border-radius: 8px; filter: drop-shadow(0 6px 20px rgba(0,0,0,0.5)); animation: cardFloat linear infinite; }
+    #magic-overlay .m-float-card svg { width: 100%; border-radius: 8px; display: block; }
+    #magic-overlay .m-float-card:nth-child(1){left:2%;top:10%;width:80px;--rot:-14deg;--rotd:9deg;--travel:-70px;--max-op:.35;animation-duration:8s;animation-delay:0s;}
+    #magic-overlay .m-float-card:nth-child(2){right:2%;top:15%;width:95px;--rot:17deg;--rotd:-11deg;--travel:-70px;--max-op:.30;animation-duration:8s;animation-delay:2s;}
+    #magic-overlay .m-float-card:nth-child(3){left:3%;bottom:15%;width:75px;--rot:8deg;--rotd:16deg;--travel:-70px;--max-op:.28;animation-duration:8s;animation-delay:4s;}
+    #magic-overlay .m-float-card:nth-child(4){right:3%;bottom:20%;width:85px;--rot:-11deg;--rotd:-19deg;--travel:-70px;--max-op:.30;animation-duration:8s;animation-delay:6s;}
+
   </style>
 </head>
 <body>
@@ -384,6 +482,12 @@
   <footer>
     <div class="footer-logo">Moreau Lucas</div>
     <div class="footer-copy">&copy; 2026 &nbsp;&middot;&nbsp; Magicien close-up &nbsp;&middot;&nbsp; &Icirc;le-de-France &amp; France enti&egrave;re</div>
+    <button class="footer-card-trigger" onclick="openMagicReveal()" title="&#x2605;" aria-label="Magie secrète">
+      <svg viewBox="0 0 24 34" xmlns="http://www.w3.org/2000/svg" width="16" height="23">
+        <rect width="24" height="34" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.4"/>
+        <text x="12" y="15" font-family="serif" font-size="8" fill="currentColor" text-anchor="middle" opacity="0.5">&#9824;</text>
+      </svg>
+    </button>
   </footer>
 
   <script>
@@ -432,6 +536,148 @@
         else { btn.textContent = '\u2736 Envoyer la demande \u2736'; btn.disabled = false; }
       } catch(err) { btn.textContent = '\u2736 Envoyer la demande \u2736'; btn.disabled = false; }
     });
+
+    /* ── MAGIC REVEAL ── */
+    const SUPA_URL='https://dfxnaazkbcrvltlcbtsh.supabase.co';
+    const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmeG5hYXprYmNydmx0bGNidHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTIxNDAsImV4cCI6MjA5MDY2ODE0MH0.I1rlwrHSwjEnk82v8Ac-vEBofdMUyUGFTnYTepYGuFw';
+
+    function openMagicReveal() {
+      document.getElementById('magic-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => document.getElementById('magic-code-input').focus(), 300);
+    }
+    function closeMagicReveal() {
+      document.getElementById('magic-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      magicReset();
+    }
+    document.getElementById('magic-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeMagicReveal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMagicReveal();
+    });
+
+    function magicCardSVG(rank, suit, color) {
+      const c = color === 'red' ? '#c8000a' : '#0a0a0a';
+      return '<svg viewBox="0 0 630 880" xmlns="http://www.w3.org/2000/svg">'
+        + '<defs><radialGradient id="cardbg" cx="50%" cy="38%" r="65%">'
+        + '<stop offset="0%" stop-color="#fffef5"/>'
+        + '<stop offset="100%" stop-color="#f7f0e2"/>'
+        + '</radialGradient></defs>'
+        + '<rect width="630" height="880" rx="30" fill="url(#cardbg)"/>'
+        + '<rect x="5" y="5" width="620" height="870" rx="26" fill="none" stroke="#c8bfa8" stroke-width="2.5"/>'
+        + '<g transform="translate(42,36)">'
+        + '<text font-family="Times New Roman,serif" font-size="80" font-weight="bold" fill="' + c + '" text-anchor="middle" x="26" y="74">' + rank + '</text>'
+        + '<text font-family="Arial,sans-serif" font-size="56" fill="' + c + '" text-anchor="middle" x="26" y="132">' + suit + '</text>'
+        + '</g>'
+        + '<text font-family="Arial,sans-serif" font-size="220" fill="' + c + '" text-anchor="middle" dominant-baseline="middle" x="315" y="460">' + suit + '</text>'
+        + '<g transform="translate(588,844) rotate(180)">'
+        + '<text font-family="Times New Roman,serif" font-size="80" font-weight="bold" fill="' + c + '" text-anchor="middle" x="26" y="74">' + rank + '</text>'
+        + '<text font-family="Arial,sans-serif" font-size="56" fill="' + c + '" text-anchor="middle" x="26" y="132">' + suit + '</text>'
+        + '</g></svg>';
+    }
+
+    const MAGIC_CARDS = {
+      'as-coeur':{'rank':'A','suit':'♥','color':'red','name':'As de Cœur'},
+      'as-carreau':{'rank':'A','suit':'♦','color':'red','name':'As de Carreau'},
+      'as-trefle':{'rank':'A','suit':'♣','color':'black','name':'As de Trèfle'},
+      'as-pique':{'rank':'A','suit':'♠','color':'black','name':'As de Pique'},
+      'roi-coeur':{'rank':'K','suit':'♥','color':'red','name':'Roi de Cœur'},
+      'roi-carreau':{'rank':'K','suit':'♦','color':'red','name':'Roi de Carreau'},
+      'roi-trefle':{'rank':'K','suit':'♣','color':'black','name':'Roi de Trèfle'},
+      'roi-pique':{'rank':'K','suit':'♠','color':'black','name':'Roi de Pique'},
+      'dame-coeur':{'rank':'Q','suit':'♥','color':'red','name':'Dame de Cœur'},
+      'dame-carreau':{'rank':'Q','suit':'♦','color':'red','name':'Dame de Carreau'},
+      'dame-trefle':{'rank':'Q','suit':'♣','color':'black','name':'Dame de Trèfle'},
+      'dame-pique':{'rank':'Q','suit':'♠','color':'black','name':'Dame de Pique'},
+      'valet-coeur':{'rank':'J','suit':'♥','color':'red','name':'Valet de Cœur'},
+      'valet-carreau':{'rank':'J','suit':'♦','color':'red','name':'Valet de Carreau'},
+      'valet-trefle':{'rank':'J','suit':'♣','color':'black','name':'Valet de Trèfle'},
+      'valet-pique':{'rank':'J','suit':'♠','color':'black','name':'Valet de Pique'},
+      '10-coeur':{'rank':'10','suit':'♥','color':'red','name':'10 de Cœur'},
+      '10-carreau':{'rank':'10','suit':'♦','color':'red','name':'10 de Carreau'},
+      '10-trefle':{'rank':'10','suit':'♣','color':'black','name':'10 de Trèfle'},
+      '10-pique':{'rank':'10','suit':'♠','color':'black','name':'10 de Pique'},
+      '9-coeur':{'rank':'9','suit':'♥','color':'red','name':'9 de Cœur'},
+      '9-carreau':{'rank':'9','suit':'♦','color':'red','name':'9 de Carreau'},
+      '9-trefle':{'rank':'9','suit':'♣','color':'black','name':'9 de Trèfle'},
+      '9-pique':{'rank':'9','suit':'♠','color':'black','name':'9 de Pique'},
+      '8-coeur':{'rank':'8','suit':'♥','color':'red','name':'8 de Cœur'},
+      '8-carreau':{'rank':'8','suit':'♦','color':'red','name':'8 de Carreau'},
+      '8-trefle':{'rank':'8','suit':'♣','color':'black','name':'8 de Trèfle'},
+      '8-pique':{'rank':'8','suit':'♠','color':'black','name':'8 de Pique'},
+      '7-coeur':{'rank':'7','suit':'♥','color':'red','name':'7 de Cœur'},
+      '7-carreau':{'rank':'7','suit':'♦','color':'red','name':'7 de Carreau'},
+      '7-trefle':{'rank':'7','suit':'♣','color':'black','name':'7 de Trèfle'},
+      '7-pique':{'rank':'7','suit':'♠','color':'black','name':'7 de Pique'},
+      '6-coeur':{'rank':'6','suit':'♥','color':'red','name':'6 de Cœur'},
+      '6-carreau':{'rank':'6','suit':'♦','color':'red','name':'6 de Carreau'},
+      '6-trefle':{'rank':'6','suit':'♣','color':'black','name':'6 de Trèfle'},
+      '6-pique':{'rank':'6','suit':'♠','color':'black','name':'6 de Pique'},
+      '5-coeur':{'rank':'5','suit':'♥','color':'red','name':'5 de Cœur'},
+      '5-carreau':{'rank':'5','suit':'♦','color':'red','name':'5 de Carreau'},
+      '5-trefle':{'rank':'5','suit':'♣','color':'black','name':'5 de Trèfle'},
+      '5-pique':{'rank':'5','suit':'♠','color':'black','name':'5 de Pique'},
+      '4-coeur':{'rank':'4','suit':'♥','color':'red','name':'4 de Cœur'},
+      '4-carreau':{'rank':'4','suit':'♦','color':'red','name':'4 de Carreau'},
+      '4-trefle':{'rank':'4','suit':'♣','color':'black','name':'4 de Trèfle'},
+      '4-pique':{'rank':'4','suit':'♠','color':'black','name':'4 de Pique'},
+      '3-coeur':{'rank':'3','suit':'♥','color':'red','name':'3 de Cœur'},
+      '3-carreau':{'rank':'3','suit':'♦','color':'red','name':'3 de Carreau'},
+      '3-trefle':{'rank':'3','suit':'♣','color':'black','name':'3 de Trèfle'},
+      '3-pique':{'rank':'3','suit':'♠','color':'black','name':'3 de Pique'},
+      '2-coeur':{'rank':'2','suit':'♥','color':'red','name':'2 de Cœur'},
+      '2-carreau':{'rank':'2','suit':'♦','color':'red','name':'2 de Carreau'},
+      '2-trefle':{'rank':'2','suit':'♣','color':'black','name':'2 de Trèfle'},
+      '2-pique':{'rank':'2','suit':'♠','color':'black','name':'2 de Pique'}
+    };
+
+    async function magicTryUnlock() {
+      const input = document.getElementById('magic-code-input').value.trim();
+      const error = document.getElementById('magic-lock-error');
+      if (!input) return;
+      try {
+        const res = await fetch(SUPA_URL+'/rest/v1/magie?select=code,carte&limit=1',{
+          headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+        });
+        const data = await res.json();
+        if (data && data[0] && input === data[0].code) {
+          const flash = document.getElementById('magic-flash');
+          flash.classList.add('go');
+          setTimeout(function(){flash.classList.remove('go');},120);
+          setTimeout(function(){magicRevealCard(data[0].carte);},100);
+          error.classList.remove('show');
+        } else {
+          error.classList.add('show');
+          document.getElementById('magic-code-input').value='';
+        }
+      } catch(e) {
+        error.textContent='Erreur de connexion. Réessayez.';
+        error.classList.add('show');
+      }
+    }
+
+    function magicRevealCard(carte) {
+      document.getElementById('magic-lock-bloc').style.display='none';
+      const bloc = document.getElementById('magic-reveal-bloc');
+      bloc.style.display='flex';
+      const c = MAGIC_CARDS[carte];
+      if (!c) return;
+      document.getElementById('magic-card-wrap').innerHTML = magicCardSVG(c.rank, c.suit, c.color);
+      document.getElementById('magic-card-name').textContent = c.name;
+      document.getElementById('magic-reveal-msg').textContent = 'Votre carte était… le ' + c.name + ' !';
+    }
+
+    function magicReset() {
+      document.getElementById('magic-reveal-bloc').style.display='none';
+      document.getElementById('magic-lock-bloc').style.display='flex';
+      document.getElementById('magic-code-input').value='';
+      document.getElementById('magic-lock-error').classList.remove('show');
+    }
+
+    document.getElementById('magic-code-input').addEventListener('keydown',function(e){
+      if(e.key==='Enter') magicTryUnlock();
+    });
+
   </script>
-</body>
-</html>
