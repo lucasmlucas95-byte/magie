@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>✦ Magie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; min-height: 100%;
+      background: #080608;
+      color: #f5f0e8;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+
+    /* ── Fond ambiance ── */
+    #bg {
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 50%, #1a0e08 0%, #080608 100%);
+    }
+
+    /* ── Cartes flottantes ── */
+    .cards-scene {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+    }
+    .float-card {
+      position: absolute;
+      border-radius: 8px;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6));
+      animation: cardFloat linear infinite;
+    }
+    .float-card svg { width: 100%; border-radius: 8px; display: block; }
+
+    @keyframes cardFloat {
+      0%   { opacity: 0; transform: translateY(0) rotate(var(--rot)) scale(0.88); }
+      12%  { opacity: var(--max-op); }
+      85%  { opacity: var(--max-op); }
+      100% { opacity: 0; transform: translateY(var(--travel)) rotate(calc(var(--rot) + var(--rotd))) scale(1.05); }
+    }
+
+    .float-card:nth-child(1) { left:3%;   top:10%;    width:100px; --rot:-14deg; --rotd:9deg;   --travel:-95px;  --max-op:.45; animation-duration:7s;   animation-delay:0s; }
+    .float-card:nth-child(2) { right:4%;  top:15%;    width:120px; --rot:17deg;  --rotd:-11deg; --travel:-110px; --max-op:.40; animation-duration:8.5s; animation-delay:0.5s; }
+    .float-card:nth-child(3) { left:10%;  bottom:12%; width:95px;  --rot:8deg;   --rotd:16deg;  --travel:-90px;  --max-op:.38; animation-duration:7.5s; animation-delay:1s; }
+    .float-card:nth-child(4) { right:10%; bottom:18%; width:110px; --rot:-11deg; --rotd:-19deg; --travel:-105px; --max-op:.42; animation-duration:9s;   animation-delay:1.3s; }
+    .float-card:nth-child(5) { left:25%;  top:5%;     width:85px;  --rot:22deg;  --rotd:-13deg; --travel:-75px;  --max-op:.32; animation-duration:6.5s; animation-delay:0.7s; }
+    .float-card:nth-child(6) { right:24%; bottom:6%;  width:100px; --rot:-24deg; --rotd:15deg;  --travel:-100px; --max-op:.38; animation-duration:8s;   animation-delay:0.3s; }
+    .float-card:nth-child(7) { left:0%;   bottom:35%; width:80px;  --rot:13deg;  --rotd:-10deg; --travel:-80px;  --max-op:.30; animation-duration:9.5s; animation-delay:1.1s; }
+    .float-card:nth-child(8) { right:0%;  top:40%;    width:100px; --rot:-18deg; --rotd:24deg;  --travel:-70px;  --max-op:.36; animation-duration:7.8s; animation-delay:0.6s; }
+    .float-card:nth-child(9) { left:48%;  top:3%;     width:88px;  --rot:6deg;   --rotd:-20deg; --travel:-85px;  --max-op:.28; animation-duration:10s;  animation-delay:1.5s; }
+    .float-card:nth-child(10){ right:38%; bottom:3%;  width:92px;  --rot:-8deg;  --rotd:18deg;  --travel:-95px;  --max-op:.33; animation-duration:8.2s; animation-delay:0.9s; }
+
+    /* ── Vignette ── */
+    #vignette {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 25%, rgba(8,6,8,0.55) 65%, rgba(8,6,8,0.92) 100%);
+    }
+
+    /* ── Glow pulsé ── */
+    #glow {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 65%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+
+    /* ── Rayons ── */
+    #rays {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      overflow: hidden; opacity: 0.6;
+    }
+    .ray {
+      position: absolute; top: 50%; left: 50%;
+      width: 1px; transform-origin: top center;
+      background: linear-gradient(to bottom, rgba(201,168,76,0.06), transparent);
+      animation: rotateRay var(--dur,20s) linear infinite;
+    }
+    @keyframes rotateRay {
+      from { transform: rotate(var(--start)); }
+      to   { transform: rotate(calc(var(--start) + 360deg)); }
+    }
+
+    /* ── Scène principale ── */
+    #scene {
+      position: relative; z-index: 3;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      gap: 2rem;
+    }
+
+    /* Ornement titre */
+    .ornament {
+      font-size: 0.75rem;
+      letter-spacing: 0.7em;
+      color: rgba(201,168,76,0.8);
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 6vw, 2.8rem);
+      font-weight: 400;
+      color: #f5f0e8;
+      text-align: center;
+      line-height: 1.2;
+      text-shadow: 0 0 60px rgba(201,168,76,0.2);
+    }
+    h1 em { font-style: italic; color: #c9a84c; font-family: 'Cormorant Garamond', serif; font-size: 1.2em; }
+
+    .divider {
+      width: 80px; height: 1px;
+      background: linear-gradient(to right, transparent, #c9a84c, transparent);
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      font-style: italic;
+      color: rgba(245,240,232,0.7);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    /* ── Bloc code ── */
+    #lock-bloc {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.4rem;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .code-box {
+      width: 100%;
+      padding: 2rem 2rem 1.8rem;
+      border: 1px solid rgba(201,168,76,0.2);
+      background: rgba(201,168,76,0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      position: relative;
+    }
+    .code-box::before, .code-box::after {
+      content: '✦';
+      position: absolute;
+      color: rgba(201,168,76,0.5);
+      font-size: 0.7rem;
+    }
+    .code-box::before { top: -0.5rem; left: 50%; transform: translateX(-50%); background: #080608; padding: 0 0.4rem; }
+    .code-box::after  { bottom: -0.5rem; left: 50%; transform: translateX(-50%); background: #080608; padding: 0 0.4rem; }
+
+    .code-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.7);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .code-input {
+      width: 100%;
+      padding: 0.8rem 0;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(201,168,76,0.25);
+      color: #f5f0e8;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.3s;
+      -webkit-appearance: none;
+    }
+    .code-input:focus { border-bottom-color: #c9a84c; }
+    .code-input::placeholder { color: rgba(245,240,232,0.2); font-size: 1.2rem; letter-spacing: 0.2em; }
+
+    .lock-error {
+      font-size: 0.72rem;
+      color: #e05555;
+      opacity: 0;
+      transition: opacity 0.3s;
+      letter-spacing: 0.1em;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+    .lock-error.show { opacity: 1; }
+
+    .unlock-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.35);
+      color: #c9a84c;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      transition: all 0.3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .unlock-btn:hover { background: rgba(201,168,76,0.08); border-color: #c9a84c; }
+    .unlock-btn:active { transform: scale(0.98); }
+
+    /* ── Carte révélée ── */
+    #reveal-bloc {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .reveal-msg {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+      font-style: italic;
+      color: rgba(245,240,232,0.75);
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    #card-wrap {
+      width: min(240px, 62vw);
+      aspect-ratio: 63/88;
+      position: relative;
+      filter: drop-shadow(0 0 50px rgba(201,168,76,0.3)) drop-shadow(0 20px 50px rgba(0,0,0,0.8));
+      animation: cardAppear 1s cubic-bezier(0.23,1,0.32,1) both;
+    }
+    @keyframes cardAppear {
+      from { transform: scale(0.7) translateY(30px) rotateY(90deg); opacity: 0; }
+      to   { transform: scale(1) translateY(0) rotateY(0deg); opacity: 1; }
+    }
+    #card-wrap svg { width: 100%; height: 100%; display: block; }
+
+    .reveal-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
+      font-style: italic;
+      color: #c9a84c;
+      text-align: center;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 30px rgba(201,168,76,0.4);
+    }
+
+    /* Flash */
+    #flash { position: fixed; inset: 0; z-index: 99; background: white; opacity: 0; pointer-events: none; transition: opacity 0.06s; }
+    #flash.go { opacity: 0.2; }
+  </style>
+</head>
+<body>
+
+<div id="bg"></div>
+
+<!-- Cartes flottantes Bicycle -->
+<div class="cards-scene">
+  <!-- As de cœur -->
+  <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">A</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">♥</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">♥</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle" transform="rotate(180,63,89)">A</text></svg></div>
+  <!-- As de pique -->
+  <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">A</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">♠</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">♠</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle" transform="rotate(180,63,89)">A</text></svg></div>
+  <!-- Roi de carreau -->
+  <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">K</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">♦</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">♦</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle" transform="rotate(180,63,89)">K</text></svg></div>
+  <!-- Dame de trèfle -->
+  <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">Q</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">♣</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">♣</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle" transform="rotate(180,63,89)">Q</text></svg></div>
+  <!-- Dos doré -->
+  <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="#1a1020"/><rect x="4" y="4" width="62" height="92" rx="4" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.7"/><rect x="9" y="9" width="52" height="82" rx="3" fill="none" stroke="#c9a84c" stroke-width="0.4" opacity="0.3"/><text x="35" y="56" font-family="Georgia,serif" font-size="24" fill="#c9a84c" text-anchor="middle" dominant-baseline="middle" opacity="0.85">✦</text></svg></div>
+  <!-- Valet de cœur -->
+  <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">J</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">♥</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">♥</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle" transform="rotate(180,63,89)">J</text></svg></div>
+  <!-- Dos doré 2 -->
+  <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="#1a1020"/><rect x="4" y="4" width="62" height="92" rx="4" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.7"/><rect x="9" y="9" width="52" height="82" rx="3" fill="none" stroke="#c9a84c" stroke-width="0.4" opacity="0.3"/><text x="35" y="56" font-family="Georgia,serif" font-size="24" fill="#c9a84c" text-anchor="middle" dominant-baseline="middle" opacity="0.85">✦</text></svg></div>
+  <!-- 7 de trèfle -->
+  <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">7</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">♣</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">♣</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle" transform="rotate(180,63,89)">7</text></svg></div>
+  <!-- 3 de carreau -->
+  <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">3</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">♦</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">♦</text><text x="63" y="89" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle" transform="rotate(180,63,89)">3</text></svg></div>
+  <!-- 10 de pique -->
+  <div class="float-card"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="5" y="19" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#1a1a1a">10</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">♠</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">♠</text><text x="63" y="89" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle" transform="rotate(180,63,89)">10</text></svg></div>
+</div>
+
+<div id="vignette"></div>
+<div id="glow"></div>
+<div id="rays"></div>
+<div id="flash"></div>
+
+<div id="scene">
+  <div class="ornament">✦ &nbsp; Magie &nbsp; ✦</div>
+  <h1>Votre carte<br><em>vous attend</em></h1>
+  <div class="divider"></div>
+  <p class="subtitle">Un secret vous a été confié.<br>Le moment est venu de le révéler.</p>
+
+  <!-- Verrou -->
+  <div id="lock-bloc">
+    <div class="code-box">
+      <div class="code-label">Entrez votre code secret</div>
+      <input
+        type="tel"
+        class="code-input"
+        id="lock-input"
+        placeholder="· · · · · · · ·"
+        maxlength="30"
+        inputmode="numeric"
+        autocomplete="off"
+      />
+      <div class="lock-error" id="lock-error">Ce code ne correspond pas… Réessayez.</div>
+    </div>
+    <button class="unlock-btn" onclick="tryUnlock()">✦ Révéler ✦</button>
+  </div>
+
+  <!-- Carte révélée -->
+  <div id="reveal-bloc">
+    <p class="reveal-msg">Votre carte était…</p>
+    <div id="card-wrap"></div>
+    <p class="reveal-card-name" id="card-name"></p>
+  </div>
+</div>
+
+<script>
+  /* ── Rayons ── */
+  const raysEl = document.getElementById('rays');
+  for(let i=0;i<20;i++){
+    const r=document.createElement('div'); r.className='ray';
+    r.style.setProperty('--start',(i*18)+'deg');
+    r.style.setProperty('--dur',(20+i*.8)+'s');
+    r.style.height=(35+Math.random()*30)+'vh';
+    raysEl.appendChild(r);
+  }
+
+  /* ── Supabase ── */
+  const SUPA_URL = 'https://dfxnaazkbcrvltlcbtsh.supabase.co';
+  const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmeG5hYXprYmNydmx0bGNidHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTIxNDAsImV4cCI6MjA5MDY2ODE0MH0.I1rlwrHSwjEnk82v8Ac-vEBofdMUyUGFTnYTepYGuFw';
+
+  const cardsData = {
+    '3-carreau': {
+      name: '3 de Carreau',
+      svg: `<svg viewBox="0 0 630 880" xmlns="http://www.w3.org/2000/svg">
+        <defs><radialGradient id="bg" cx="50%" cy="38%" r="65%"><stop offset="0%" stop-color="#fffef5"/><stop offset="100%" stop-color="#f7f0e2"/></radialGradient>
+        <radialGradient id="dg" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#ff2020"/><stop offset="100%" stop-color="#a80008"/></radialGradient></defs>
+        <rect width="630" height="880" rx="30" fill="url(#bg)"/>
+        <rect x="5" y="5" width="620" height="870" rx="26" fill="none" stroke="#c8bfa8" stroke-width="2.5"/>
+        <g transform="translate(42,36)"><text font-family="'Times New Roman',serif" font-size="80" font-weight="bold" fill="#c8000a" text-anchor="middle" x="26" y="74">3</text><text font-family="Arial,sans-serif" font-size="56" fill="#c8000a" text-anchor="middle" x="26" y="132">♦</text></g>
+        <g transform="translate(588,844) rotate(180)"><text font-family="'Times New Roman',serif" font-size="80" font-weight="bold" fill="#c8000a" text-anchor="middle" x="26" y="74">3</text><text font-family="Arial,sans-serif" font-size="56" fill="#c8000a" text-anchor="middle" x="26" y="132">♦</text></g>
+        <g transform="translate(315,248)"><path d="M0,-72 L60,0 L0,72 L-60,0 Z" fill="url(#dg)"/><path d="M-15,-55 L20,0 L-15,35 L-50,0 Z" fill="white" opacity="0.1"/></g>
+        <g transform="translate(315,440)"><path d="M0,-72 L60,0 L0,72 L-60,0 Z" fill="url(#dg)"/><path d="M-15,-55 L20,0 L-15,35 L-50,0 Z" fill="white" opacity="0.1"/></g>
+        <g transform="translate(315,632)"><path d="M0,-72 L60,0 L0,72 L-60,0 Z" fill="url(#dg)"/><path d="M-15,-55 L20,0 L-15,35 L-50,0 Z" fill="white" opacity="0.1"/></g>
+      </svg>`
+    },
+    '7-trefle': {
+      name: '7 de Trèfle',
+      svg: `<svg viewBox="0 0 630 880" xmlns="http://www.w3.org/2000/svg">
+        <defs><radialGradient id="bg" cx="50%" cy="38%" r="65%"><stop offset="0%" stop-color="#fffef5"/><stop offset="100%" stop-color="#f7f0e2"/></radialGradient></defs>
+        <rect width="630" height="880" rx="30" fill="url(#bg)"/>
+        <rect x="5" y="5" width="620" height="870" rx="26" fill="none" stroke="#c8bfa8" stroke-width="2.5"/>
+        <g transform="translate(42,36)"><text font-family="'Times New Roman',serif" font-size="80" font-weight="bold" fill="#0a0a0a" text-anchor="middle" x="26" y="74">7</text><text font-family="Arial,sans-serif" font-size="62" fill="#0a0a0a" text-anchor="middle" x="26" y="136">♣</text></g>
+        <g transform="translate(588,844) rotate(180)"><text font-family="'Times New Roman',serif" font-size="80" font-weight="bold" fill="#0a0a0a" text-anchor="middle" x="26" y="74">7</text><text font-family="Arial,sans-serif" font-size="62" fill="#0a0a0a" text-anchor="middle" x="26" y="136">♣</text></g>
+        <g id="cl"><circle cx="0" cy="-28" r="26" fill="#111"/><circle cx="-24" cy="0" r="26" fill="#111"/><circle cx="24" cy="0" r="26" fill="#111"/><path d="M-10,18 C-14,38 -20,48 -30,56 L30,56 C20,48 14,38 10,18Z" fill="#111"/></g>
+        <use href="#cl" transform="translate(210,190) scale(0.78)"/>
+        <use href="#cl" transform="translate(420,190) scale(0.78)"/>
+        <use href="#cl" transform="translate(315,280) scale(0.78)"/>
+        <use href="#cl" transform="translate(210,440) scale(0.78)"/>
+        <use href="#cl" transform="translate(420,440) scale(0.78)"/>
+        <use href="#cl" transform="translate(210,640) scale(0.78)"/>
+        <use href="#cl" transform="translate(420,640) scale(0.78)"/>
+      </svg>`
+    },
+    'valet-coeur': {
+      name: 'Valet de Cœur',
+      svg: `<svg viewBox="0 0 630 880" xmlns="http://www.w3.org/2000/svg">
+        <defs><radialGradient id="bg" cx="50%" cy="38%" r="65%"><stop offset="0%" stop-color="#fffef5"/><stop offset="100%" stop-color="#f7f0e2"/></radialGradient>
+        <radialGradient id="dg3" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#ff3030"/><stop offset="100%" stop-color="#a80010"/></radialGradient></defs>
+        <rect width="630" height="880" rx="30" fill="url(#bg)"/>
+        <rect x="5" y="5" width="620" height="870" rx="26" fill="none" stroke="#c8bfa8" stroke-width="2.5"/>
+        <g transform="translate(42,36)"><text font-family="'Times New Roman',serif" font-size="80" font-weight="bold" fill="#c8000a" text-anchor="middle" x="26" y="74">J</text><text font-family="Arial,sans-serif" font-size="56" fill="#c8000a" text-anchor="middle" x="26" y="132">♥</text></g>
+        <g transform="translate(588,844) rotate(180)"><text font-family="'Times New Roman',serif" font-size="80" font-weight="bold" fill="#c8000a" text-anchor="middle" x="26" y="74">J</text><text font-family="Arial,sans-serif" font-size="56" fill="#c8000a" text-anchor="middle" x="26" y="132">♥</text></g>
+        <rect x="230" y="280" width="170" height="320" rx="10" fill="#c8000a"/>
+        <circle cx="315" cy="230" r="70" fill="#f5e6c8"/>
+        <path d="M255,185 L275,155 L295,175 L315,145 L335,175 L355,155 L375,185 Z" fill="#c9a84c"/>
+        <circle cx="295" cy="220" r="10" fill="#111"/><circle cx="335" cy="220" r="10" fill="#111"/>
+        <path d="M295,250 Q315,270 335,250" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+        <path d="M315,530 C315,530 210,470 210,400 C210,365 235,345 270,345 C290,345 310,358 315,368 C320,358 340,345 360,345 C395,345 420,365 420,400 C420,470 315,530 315,530Z" fill="url(#dg3)"/>
+      </svg>`
+    },
+    '10-pique': {
+      name: '10 de Pique',
+      svg: `<svg viewBox="0 0 630 880" xmlns="http://www.w3.org/2000/svg">
+        <defs><radialGradient id="bg" cx="50%" cy="38%" r="65%"><stop offset="0%" stop-color="#fffef5"/><stop offset="100%" stop-color="#f7f0e2"/></radialGradient>
+        <g id="sp2"><path d="M0,-44 C-2,-39 -14,-30 -24,-20 C-35,-9 -37,2 -37,11 C-37,27 -25,35 -11,30 C-16,37 -20,43 -26,47 L26,47 C20,43 16,37 11,30 C25,35 37,27 37,11 C37,2 35,-9 24,-20 C14,-30 2,-39 0,-44Z" fill="#0d0d0d"/></g></defs>
+        <rect width="630" height="880" rx="30" fill="url(#bg)"/>
+        <rect x="5" y="5" width="620" height="870" rx="26" fill="none" stroke="#c8bfa8" stroke-width="2.5"/>
+        <g transform="translate(38,36)"><text font-family="'Times New Roman',serif" font-size="75" font-weight="bold" fill="#0a0a0a" text-anchor="middle" x="30" y="74">10</text><text font-family="Arial,sans-serif" font-size="62" fill="#0a0a0a" text-anchor="middle" x="30" y="136">♠</text></g>
+        <g transform="translate(592,844) rotate(180)"><text font-family="'Times New Roman',serif" font-size="75" font-weight="bold" fill="#0a0a0a" text-anchor="middle" x="30" y="74">10</text><text font-family="Arial,sans-serif" font-size="62" fill="#0a0a0a" text-anchor="middle" x="30" y="136">♠</text></g>
+        <use href="#sp2" transform="translate(190,175)"/><use href="#sp2" transform="translate(190,310)"/>
+        <use href="#sp2" transform="translate(190,445)"/><use href="#sp2" transform="translate(190,580)"/>
+        <use href="#sp2" transform="translate(315,242)"/><use href="#sp2" transform="translate(315,512) rotate(180)"/>
+        <use href="#sp2" transform="translate(440,175)"/><use href="#sp2" transform="translate(440,310)"/>
+        <use href="#sp2" transform="translate(440,445) rotate(180)"/><use href="#sp2" transform="translate(440,580) rotate(180)"/>
+      </svg>`
+    },
+    'as-pique': {
+      name: 'As de Pique',
+      svg: `<svg viewBox="0 0 630 880" xmlns="http://www.w3.org/2000/svg">
+        <defs><radialGradient id="bg" cx="50%" cy="38%" r="65%"><stop offset="0%" stop-color="#fffef5"/><stop offset="100%" stop-color="#f7f0e2"/></radialGradient></defs>
+        <rect width="630" height="880" rx="30" fill="url(#bg)"/>
+        <rect x="5" y="5" width="620" height="870" rx="26" fill="none" stroke="#c8bfa8" stroke-width="2.5"/>
+        <g transform="translate(42,36)"><text font-family="'Times New Roman',serif" font-size="80" font-weight="bold" fill="#0a0a0a" text-anchor="middle" x="26" y="74">A</text><text font-family="Arial,sans-serif" font-size="62" fill="#0a0a0a" text-anchor="middle" x="26" y="136">♠</text></g>
+        <g transform="translate(588,844) rotate(180)"><text font-family="'Times New Roman',serif" font-size="80" font-weight="bold" fill="#0a0a0a" text-anchor="middle" x="26" y="74">A</text><text font-family="Arial,sans-serif" font-size="62" fill="#0a0a0a" text-anchor="middle" x="26" y="136">♠</text></g>
+        <g transform="translate(315,415)"><path d="M 0,-220 C -10,-195 -70,-150 -120,-100 C -175,-45 -185,10 -185,55 C -185,135 -125,175 -55,148 C -80,185 -100,215 -130,235 L 130,235 C 100,215 80,185 55,148 C 125,175 185,135 185,55 C 185,10 175,-45 120,-100 C 70,-150 10,-195 0,-220 Z" fill="#0d0d0d"/></g>
+      </svg>`
+    },
+    'as-coeur': {
+      name: 'As de Cœur',
+      svg: `<svg viewBox="0 0 630 880" xmlns="http://www.w3.org/2000/svg">
+        <defs><radialGradient id="bg" cx="50%" cy="38%" r="65%"><stop offset="0%" stop-color="#fffef5"/><stop offset="100%" stop-color="#f7f0e2"/></radialGradient>
+        <radialGradient id="hg" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#ff2020"/><stop offset="100%" stop-color="#a80008"/></radialGradient></defs>
+        <rect width="630" height="880" rx="30" fill="url(#bg)"/>
+        <rect x="5" y="5" width="620" height="870" rx="26" fill="none" stroke="#c8bfa8" stroke-width="2.5"/>
+        <g transform="translate(42,36)"><text font-family="'Times New Roman',serif" font-size="80" font-weight="bold" fill="#c8000a" text-anchor="middle" x="26" y="74">A</text><text font-family="Arial,sans-serif" font-size="56" fill="#c8000a" text-anchor="middle" x="26" y="132">♥</text></g>
+        <g transform="translate(588,844) rotate(180)"><text font-family="'Times New Roman',serif" font-size="80" font-weight="bold" fill="#c8000a" text-anchor="middle" x="26" y="74">A</text><text font-family="Arial,sans-serif" font-size="56" fill="#c8000a" text-anchor="middle" x="26" y="132">♥</text></g>
+        <g transform="translate(315,415)"><path d="M0,-200 C-10,-175 -80,-130 -140,-70 C-190,-15 -200,30 -200,70 C-200,155 -135,195 -60,160 C-90,200 -115,230 -145,248 L145,248 C115,230 90,200 60,160 C135,195 200,155 200,70 C200,30 190,-15 140,-70 C80,-130 10,-175 0,-200Z" fill="url(#hg)"/><path d="M-40,-160 Q-20,-140 0,-150 Q-10,-130 -30,-110 Z" fill="white" opacity="0.12"/></g>
+      </svg>`
+    }
+  };
+
+  async function tryUnlock() {
+    const input = document.getElementById('lock-input').value.trim();
+    const error = document.getElementById('lock-error');
+    if (!input) return;
+
+    try {
+      const res = await fetch(SUPA_URL + '/rest/v1/magie?select=code,carte&limit=1', {
+        headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+      });
+      const data = await res.json();
+      if (data && data[0] && input === data[0].code) {
+        // Flash
+        const flash = document.getElementById('flash');
+        flash.classList.add('go');
+        setTimeout(() => flash.classList.remove('go'), 120);
+        // Révèle
+        setTimeout(() => revealCard(data[0].carte), 100);
+        error.classList.remove('show');
+      } else {
+        error.classList.add('show');
+        document.getElementById('lock-input').value = '';
+      }
+    } catch(e) {
+      error.textContent = 'Erreur de connexion. Réessayez.';
+      error.classList.add('show');
+    }
+  }
+
+  function revealCard(carte) {
+    document.getElementById('lock-bloc').style.display = 'none';
+    const revealBloc = document.getElementById('reveal-bloc');
+    revealBloc.style.display = 'flex';
+    const card = cardsData[carte] || cardsData['as-pique'];
+    document.getElementById('card-wrap').innerHTML = card.svg;
+    document.getElementById('card-name').textContent = card.name;
+  }
+
+  document.getElementById('lock-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') tryUnlock();
+  });
+</script>
+</body>
+</html>
