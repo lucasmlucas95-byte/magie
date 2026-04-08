@@ -9,7 +9,81 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; min-height: 100%; background: #060608; font-family: 'Cinzel', serif; color: #f5f0e8; touch-action: manipulation; }
-    body { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; padding: 2rem 1.5rem; gap: 1.5rem; }
+
+    /* ── ÉCRAN MOT DE PASSE ── */
+    #pw-screen {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #060608;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.8rem; padding: 2rem;
+    }
+    #pw-screen h2 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(0.9rem, 4vw, 1.2rem);
+      color: #c9a84c; letter-spacing: 0.2em;
+      text-align: center;
+      text-shadow: 0 0 30px rgba(201,168,76,0.4);
+    }
+    #pw-screen .pw-divider {
+      width: 120px; height: 1px;
+      background: linear-gradient(to right, transparent, #c9a84c, transparent);
+    }
+    #pw-screen .pw-box {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 1.2rem;
+      width: 100%; max-width: 320px;
+      padding: 2rem; border: 1px solid rgba(201,168,76,0.2);
+      background: rgba(201,168,76,0.03);
+      position: relative;
+    }
+    #pw-screen .pw-box::before, #pw-screen .pw-box::after {
+      content: '✦'; position: absolute;
+      color: rgba(201,168,76,0.4); font-size: 0.7rem;
+    }
+    #pw-screen .pw-box::before { top: -0.5rem; left: 50%; transform: translateX(-50%); background: #060608; padding: 0 0.4rem; }
+    #pw-screen .pw-box::after  { bottom: -0.5rem; left: 50%; transform: translateX(-50%); background: #060608; padding: 0 0.4rem; }
+    #pw-screen .pw-label {
+      font-size: 0.58rem; letter-spacing: 0.4em;
+      text-transform: uppercase; color: rgba(201,168,76,0.6);
+      text-align: center;
+    }
+    #pw-input {
+      width: 100%; padding: 0.8rem 0;
+      background: transparent; border: none;
+      border-bottom: 1px solid rgba(201,168,76,0.25);
+      color: #f5f0e8; font-family: 'Cinzel', serif;
+      font-size: 1.4rem; letter-spacing: 0.35em;
+      text-align: center; outline: none;
+      transition: border-color 0.3s;
+      -webkit-appearance: none;
+    }
+    #pw-input:focus { border-bottom-color: #c9a84c; }
+    #pw-error {
+      font-size: 0.68rem; color: #e05555;
+      font-style: italic; opacity: 0;
+      transition: opacity 0.3s; text-align: center;
+      font-family: 'Cinzel', serif;
+    }
+    #pw-error.show { opacity: 1; }
+    #pw-btn {
+      width: 100%; padding: 0.9rem;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.35);
+      color: #c9a84c; font-family: 'Cinzel Decorative', serif;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      cursor: pointer; transition: all 0.3s;
+    }
+    #pw-btn:hover { background: rgba(201,168,76,0.08); border-color: #c9a84c; }
+
+    /* ── CONTENU ADMIN (masqué jusqu'au bon code) ── */
+    #admin-content {
+      display: none;
+      flex-direction: column; align-items: center;
+      width: 100%; min-height: 100vh;
+      padding: 2rem 1.5rem; gap: 1.5rem;
+    }
+    #admin-content.unlocked { display: flex; }
     h1 { font-family: 'Cinzel Decorative', serif; font-size: clamp(0.9rem, 4vw, 1.1rem); color: #c9a84c; letter-spacing: 0.2em; text-align: center; text-shadow: 0 0 30px rgba(201,168,76,0.4); }
     .divider { width: 160px; height: 1px; background: linear-gradient(to right, transparent, #c9a84c, transparent); }
     p.sub { font-size: 0.6rem; letter-spacing: 0.25em; color: rgba(201,168,76,0.5); text-transform: uppercase; text-align: center; }
@@ -53,9 +127,25 @@
     .current-box { width: 100%; max-width: 400px; padding: 0.8rem 1rem; border: 1px solid rgba(201,168,76,0.12); border-radius: 6px; text-align: center; }
     .current-label { font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(201,168,76,0.35); margin-bottom: 0.3rem; }
     .current-value { font-size: 0.8rem; color: #c9a84c; }
-  </style>
+</style>
 </head>
 <body>
+
+  <!-- ÉCRAN MOT DE PASSE -->
+  <div id="pw-screen">
+    <h2>✦ Espace Admin ✦</h2>
+    <div class="pw-divider"></div>
+    <div class="pw-box">
+      <div class="pw-label">Mot de passe</div>
+      <input type="password" id="pw-input" placeholder="· · · · · · · ·" maxlength="30" autocomplete="off"/>
+      <div id="pw-error">Code incorrect. Réessayez.</div>
+      <button id="pw-btn" onclick="checkPw()">✦ Entrer ✦</button>
+    </div>
+  </div>
+
+  <!-- CONTENU ADMIN (déverrouillé après mot de passe) -->
+  <div id="admin-content">
+
   <h1>✦ Admin Tour de Magie ✦</h1>
   <div class="divider"></div>
   <p class="sub">Configurez le tour avant le spectacle</p>
@@ -194,6 +284,206 @@
       }
     }
     load();
+  </script>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- ── SECTION DEVIS ── -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="divider" style="margin-top:1rem;"></div>
+  <p class="sub" style="margin-top:0.5rem;">Générateur de devis client</p>
+
+  <button onclick="toggleDevis()" id="devis-toggle-btn" style="
+    width:100%;max-width:400px;padding:0.8rem;
+    background:transparent;border:1px solid rgba(201,168,76,0.3);
+    border-radius:8px;color:rgba(201,168,76,0.7);
+    font-family:'Cinzel',serif;font-size:0.72rem;
+    letter-spacing:0.2em;text-transform:uppercase;
+    cursor:pointer;transition:all 0.3s;
+  " onmouseover="this.style.background='rgba(201,168,76,0.08)';this.style.borderColor='#c9a84c';this.style.color='#c9a84c'"
+     onmouseout="this.style.background='transparent';this.style.borderColor='rgba(201,168,76,0.3)';this.style.color='rgba(201,168,76,0.7)'">
+    ✦ Créer un devis ✦
+  </button>
+
+  <!-- Panneau devis masqué par défaut -->
+  <div id="devis-panel" style="display:none;width:100%;max-width:760px;margin-top:1rem;font-family:Arial,sans-serif;">
+
+    <!-- Bouton imprimer -->
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+      <button onclick="window.print()" style="background:#c9a84c;color:#060608;border:none;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:bold;cursor:pointer;">🖨 Imprimer / PDF</button>
+      <button onclick="resetDevis()" style="background:rgba(201,168,76,0.1);color:#c9a84c;border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:10px 16px;font-size:13px;cursor:pointer;">Réinitialiser</button>
+      <span style="font-size:11px;color:rgba(201,168,76,0.4);font-style:italic;">Remplis les champs puis imprime en PDF</span>
+    </div>
+
+    <div id="devis-doc" style="background:white;border:1px solid #ccc;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.15);">
+
+      <!-- HEADER -->
+      <div style="background:#1F3864;color:white;padding:22px 28px;display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <div style="font-size:20px;font-weight:bold;letter-spacing:0.05em;">DEVIS DE PRESTATION</div>
+          <div style="font-size:13px;color:#93afd4;margin-top:4px;">Lucas Moreau — Magicien</div>
+        </div>
+        <div style="text-align:right;font-size:12px;color:#93afd4;line-height:2.2;">
+          <span style="display:block;color:#7fb3e8;font-weight:bold;font-size:13px;">N° DEVIS-2026-<input id="d-num" style="width:45px;background:transparent;border:none;border-bottom:1px solid #4a6fa0;color:#7fb3e8;font-size:13px;font-family:Arial,sans-serif;text-align:center;" value="001"></span>
+          <span>Date : <input id="d-date" style="width:105px;background:transparent;border:none;border-bottom:1px solid #4a6fa0;color:#93afd4;font-size:12px;font-family:Arial,sans-serif;" placeholder="__ / __ / 2026"></span>
+          <span style="display:block;">Validité : 30 jours</span>
+        </div>
+      </div>
+
+      <!-- CLIENT + ÉVÉNEMENT -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #e5e5e5;">
+        <div style="padding:16px 22px;">
+          <span style="font-size:11px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:8px;">Client</span>
+          <input class="df" placeholder="Prénom NOM"><input class="df" placeholder="Email" type="email"><input class="df" placeholder="Téléphone" type="tel"><input class="df" placeholder="Adresse">
+        </div>
+        <div style="padding:16px 22px;border-left:1px solid #e5e5e5;">
+          <span style="font-size:11px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:8px;">Événement</span>
+          <input class="df" placeholder="Type d'événement"><input class="df" placeholder="Date de l'événement"><input class="df" placeholder="Lieu"><input class="df" placeholder="Nombre d'invités">
+        </div>
+      </div>
+
+      <!-- TABLEAU PRESTATIONS -->
+      <div style="background:#2E6DA4;color:white;padding:9px 22px;font-size:11px;font-weight:bold;letter-spacing:0.08em;">DÉTAIL DE LA PRESTATION</div>
+      <table style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="background:#1F3864;color:white;font-size:11px;padding:10px 16px;text-align:left;">Prestation</th>
+            <th style="background:#1F3864;color:white;font-size:11px;padding:10px 16px;text-align:left;">Durée</th>
+            <th style="background:#1F3864;color:white;font-size:11px;padding:10px 16px;text-align:left;">Détails</th>
+            <th style="background:#1F3864;color:white;font-size:11px;padding:10px 16px;text-align:right;">Montant HT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:white;">
+            <td style="padding:11px 16px;"><div style="font-weight:bold;font-size:13px;color:#1a1a2e;">Magie close-up / Magie de table</div><div style="font-size:11px;color:#888;margin-top:2px;">Animation vin d'honneur et/ou dîner</div></td>
+            <td style="padding:11px 16px;font-size:12px;color:#888;">2h min.</td>
+            <td style="padding:11px 16px;font-size:12px;color:#888;">Tout public</td>
+            <td style="padding:11px 16px;text-align:right;"><input type="number" class="da" id="dp1" min="0" step="1" placeholder="0"> €</td>
+          </tr>
+          <tr style="background:#f7f8fa;">
+            <td style="padding:11px 16px;"><div style="font-weight:bold;font-size:13px;color:#1a1a2e;">Frais de déplacement</div><div style="font-size:11px;color:#888;margin-top:2px;">Selon distance depuis l'Île-de-France</div></td>
+            <td style="padding:11px 16px;font-size:12px;color:#888;">—</td>
+            <td style="padding:11px 16px;font-size:12px;color:#888;">Aller-retour</td>
+            <td style="padding:11px 16px;text-align:right;"><input type="number" class="da" id="dp2" min="0" step="1" placeholder="0"> €</td>
+          </tr>
+          <tr style="background:white;">
+            <td style="padding:11px 16px;"><div style="font-weight:bold;font-size:13px;color:#1a1a2e;">Options supplémentaires</div><div style="font-size:11px;color:#888;margin-top:2px;">Durée additionnelle, prestation spéciale…</div></td>
+            <td style="padding:11px 16px;font-size:12px;color:#888;">—</td>
+            <td style="padding:11px 16px;font-size:12px;color:#888;">Sur demande</td>
+            <td style="padding:11px 16px;text-align:right;"><input type="number" class="da" id="dp3" min="0" step="1" placeholder="0"> €</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- TOTAL -->
+      <div style="display:flex;justify-content:flex-end;align-items:center;border-top:1px solid #e5e5e5;">
+        <div style="padding:11px 20px;font-size:11px;color:#aaa;font-style:italic;flex:1;text-align:right;">TVA non applicable — Art. 293B du CGI</div>
+        <div style="background:#1F3864;padding:16px 22px;display:flex;align-items:center;gap:22px;">
+          <span style="font-size:12px;font-weight:bold;letter-spacing:0.08em;color:#93afd4;">TOTAL TTC</span>
+          <span id="d-total" style="font-size:24px;font-weight:bold;color:white;min-width:110px;text-align:right;">0 €</span>
+        </div>
+      </div>
+
+      <!-- CITATION -->
+      <div style="padding:13px 22px;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;font-size:12px;font-style:italic;color:#2E6DA4;text-align:center;">
+        « Je suis ravi de vous accompagner pour cet événement et ferai tout mon possible pour créer des moments d'émerveillement inoubliables. »
+      </div>
+
+      <!-- CONDITIONS -->
+      <div style="background:#2E6DA4;color:white;padding:9px 22px;font-size:11px;font-weight:bold;letter-spacing:0.08em;">CONDITIONS &amp; MODALITÉS</div>
+      <div style="display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid #e5e5e5;"><div style="padding:10px 16px;font-size:11px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Acompte</div><div style="padding:10px 16px;font-size:12px;color:#555;">30 % du montant total à la confirmation de la réservation.</div></div>
+      <div style="display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid #e5e5e5;"><div style="padding:10px 16px;font-size:11px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Solde</div><div style="padding:10px 16px;font-size:12px;color:#555;">Réglé le jour de la prestation ou par virement dans les 7 jours précédant l'événement.</div></div>
+      <div style="display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid #e5e5e5;"><div style="padding:10px 16px;font-size:11px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Annulation</div><div style="padding:10px 16px;font-size:12px;color:#555;">Moins de 30 jours : l'acompte reste acquis. Moins de 7 jours : 50 % du montant total est dû.</div></div>
+      <div style="display:grid;grid-template-columns:120px 1fr;"><div style="padding:10px 16px;font-size:11px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Déplacements</div><div style="padding:10px 16px;font-size:12px;color:#555;">Hors Île-de-France, facturés en sus selon conditions définies ensemble.</div></div>
+
+      <!-- SIGNATURES -->
+      <div style="background:#2E6DA4;color:white;padding:9px 22px;font-size:11px;font-weight:bold;letter-spacing:0.08em;">BON POUR ACCORD</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e5e5e5;">
+        <div style="padding:16px 22px;">
+          <div style="font-size:13px;font-weight:bold;color:#1a1a2e;">Lucas Moreau — Magicien</div>
+          <div style="font-size:11px;color:#aaa;font-style:italic;margin-top:4px;">Signature &amp; date</div>
+          <div style="height:44px;margin-top:10px;border-bottom:1px dashed #ccc;"></div>
+        </div>
+        <div style="padding:16px 22px;border-left:1px solid #e5e5e5;">
+          <div style="font-size:11px;color:#aaa;font-style:italic;">Précédé de la mention « Bon pour accord »</div>
+          <div style="font-size:11px;color:#aaa;font-style:italic;margin-top:4px;">Signature, date &amp; tampon si société</div>
+          <div style="height:44px;margin-top:10px;border-bottom:1px dashed #ccc;"></div>
+        </div>
+      </div>
+
+    </div><!-- fin devis-doc -->
+  </div><!-- fin devis-panel -->
+
+  <style>
+    .df { width:100%;border:none;border-bottom:1px solid #c5d5e8;background:transparent;font-size:13px;color:#1a1a2e;padding:3px 0;margin:3px 0 7px;font-family:Arial,sans-serif;display:block; }
+    .df:focus { outline:none;border-bottom-color:#2E6DA4; }
+    .da { width:90px;text-align:right;border:1px solid #ccc;border-radius:6px;padding:5px 8px;font-size:14px;font-weight:bold;font-family:Arial,sans-serif;color:#1a1a2e;background:white; }
+    .da:focus { outline:none;border-color:#2E6DA4; }
+    @media print {
+      body > *:not(#devis-panel) { display:none !important; }
+      #devis-panel { display:block !important; }
+      #devis-panel > div:first-child { display:none !important; }
+      #devis-doc { box-shadow:none;border-radius:0;border:none; }
+      .df, .da, input { border:none !important;background:transparent !important;box-shadow:none !important; }
+      @page { size:A4;margin:12mm 14mm; }
+    }
+  </style>
+
+  <script>
+    function toggleDevis() {
+      var p = document.getElementById('devis-panel');
+      var btn = document.getElementById('devis-toggle-btn');
+      if (p.style.display === 'none') {
+        p.style.display = 'block';
+        btn.textContent = '✕ Fermer le devis';
+      } else {
+        p.style.display = 'none';
+        btn.textContent = '✦ Créer un devis ✦';
+      }
+    }
+    function calcDevis() {
+      var total = 0;
+      ['dp1','dp2','dp3'].forEach(function(id) {
+        var v = parseFloat(document.getElementById(id).value);
+        if (!isNaN(v) && v > 0) total += v;
+      });
+      document.getElementById('d-total').textContent = total.toLocaleString('fr-FR') + ' €';
+    }
+    ['dp1','dp2','dp3'].forEach(function(id) {
+      document.getElementById(id).addEventListener('input', calcDevis);
+    });
+    function resetDevis() {
+      if (!confirm('Réinitialiser le devis ?')) return;
+      document.querySelectorAll('#devis-doc input').forEach(function(inp) {
+        if (inp.id !== 'd-num') inp.value = '';
+      });
+      document.getElementById('d-num').value = '001';
+      document.getElementById('d-total').textContent = '0 €';
+    }
+  </script>
+
+  </div><!-- fin admin-content -->
+
+  <script>
+    // Mot de passe admin
+    function checkPw() {
+      var val = document.getElementById('pw-input').value;
+      var err = document.getElementById('pw-error');
+      if (val === '7zbnl3I1') {
+        document.getElementById('pw-screen').style.display = 'none';
+        document.getElementById('admin-content').classList.add('unlocked');
+        err.classList.remove('show');
+        // Charger la config Supabase une fois déverrouillé
+        load();
+      } else {
+        err.classList.add('show');
+        document.getElementById('pw-input').value = '';
+      }
+    }
+    document.getElementById('pw-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') checkPw();
+    });
+    // Focus automatique sur le champ mot de passe
+    document.getElementById('pw-input').focus();
   </script>
 </body>
 </html>
