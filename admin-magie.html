@@ -9,13 +9,13 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; min-height: 100%; background: #060608; font-family: 'Cinzel', serif; color: #f5f0e8; touch-action: manipulation; -webkit-text-size-adjust: 100%; }
+
+    /* ── MOT DE PASSE ── */
     #pw-screen { position: fixed; inset: 0; z-index: 9999; background: #060608; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8rem; padding: 2rem; }
     #pw-screen h2 { font-family: 'Cinzel Decorative', serif; font-size: clamp(0.9rem, 4vw, 1.2rem); color: #c9a84c; letter-spacing: 0.2em; text-align: center; text-shadow: 0 0 30px rgba(201,168,76,0.4); }
     .pw-divider { width: 120px; height: 1px; background: linear-gradient(to right, transparent, #c9a84c, transparent); }
     .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; width: 100%; max-width: 320px; padding: 2rem; border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.03); position: relative; }
-    .pw-box::before, .pw-box::after { content: '✦'; position: absolute; color: rgba(201,168,76,0.4); font-size: 0.7rem; }
-    .pw-box::before { top: -0.5rem; left: 50%; transform: translateX(-50%); background: #060608; padding: 0 0.4rem; }
-    .pw-box::after  { bottom: -0.5rem; left: 50%; transform: translateX(-50%); background: #060608; padding: 0 0.4rem; }
+    .pw-box::before { content: '✦'; position: absolute; top: -0.5rem; left: 50%; transform: translateX(-50%); background: #060608; padding: 0 0.4rem; color: rgba(201,168,76,0.4); font-size: 0.7rem; }
     .pw-label { font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(201,168,76,0.6); text-align: center; }
     #pw-input { width: 100%; padding: 0.9rem 0; background: transparent; border: none; border-bottom: 1px solid rgba(201,168,76,0.25); color: #f5f0e8; font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 0.35em; text-align: center; outline: none; transition: border-color 0.3s; -webkit-appearance: none; }
     #pw-input:focus { border-bottom-color: #c9a84c; }
@@ -23,6 +23,8 @@
     #pw-error.show { opacity: 1; }
     #pw-btn { width: 100%; padding: 0.9rem; background: transparent; border: 1px solid rgba(201,168,76,0.35); color: #c9a84c; font-family: 'Cinzel Decorative', serif; font-size: 0.7rem; letter-spacing: 0.2em; cursor: pointer; transition: all 0.3s; }
     #pw-btn:hover { background: rgba(201,168,76,0.08); border-color: #c9a84c; }
+
+    /* ── ADMIN ── */
     #admin-content { display: none; flex-direction: column; align-items: center; width: 100%; min-height: 100vh; padding: 2rem 1rem 4rem; gap: 1.2rem; }
     #admin-content.unlocked { display: flex; }
     h1 { font-family: 'Cinzel Decorative', serif; font-size: clamp(0.85rem, 3.5vw, 1.1rem); color: #c9a84c; letter-spacing: 0.18em; text-align: center; text-shadow: 0 0 30px rgba(201,168,76,0.4); }
@@ -54,19 +56,21 @@
     .current-value { font-size: 0.8rem; color: #c9a84c; }
     .devis-toggle-btn { width: 100%; max-width: 420px; padding: 0.9rem; background: transparent; border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; color: rgba(201,168,76,0.7); font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
     .devis-toggle-btn:hover { background: rgba(201,168,76,0.08); border-color: #c9a84c; color: #c9a84c; }
+
+    /* ── DEVIS ── */
     #devis-panel { display: none; width: 100%; max-width: 520px; }
     #devis-panel.open { display: block; }
     .d-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-    .d-btn-print { background: #c9a84c; color: #060608; border: none; border-radius: 8px; padding: 11px 14px; font-size: 13px; font-weight: bold; cursor: pointer; flex: 1; }
-    .d-btn-pdf { background: #1F3864; color: white; border: none; border-radius: 8px; padding: 11px 14px; font-size: 13px; font-weight: bold; cursor: pointer; flex: 1; }
-    .d-btn-reset { background: rgba(201,168,76,0.08); color: #c9a84c; border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; padding: 11px 12px; font-size: 13px; cursor: pointer; }
-    .d-hint { font-size: 10px; color: rgba(201,168,76,0.35); font-style: italic; font-family: Arial, sans-serif; width: 100%; }
-    #devis-doc { background: white; border: 1px solid #ccc; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
+    .d-btn-pdf { background: #c9a84c; color: #060608; border: none; border-radius: 8px; padding: 12px 14px; font-size: 13px; font-weight: bold; cursor: pointer; flex: 1; font-family: Arial, sans-serif; }
+    .d-btn-reset { background: rgba(201,168,76,0.08); color: #c9a84c; border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; padding: 12px 14px; font-size: 13px; cursor: pointer; font-family: Arial, sans-serif; }
+    .d-hint { font-size: 10px; color: rgba(201,168,76,0.35); font-style: italic; font-family: Arial, sans-serif; width: 100%; line-height: 1.5; }
+
+    #devis-doc { background: white; border: 1px solid #ccc; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.3); }
     .dv-header { background: #1F3864; color: white; padding: 18px 20px; }
-    .dv-header-title { font-size: 17px; font-weight: bold; color: white; letter-spacing: 0.04em; font-family: Arial, sans-serif; }
+    .dv-header-title { font-size: 17px; font-weight: bold; color: white; font-family: Arial, sans-serif; }
     .dv-header-sub { font-size: 12px; color: #93afd4; margin-top: 3px; font-family: Arial, sans-serif; }
     .dv-num-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-    .dv-num-row input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: white; padding: 7px 10px; font-size: 13px; font-family: Arial, sans-serif; width: 100%; outline: none; }
+    .dv-num-row input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; color: white; padding: 7px 10px; font-size: 13px; font-family: Arial, sans-serif; width: 100%; outline: none; }
     .dv-num-row input::placeholder { color: rgba(255,255,255,0.4); }
     .dv-sec { background: #2E6DA4; color: white; padding: 8px 16px; font-size: 10px; font-weight: bold; letter-spacing: 0.1em; font-family: Arial, sans-serif; }
     .dv-fields { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid #e5e5e5; }
@@ -103,29 +107,13 @@
     .dv-sig-name { font-size: 13px; font-weight: bold; color: #1a1a2e; font-family: Arial, sans-serif; }
     .dv-sig-note { font-size: 10px; color: #aaa; font-style: italic; margin-top: 3px; font-family: Arial, sans-serif; }
     .dv-canvas-wrap { position: relative; margin-top: 10px; }
-    .sig-canvas { width: 100%; height: 90px; border: 1px dashed #ccc; border-radius: 6px; background: #fafafa; display: block; touch-action: none; cursor: crosshair; }
+    .sig-canvas { width: 100%; height: 80px; border: 1px dashed #ccc; border-radius: 6px; background: #fafafa; display: block; touch-action: none; cursor: crosshair; }
     .sig-clear { position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,0.9); border: 1px solid #ddd; border-radius: 4px; padding: 3px 8px; font-size: 10px; color: #888; cursor: pointer; font-family: Arial, sans-serif; }
-
-    /* ── IMPRESSION ── */
-    @media print {
-      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      html, body { background: white !important; color: #1a1a2e !important; margin: 0 !important; padding: 0 !important; }
-      #pw-screen { display: none !important; }
-      #admin-content { background: white !important; padding: 0 !important; display: block !important; }
-      #admin-content > *:not(#devis-panel) { display: none !important; }
-      #devis-panel { display: block !important; max-width: 100% !important; }
-      .d-actions { display: none !important; }
-      #devis-doc { box-shadow: none !important; border-radius: 0 !important; border: none !important; }
-      .dv-input, .dv-amount-input, .dv-remise-val { border: 1px solid #ccc !important; background: white !important; }
-      .dv-remise-type { border: 1px solid #ccc !important; background: white !important; }
-      .sig-canvas { background: white !important; border: 1px dashed #bbb !important; }
-      .sig-clear { display: none !important; }
-      @page { size: A4; margin: 10mm 12mm; }
-    }
   </style>
 </head>
 <body>
 
+<!-- MOT DE PASSE -->
 <div id="pw-screen">
   <h2>✦ Espace Admin ✦</h2>
   <div class="pw-divider"></div>
@@ -137,6 +125,7 @@
   </div>
 </div>
 
+<!-- CONTENU ADMIN -->
 <div id="admin-content">
 
   <h1>✦ Admin Tour de Magie ✦</h1>
@@ -151,7 +140,6 @@
 
   <div class="divider"></div>
   <p class="sub">Valeur de la carte</p>
-
   <div class="value-grid">
     <button class="val-btn" onclick="selectVal(this,'A')">A</button>
     <button class="val-btn" onclick="selectVal(this,'2')">2</button>
@@ -169,7 +157,6 @@
   </div>
 
   <p class="sub">Couleur de la carte</p>
-
   <div class="suit-grid">
     <button class="suit-btn" onclick="selectSuit(this,'coeur','♥')">♥</button>
     <button class="suit-btn" onclick="selectSuit(this,'carreau','♦')">♦</button>
@@ -188,29 +175,26 @@
     <div class="current-label">Configuration actuelle en base</div>
     <div class="current-value" id="active-value">Chargement…</div>
   </div>
-
   <div id="status" class="loading">Connexion…</div>
 
   <div class="divider" style="margin-top:1rem;"></div>
   <p class="sub">Générateur de devis client</p>
-
   <button class="devis-toggle-btn" id="devis-toggle-btn" onclick="toggleDevis()">✦ Créer un devis ✦</button>
 
   <div id="devis-panel">
     <div class="d-actions">
-      <button class="d-btn-print" onclick="window.print()">🖨 Imprimer</button>
-      <button class="d-btn-pdf" onclick="openPdfWindow()">📄 PDF propre</button>
-      <button class="d-btn-reset" onclick="resetDevis()">↺</button>
-      <span class="d-hint">💡 Sur mobile : "PDF propre" ouvre une page blanche à enregistrer en PDF sans fond noir</span>
+      <button class="d-btn-pdf" onclick="genPDF()">📄 Générer le PDF client</button>
+      <button class="d-btn-reset" onclick="resetDevis()">↺ Réinitialiser</button>
     </div>
+    <p class="d-hint">💡 Remplis le devis puis appuie sur "Générer le PDF" — une page blanche s'ouvre, appuie sur Partager → Enregistrer en PDF.</p>
 
     <div id="devis-doc">
       <div class="dv-header">
         <div class="dv-header-title">DEVIS DE PRESTATION</div>
         <div class="dv-header-sub">Lucas Moreau — Magicien</div>
         <div class="dv-num-row">
-          <input id="d-num" placeholder="N° devis" value="001"/>
-          <input id="d-date" placeholder="Date : __ / __ / 2026"/>
+          <input id="d-num" placeholder="N° devis — ex: 001" value="001"/>
+          <input id="d-date" placeholder="Date — ex: 08/04/2026"/>
         </div>
       </div>
 
@@ -280,12 +264,12 @@
       <div class="dv-sig-bloc">
         <div class="dv-sig-name">Lucas Moreau — Magicien</div>
         <div class="dv-sig-note">Votre signature ci-dessous</div>
-        <div class="dv-canvas-wrap"><canvas class="sig-canvas" id="sig-prestataire" width="480" height="90"></canvas><button class="sig-clear" onclick="clearSig('sig-prestataire')">Effacer</button></div>
+        <div class="dv-canvas-wrap"><canvas class="sig-canvas" id="sig-prestataire" width="480" height="80"></canvas><button class="sig-clear" onclick="clearSig('sig-prestataire')">Effacer</button></div>
       </div>
       <div class="dv-sig-bloc" style="border-bottom:none;">
         <div class="dv-sig-name">Le client</div>
         <div class="dv-sig-note">Précédé de « Bon pour accord » — Signature &amp; date</div>
-        <div class="dv-canvas-wrap"><canvas class="sig-canvas" id="sig-client" width="480" height="90"></canvas><button class="sig-clear" onclick="clearSig('sig-client')">Effacer</button></div>
+        <div class="dv-canvas-wrap"><canvas class="sig-canvas" id="sig-client" width="480" height="80"></canvas><button class="sig-clear" onclick="clearSig('sig-client')">Effacer</button></div>
       </div>
     </div>
   </div>
@@ -293,68 +277,170 @@
 </div>
 
 <script>
-  /* MOT DE PASSE */
-  function checkPw() {
-    var val = document.getElementById('pw-input').value;
-    var err = document.getElementById('pw-error');
-    if (val === '7zbnl3I1') {
-      document.getElementById('pw-screen').style.display = 'none';
-      document.getElementById('admin-content').classList.add('unlocked');
-      err.classList.remove('show');
-      load();
-    } else { err.classList.add('show'); document.getElementById('pw-input').value = ''; }
-  }
-  document.getElementById('pw-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') checkPw(); });
-  document.getElementById('pw-input').focus();
+/* ── MOT DE PASSE ── */
+function checkPw(){var v=document.getElementById('pw-input').value,e=document.getElementById('pw-error');if(v==='7zbnl3I1'){document.getElementById('pw-screen').style.display='none';document.getElementById('admin-content').classList.add('unlocked');e.classList.remove('show');load();}else{e.classList.add('show');document.getElementById('pw-input').value='';}}
+document.getElementById('pw-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw();});
+document.getElementById('pw-input').focus();
 
-  /* MAGIE */
-  var URL_S = 'https://dfxnaazkbcrvltlcbtsh.supabase.co';
-  var KEY_S = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmeG5hYXprYmNydmx0bGNidHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTIxNDAsImV4cCI6MjA5MDY2ODE0MH0.I1rlwrHSwjEnk82v8Ac-vEBofdMUyUGFTnYTepYGuFw';
-  var suitNames={coeur:'Cœur',carreau:'Carreau',trefle:'Trèfle',pique:'Pique'};
-  var suitSymbols={coeur:'♥',carreau:'♦',trefle:'♣',pique:'♠'};
-  var valNames={A:'As',J:'Valet',Q:'Dame',K:'Roi'};
-  var selVal=null,selSuit=null,selSuitName=null,selSymbol=null;
-  function selectVal(btn,v){selVal=v;document.querySelectorAll('.val-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');updatePreview();}
-  function selectSuit(btn,s,sym){selSuit=s;selSuitName=suitNames[s];selSymbol=sym;document.querySelectorAll('.suit-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');updatePreview();}
-  function updatePreview(){if(selVal&&selSuit){var vName=valNames[selVal]||selVal;var color=(selSuit==='coeur'||selSuit==='carreau')?'#e05050':'#c9a84c';document.getElementById('preview-card').innerHTML='<span style="color:'+color+';font-size:1.4rem">'+selSymbol+' </span>'+vName+' de '+selSuitName;}}
-  function getCardKey(){if(!selVal||!selSuit)return null;var vKey=selVal==='A'?'as':selVal==='J'?'valet':selVal==='Q'?'dame':selVal==='K'?'roi':selVal;return vKey+'-'+selSuit;}
-  function getCardLabel(key){if(!key)return '—';var parts=key.split('-');var v=parts[0];var s=parts.slice(1).join('-');var vName={as:'As',valet:'Valet',dame:'Dame',roi:'Roi'}[v]||v;var sym=suitSymbols[s]||'';var color=(s==='coeur'||s==='carreau')?'#e05050':'#c9a84c';return '<span style="color:'+color+'">'+sym+' '+vName+' de '+(suitNames[s]||s)+'</span>';}
-  async function load(){try{var res=await fetch(URL_S+'/rest/v1/magie?select=code,carte&limit=1',{headers:{'apikey':KEY_S,'Authorization':'Bearer '+KEY_S}});var data=await res.json();if(data&&data[0]){document.getElementById('code-input').value=data[0].code;document.getElementById('active-value').innerHTML='Code : '+data[0].code+'  |  Carte : '+getCardLabel(data[0].carte);}document.getElementById('status').textContent='✦ Prêt';document.getElementById('status').className='ok';}catch(e){document.getElementById('status').textContent='Erreur connexion';document.getElementById('status').className='err';}}
-  async function save(){var code=document.getElementById('code-input').value.trim();if(!code||code.length<4){alert('Entrez la date de naissance.');return;}var carte=getCardKey();if(!carte){alert('Choisissez une valeur ET une couleur.');return;}var btn=document.getElementById('save-btn');btn.disabled=true;btn.textContent='Enregistrement…';document.getElementById('status').textContent='Mise à jour…';document.getElementById('status').className='loading';try{var res=await fetch(URL_S+'/rest/v1/magie?id=gte.0',{method:'PATCH',headers:{'apikey':KEY_S,'Authorization':'Bearer '+KEY_S,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({code:code,carte:carte})});if(!res.ok)throw new Error('HTTP '+res.status);document.getElementById('active-value').innerHTML='Code : '+code+'  |  Carte : '+getCardLabel(carte);document.getElementById('status').textContent='✦ Tour configuré !';document.getElementById('status').className='ok';}catch(e){document.getElementById('status').textContent='Erreur : '+e.message;document.getElementById('status').className='err';}finally{btn.disabled=false;btn.textContent='✦ Enregistrer le tour ✦';}}
+/* ── MAGIE ── */
+var URL_S='https://dfxnaazkbcrvltlcbtsh.supabase.co';
+var KEY_S='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmeG5hYXprYmNydmx0bGNidHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTIxNDAsImV4cCI6MjA5MDY2ODE0MH0.I1rlwrHSwjEnk82v8Ac-vEBofdMUyUGFTnYTepYGuFw';
+var suitNames={coeur:'Cœur',carreau:'Carreau',trefle:'Trèfle',pique:'Pique'};
+var suitSymbols={coeur:'♥',carreau:'♦',trefle:'♣',pique:'♠'};
+var valNames={A:'As',J:'Valet',Q:'Dame',K:'Roi'};
+var selVal=null,selSuit=null;
+function selectVal(btn,v){selVal=v;document.querySelectorAll('.val-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');updatePreview();}
+function selectSuit(btn,s){selSuit=s;document.querySelectorAll('.suit-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');updatePreview();}
+function updatePreview(){if(selVal&&selSuit){var vName=valNames[selVal]||selVal;var sym=suitSymbols[selSuit];var color=(selSuit==='coeur'||selSuit==='carreau')?'#e05050':'#c9a84c';document.getElementById('preview-card').innerHTML='<span style="color:'+color+';font-size:1.4rem">'+sym+' </span>'+vName+' de '+suitNames[selSuit];}}
+function getCardKey(){if(!selVal||!selSuit)return null;var vKey=selVal==='A'?'as':selVal==='J'?'valet':selVal==='Q'?'dame':selVal==='K'?'roi':selVal;return vKey+'-'+selSuit;}
+function getCardLabel(key){if(!key)return '—';var p=key.split('-');var v=p[0];var s=p.slice(1).join('-');var vName={as:'As',valet:'Valet',dame:'Dame',roi:'Roi'}[v]||v;var sym=suitSymbols[s]||'';var color=(s==='coeur'||s==='carreau')?'#e05050':'#c9a84c';return '<span style="color:'+color+'">'+sym+' '+vName+' de '+(suitNames[s]||s)+'</span>';}
+async function load(){try{var res=await fetch(URL_S+'/rest/v1/magie?select=code,carte&limit=1',{headers:{'apikey':KEY_S,'Authorization':'Bearer '+KEY_S}});var data=await res.json();if(data&&data[0]){document.getElementById('code-input').value=data[0].code;document.getElementById('active-value').innerHTML='Code : '+data[0].code+'  |  Carte : '+getCardLabel(data[0].carte);}document.getElementById('status').textContent='✦ Prêt';document.getElementById('status').className='ok';}catch(e){document.getElementById('status').textContent='Erreur connexion';document.getElementById('status').className='err';}}
+async function save(){var code=document.getElementById('code-input').value.trim();if(!code||code.length<4){alert('Entrez la date de naissance (min 4 chiffres).');return;}var carte=getCardKey();if(!carte){alert('Choisissez une valeur ET une couleur.');return;}var btn=document.getElementById('save-btn');btn.disabled=true;btn.textContent='Enregistrement…';document.getElementById('status').textContent='Mise à jour…';document.getElementById('status').className='loading';try{var res=await fetch(URL_S+'/rest/v1/magie?id=gte.0',{method:'PATCH',headers:{'apikey':KEY_S,'Authorization':'Bearer '+KEY_S,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({code:code,carte:carte})});if(!res.ok)throw new Error('HTTP '+res.status);document.getElementById('active-value').innerHTML='Code : '+code+'  |  Carte : '+getCardLabel(carte);document.getElementById('status').textContent='✦ Tour configuré !';document.getElementById('status').className='ok';}catch(e){document.getElementById('status').textContent='Erreur : '+e.message;document.getElementById('status').className='err';}finally{btn.disabled=false;btn.textContent='✦ Enregistrer le tour ✦';}}
 
-  /* DEVIS */
-  function toggleDevis(){var p=document.getElementById('devis-panel');var btn=document.getElementById('devis-toggle-btn');if(p.classList.contains('open')){p.classList.remove('open');btn.textContent='✦ Créer un devis ✦';}else{p.classList.add('open');btn.textContent='✕ Fermer le devis';setTimeout(function(){p.scrollIntoView({behavior:'smooth',block:'start'});},100);}}
+/* ── DEVIS ── */
+function toggleDevis(){var p=document.getElementById('devis-panel'),btn=document.getElementById('devis-toggle-btn');if(p.classList.contains('open')){p.classList.remove('open');btn.textContent='✦ Créer un devis ✦';}else{p.classList.add('open');btn.textContent='✕ Fermer le devis';setTimeout(function(){p.scrollIntoView({behavior:'smooth',block:'start'});},100);setTimeout(function(){initCanvas('sig-prestataire');initCanvas('sig-client');},300);}}
 
-  /* PDF dans fenêtre blanche — fix fond noir mobile */
-  function openPdfWindow() {
-    var doc = document.getElementById('devis-doc').cloneNode(true);
-    doc.querySelectorAll('.sig-clear').forEach(function(b){b.remove();});
-    var css = '<style>*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}body{background:white;font-family:Arial,sans-serif;}.dv-header{background:#1F3864!important;color:white;padding:18px 20px;}.dv-header-title{font-size:17px;font-weight:bold;color:white;letter-spacing:.04em;}.dv-header-sub{font-size:12px;color:#93afd4;margin-top:3px;}.dv-num-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}.dv-num-row input{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:6px;color:white;padding:7px 10px;font-size:13px;width:100%;}.dv-sec{background:#2E6DA4!important;color:white;padding:8px 16px;font-size:10px;font-weight:bold;letter-spacing:.1em;}.dv-fields{padding:14px 16px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid #e5e5e5;}.dv-field{display:flex;flex-direction:column;gap:4px;}.dv-label{font-size:10px;font-weight:bold;color:#2E6DA4;text-transform:uppercase;}.dv-input{width:100%;padding:8px 10px;border:1px solid #d5dde8;font-size:13px;color:#1a1a2e;background:#fafcff;}.dv-prest{padding:14px 16px;border-bottom:1px solid #f0f0f0;}.dv-prest-name{font-size:13px;font-weight:bold;color:#1a1a2e;}.dv-prest-sub{font-size:11px;color:#888;margin-top:2px;}.dv-prest-amount{display:flex;align-items:center;gap:8px;margin-top:10px;}.dv-prest-amount label{font-size:11px;color:#555;flex:1;}.dv-amount-input{width:100px;text-align:right;border:1px solid #ccc;padding:6px 8px;font-size:14px;font-weight:bold;color:#1a1a2e;background:white;}.dv-remise{padding:14px 16px;border-bottom:1px solid #f0f0f0;background:#fffaf0;}.dv-remise-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}.dv-remise-label{font-size:12px;color:#b87800;flex:1;font-weight:500;}.dv-remise-inputs{display:flex;align-items:center;gap:6px;}.dv-remise-type{padding:6px 8px;border:1px solid #e0b84a;font-size:13px;color:#b87800;background:white;}.dv-remise-val{width:80px;text-align:right;border:1px solid #e0b84a;padding:6px 8px;font-size:13px;font-weight:bold;color:#b87800;background:white;}.dv-totals{padding:14px 16px;border-bottom:1px solid #e5e5e5;}.dv-total-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;}.dv-total-row span:first-child{font-size:12px;color:#666;}.dv-total-row span:last-child{font-size:14px;font-weight:bold;color:#1a1a2e;}.dv-total-final{background:#1F3864!important;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;}.dv-total-final-label{font-size:12px;font-weight:bold;color:#93afd4;letter-spacing:.1em;}.dv-total-final-amount{font-size:22px;font-weight:bold;color:white;}.dv-tva-note{font-size:10px;color:#aaa;font-style:italic;text-align:center;padding:8px 16px;}.dv-citation{padding:12px 16px;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;font-size:11px;font-style:italic;color:#2E6DA4;text-align:center;}.dv-cond-row{display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid #f0f0f0;}.dv-cond-key{padding:9px 12px;font-size:10px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;}.dv-cond-val{padding:9px 12px;font-size:11px;color:#555;}.dv-sig-bloc{padding:14px 16px;border-bottom:1px solid #f0f0f0;}.dv-sig-name{font-size:13px;font-weight:bold;color:#1a1a2e;}.dv-sig-note{font-size:10px;color:#aaa;font-style:italic;margin-top:3px;}.sig-canvas{width:100%;height:80px;border:1px dashed #bbb;background:white;display:block;margin-top:8px;}.print-btn{background:#1F3864;color:white;border:none;padding:12px 20px;font-size:15px;font-weight:bold;cursor:pointer;border-radius:8px;margin:16px;display:block;width:calc(100% - 32px);}@media print{.print-btn{display:none!important;}@page{size:A4;margin:10mm 12mm;}}</style>';
-    var w = window.open('', '_blank');
-    w.document.write('<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Devis — Lucas Moreau Magicien</title>'+css+'</head><body><button class="print-btn" onclick="window.print()">🖨 Enregistrer en PDF</button>'+doc.outerHTML+'</body></html>');
-    w.document.close();
-    // Copier les signatures
-    setTimeout(function(){
-      try{
-        ['sig-prestataire','sig-client'].forEach(function(id){
-          var src=document.getElementById(id);
-          var dst=w.document.getElementById(id);
-          if(src&&dst){dst.width=src.width;dst.height=src.height;dst.getContext('2d').drawImage(src,0,0);}
-        });
-      }catch(e){}
-    },600);
-  }
+function calcTotal(){var sub=0;document.querySelectorAll('.line-amount').forEach(function(inp){var v=parseFloat(inp.value);if(!isNaN(v)&&v>0)sub+=v;});document.getElementById('d-subtotal').textContent=sub.toLocaleString('fr-FR')+' €';var type=document.getElementById('remise-type').value,remiseVal=parseFloat(document.getElementById('remise-val').value)||0,remiseMontant=0;if(type!=='none'&&remiseVal>0){if(type==='pct'){remiseMontant=Math.round(sub*remiseVal/100);document.getElementById('remise-label-txt').textContent='Remise ('+remiseVal+'%)';}else{remiseMontant=Math.min(remiseVal,sub);document.getElementById('remise-label-txt').textContent='Remise';}document.getElementById('remise-row').style.display='flex';document.getElementById('remise-line').style.display='block';document.getElementById('d-remise-amount').textContent='− '+remiseMontant.toLocaleString('fr-FR')+' €';document.getElementById('remise-line').textContent='Remise appliquée : − '+remiseMontant.toLocaleString('fr-FR')+' €';}else{document.getElementById('remise-row').style.display='none';document.getElementById('remise-line').style.display='none';}var total=Math.max(0,sub-remiseMontant);document.getElementById('d-total').textContent=total.toLocaleString('fr-FR')+' €';}
+document.querySelectorAll('.line-amount').forEach(function(inp){inp.addEventListener('input',calcTotal);});
 
-  function calcTotal(){var sub=0;document.querySelectorAll('.line-amount').forEach(function(inp){var v=parseFloat(inp.value);if(!isNaN(v)&&v>0)sub+=v;});document.getElementById('d-subtotal').textContent=sub.toLocaleString('fr-FR')+' €';var type=document.getElementById('remise-type').value;var remiseVal=parseFloat(document.getElementById('remise-val').value)||0;var remiseMontant=0;if(type!=='none'&&remiseVal>0){if(type==='pct'){remiseMontant=Math.round(sub*remiseVal/100);document.getElementById('remise-label-txt').textContent='Remise ('+remiseVal+'%)';document.getElementById('remise-line').textContent='− '+remiseVal+'% appliqués';}else{remiseMontant=Math.min(remiseVal,sub);document.getElementById('remise-label-txt').textContent='Remise';document.getElementById('remise-line').textContent='− '+remiseMontant.toLocaleString('fr-FR')+' € déduits';}document.getElementById('remise-row').style.display='flex';document.getElementById('remise-line').style.display='block';document.getElementById('d-remise-amount').textContent='− '+remiseMontant.toLocaleString('fr-FR')+' €';}else{document.getElementById('remise-row').style.display='none';document.getElementById('remise-line').style.display='none';}var total=Math.max(0,sub-remiseMontant);document.getElementById('d-total').textContent=total.toLocaleString('fr-FR')+' €';}
-  document.querySelectorAll('.line-amount').forEach(function(inp){inp.addEventListener('input',calcTotal);});
-  function resetDevis(){if(!confirm('Réinitialiser le devis ?'))return;document.querySelectorAll('#devis-doc input').forEach(function(inp){if(inp.id!=='d-num')inp.value='';});document.getElementById('d-num').value='001';document.getElementById('remise-type').value='none';document.getElementById('d-subtotal').textContent='0 €';document.getElementById('d-total').textContent='0 €';document.getElementById('remise-row').style.display='none';document.getElementById('remise-line').style.display='none';clearSig('sig-prestataire');clearSig('sig-client');}
+function resetDevis(){if(!confirm('Réinitialiser le devis ?'))return;document.querySelectorAll('#devis-doc input').forEach(function(inp){if(inp.id!=='d-num')inp.value='';});document.getElementById('d-num').value='001';document.getElementById('remise-type').value='none';document.getElementById('d-subtotal').textContent='0 €';document.getElementById('d-total').textContent='0 €';document.getElementById('remise-row').style.display='none';document.getElementById('remise-line').style.display='none';clearSig('sig-prestataire');clearSig('sig-client');}
 
-  /* SIGNATURES */
-  function initCanvas(id){var canvas=document.getElementById(id);var ctx=canvas.getContext('2d');var dpr=window.devicePixelRatio||1;var rect=canvas.getBoundingClientRect();if(rect.width>0){canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;ctx.scale(dpr,dpr);}ctx.strokeStyle='#1a1a2e';ctx.lineWidth=2;ctx.lineCap='round';ctx.lineJoin='round';var drawing=false;function getPos(e){var r=canvas.getBoundingClientRect();var src=e.touches?e.touches[0]:e;return{x:src.clientX-r.left,y:src.clientY-r.top};}function start(e){e.preventDefault();drawing=true;var p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);}function move(e){if(!drawing)return;e.preventDefault();var p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();}function end(){drawing=false;}canvas.addEventListener('mousedown',start);canvas.addEventListener('mousemove',move);canvas.addEventListener('mouseup',end);canvas.addEventListener('mouseleave',end);canvas.addEventListener('touchstart',start,{passive:false});canvas.addEventListener('touchmove',move,{passive:false});canvas.addEventListener('touchend',end);}
-  function clearSig(id){var c=document.getElementById(id);c.getContext('2d').clearRect(0,0,c.width,c.height);}
-  window.addEventListener('load',function(){setTimeout(function(){initCanvas('sig-prestataire');initCanvas('sig-client');},200);});
-  var _dI=false;
-  document.getElementById('devis-toggle-btn').addEventListener('click',function(){if(!_dI){setTimeout(function(){initCanvas('sig-prestataire');initCanvas('sig-client');_dI=true;},300);}});
+/* ── PDF PROPRE UNE SEULE PAGE ── */
+function genPDF(){
+  /* Lire toutes les valeurs */
+  var nom=document.getElementById('d-nom').value||'';
+  var email=document.getElementById('d-email').value||'';
+  var tel=document.getElementById('d-tel').value||'';
+  var adresse=document.getElementById('d-adresse').value||'';
+  var type=document.getElementById('d-type').value||'';
+  var evdate=document.getElementById('d-evdate').value||'';
+  var lieu=document.getElementById('d-lieu').value||'';
+  var invites=document.getElementById('d-invites').value||'';
+  var num=document.getElementById('d-num').value||'001';
+  var date=document.getElementById('d-date').value||'';
+  var dp1=parseFloat(document.getElementById('dp1').value)||0;
+  var dp2=parseFloat(document.getElementById('dp2').value)||0;
+  var dp3=parseFloat(document.getElementById('dp3').value)||0;
+  var remType=document.getElementById('remise-type').value;
+  var remVal=parseFloat(document.getElementById('remise-val').value)||0;
+  var sub=dp1+dp2+dp3;
+  var remMontant=0;
+  if(remType!=='none'&&remVal>0){remMontant=remType==='pct'?Math.round(sub*remVal/100):Math.min(remVal,sub);}
+  var total=Math.max(0,sub-remMontant);
+
+  /* Capturer les signatures en base64 */
+  var sig1='',sig2='';
+  try{sig1=document.getElementById('sig-prestataire').toDataURL('image/png');}catch(e){}
+  try{sig2=document.getElementById('sig-client').toDataURL('image/png');}catch(e){}
+
+  /* Formater date événement */
+  var evdateStr='';
+  if(evdate){try{var d=new Date(evdate);evdateStr=d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});}catch(e){evdateStr=evdate;}}
+
+  /* Lignes optionnelles seulement si montant > 0 */
+  var lignes='';
+  if(dp1>0)lignes+=row('Magie close-up / Magie de table','Animation vin d\'honneur et/ou dîner — 2h minimum',dp1);
+  if(dp2>0)lignes+=row('Frais de déplacement','Selon distance depuis l\'Île-de-France',dp2);
+  if(dp3>0)lignes+=row('Options supplémentaires','Durée additionnelle / prestation spéciale',dp3);
+  if(!lignes)lignes=row('Magie close-up / Magie de table','Animation vin d\'honneur et/ou dîner — 2h minimum',0);
+
+  function row(name,sub2,amt){return '<tr><td style="padding:11px 16px;font-size:13px;font-weight:bold;color:#1a1a2e;font-family:Arial;">'+name+'<div style="font-size:11px;color:#888;font-weight:normal;margin-top:2px;">'+sub2+'</div></td><td style="padding:11px 16px;text-align:right;font-size:14px;font-weight:bold;font-family:Arial;color:#1a1a2e;">'+(amt>0?amt.toLocaleString('fr-FR')+' €':'—')+'</td></tr>';}
+
+  var remiseLigne=remMontant>0?'<tr><td style="padding:6px 16px;font-size:12px;color:#b87800;font-family:Arial;">Remise'+(remType==='pct'?' ('+remVal+'%)':'')+'</td><td style="padding:6px 16px;text-align:right;font-size:13px;font-weight:bold;color:#b87800;font-family:Arial;">− '+remMontant.toLocaleString('fr-FR')+' €</td></tr>':'';
+
+  var html='<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"/>'
+    +'<meta name="viewport" content="width=device-width,initial-scale=1"/>'
+    +'<title>Devis N°'+num+' — Lucas Moreau Magicien</title>'
+    +'<style>'
+    +'*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}'
+    +'html,body{background:white;font-family:Arial,sans-serif;}'
+    +'.print-btn{background:#1F3864;color:white;border:none;padding:14px;font-size:15px;font-weight:bold;cursor:pointer;width:100%;display:block;}'
+    +'.wrap{max-width:760px;margin:0 auto;background:white;}'
+    +'@media print{.print-btn{display:none!important;}@page{size:A4;margin:8mm 10mm;}}'
+    +'</style></head><body>'
+    +'<button class="print-btn" onclick="window.print()">🖨 Enregistrer en PDF</button>'
+    +'<div class="wrap">'
+
+    /* Header */
+    +'<div style="background:#1F3864;color:white;padding:20px 24px;display:flex;justify-content:space-between;align-items:flex-start;">'
+    +'<div><div style="font-size:18px;font-weight:bold;">DEVIS DE PRESTATION</div>'
+    +'<div style="font-size:12px;color:#93afd4;margin-top:4px;">Lucas Moreau — Magicien</div>'
+    +'<div style="font-size:11px;color:#7fb3e8;margin-top:6px;">contact@votremagicien.fr &nbsp;|&nbsp; 06 08 80 22 01</div></div>'
+    +'<div style="text-align:right;font-size:12px;color:#93afd4;line-height:2;">'
+    +'<div style="color:#7fb3e8;font-weight:bold;font-size:13px;">N° DEVIS-2026-'+num+'</div>'
+    +(date?'<div>Date : '+date+'</div>':'')
+    +'<div>Validité : 30 jours</div></div></div>'
+
+    /* Client + Événement */
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #e5e5e5;">'
+    +'<div style="padding:14px 18px;">'
+    +'<div style="font-size:10px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Client</div>'
+    +(nom?'<div style="font-size:13px;font-weight:bold;color:#1a1a2e;margin-bottom:4px;">'+nom+'</div>':'')
+    +(email?'<div style="font-size:12px;color:#555;margin-bottom:2px;">'+email+'</div>':'')
+    +(tel?'<div style="font-size:12px;color:#555;margin-bottom:2px;">'+tel+'</div>':'')
+    +(adresse?'<div style="font-size:12px;color:#555;">'+adresse+'</div>':'')
+    +'</div>'
+    +'<div style="padding:14px 18px;border-left:1px solid #e5e5e5;">'
+    +'<div style="font-size:10px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Événement</div>'
+    +(type?'<div style="font-size:13px;font-weight:bold;color:#1a1a2e;margin-bottom:4px;">'+type+'</div>':'')
+    +(evdateStr?'<div style="font-size:12px;color:#555;margin-bottom:2px;">📅 '+evdateStr+'</div>':'')
+    +(lieu?'<div style="font-size:12px;color:#555;margin-bottom:2px;">📍 '+lieu+'</div>':'')
+    +(invites?'<div style="font-size:12px;color:#555;">👥 '+invites+' invités</div>':'')
+    +'</div></div>'
+
+    /* Prestations */
+    +'<div style="background:#2E6DA4;color:white;padding:8px 18px;font-size:10px;font-weight:bold;letter-spacing:.1em;">DÉTAIL DE LA PRESTATION</div>'
+    +'<table style="width:100%;border-collapse:collapse;">'
+    +'<thead><tr style="background:#1F3864;">'
+    +'<th style="padding:9px 16px;font-size:11px;color:white;text-align:left;letter-spacing:.05em;">Prestation</th>'
+    +'<th style="padding:9px 16px;font-size:11px;color:white;text-align:right;letter-spacing:.05em;">Montant HT</th>'
+    +'</tr></thead><tbody>'+lignes+'</tbody>'
+    +'<tfoot>'
+    +'<tr style="border-top:2px solid #e5e5e5;"><td style="padding:8px 16px;font-size:12px;color:#555;font-family:Arial;">Sous-total HT</td>'
+    +'<td style="padding:8px 16px;text-align:right;font-size:13px;font-weight:bold;color:#1a1a2e;font-family:Arial;">'+sub.toLocaleString('fr-FR')+' €</td></tr>'
+    +remiseLigne
+    +'</tfoot></table>'
+    +'<div style="font-size:10px;color:#aaa;font-style:italic;text-align:center;padding:6px 16px;">TVA non applicable — Art. 293B du CGI</div>'
+    +'<div style="background:#1F3864;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;">'
+    +'<span style="font-size:12px;font-weight:bold;color:#93afd4;letter-spacing:.1em;">TOTAL TTC</span>'
+    +'<span style="font-size:22px;font-weight:bold;color:white;">'+total.toLocaleString('fr-FR')+' €</span></div>'
+
+    /* Citation */
+    +'<div style="padding:12px 18px;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;font-size:11px;font-style:italic;color:#2E6DA4;text-align:center;">'
+    +'« Je suis ravi de vous accompagner pour cet événement et ferai tout mon possible pour créer des moments d\'émerveillement inoubliables. »</div>'
+
+    /* Conditions */
+    +'<div style="background:#2E6DA4;color:white;padding:8px 18px;font-size:10px;font-weight:bold;letter-spacing:.1em;">CONDITIONS &amp; MODALITÉS</div>'
+    +'<table style="width:100%;border-collapse:collapse;">'
+    +'<tr><td style="padding:8px 12px;font-size:10px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;width:90px;">Acompte</td><td style="padding:8px 12px;font-size:11px;color:#555;border-bottom:1px solid #f0f0f0;">30 % du montant total à la confirmation de la réservation.</td></tr>'
+    +'<tr><td style="padding:8px 12px;font-size:10px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Solde</td><td style="padding:8px 12px;font-size:11px;color:#555;border-bottom:1px solid #f0f0f0;">Réglé le jour de la prestation ou par virement dans les 7 jours précédant l\'événement.</td></tr>'
+    +'<tr><td style="padding:8px 12px;font-size:10px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Annulation</td><td style="padding:8px 12px;font-size:11px;color:#555;border-bottom:1px solid #f0f0f0;">Moins de 30 jours : l\'acompte reste acquis. Moins de 7 jours : 50 % du montant total est dû.</td></tr>'
+    +'<tr><td style="padding:8px 12px;font-size:10px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Déplacements</td><td style="padding:8px 12px;font-size:11px;color:#555;">Hors Île-de-France, facturés en sus selon conditions définies ensemble.</td></tr>'
+    +'</table>'
+
+    /* Signatures */
+    +'<div style="background:#2E6DA4;color:white;padding:8px 18px;font-size:10px;font-weight:bold;letter-spacing:.1em;">BON POUR ACCORD</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;">'
+    +'<div style="padding:14px 18px;border-right:1px solid #e5e5e5;">'
+    +'<div style="font-size:13px;font-weight:bold;color:#1a1a2e;">Lucas Moreau — Magicien</div>'
+    +'<div style="font-size:10px;color:#aaa;font-style:italic;margin-top:3px;">Signature</div>'
+    +(sig1?'<img src="'+sig1+'" style="width:100%;height:70px;object-fit:contain;margin-top:8px;border:1px dashed #ccc;background:white;display:block;"/>':'<div style="height:70px;margin-top:8px;border:1px dashed #ccc;"></div>')
+    +'</div>'
+    +'<div style="padding:14px 18px;">'
+    +'<div style="font-size:13px;font-weight:bold;color:#1a1a2e;">Le client</div>'
+    +'<div style="font-size:10px;color:#aaa;font-style:italic;margin-top:3px;">Précédé de « Bon pour accord » — Signature &amp; date</div>'
+    +(sig2?'<img src="'+sig2+'" style="width:100%;height:70px;object-fit:contain;margin-top:8px;border:1px dashed #ccc;background:white;display:block;"/>':'<div style="height:70px;margin-top:8px;border:1px dashed #ccc;"></div>')
+    +'</div></div>'
+    +'</div></body></html>';
+
+  var w=window.open('','_blank');
+  w.document.write(html);
+  w.document.close();
+}
+
+/* ── SIGNATURES ── */
+function initCanvas(id){var canvas=document.getElementById(id);if(!canvas)return;var ctx=canvas.getContext('2d');var dpr=window.devicePixelRatio||1;var rect=canvas.getBoundingClientRect();if(rect.width>0){canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;ctx.scale(dpr,dpr);}ctx.strokeStyle='#1a1a2e';ctx.lineWidth=2;ctx.lineCap='round';ctx.lineJoin='round';var drawing=false;function getPos(e){var r=canvas.getBoundingClientRect();var src=e.touches?e.touches[0]:e;return{x:(src.clientX-r.left),y:(src.clientY-r.top)};}function start(e){e.preventDefault();drawing=true;var p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);}function move(e){if(!drawing)return;e.preventDefault();var p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();}function end(){drawing=false;}canvas.addEventListener('mousedown',start);canvas.addEventListener('mousemove',move);canvas.addEventListener('mouseup',end);canvas.addEventListener('mouseleave',end);canvas.addEventListener('touchstart',start,{passive:false});canvas.addEventListener('touchmove',move,{passive:false});canvas.addEventListener('touchend',end);}
+function clearSig(id){var c=document.getElementById(id);if(c)c.getContext('2d').clearRect(0,0,c.width,c.height);}
 </script>
 </body>
 </html>
