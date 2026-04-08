@@ -8,143 +8,167 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; min-height: 100%; background: #060608; font-family: 'Cinzel', serif; color: #f5f0e8; touch-action: manipulation; }
+    html, body { width: 100%; min-height: 100%; background: #060608; font-family: 'Cinzel', serif; color: #f5f0e8; touch-action: manipulation; -webkit-text-size-adjust: 100%; }
 
-    /* ── ÉCRAN MOT DE PASSE ── */
-    #pw-screen {
-      position: fixed; inset: 0; z-index: 9999;
-      background: #060608;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 1.8rem; padding: 2rem;
-    }
-    #pw-screen h2 {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(0.9rem, 4vw, 1.2rem);
-      color: #c9a84c; letter-spacing: 0.2em;
-      text-align: center;
-      text-shadow: 0 0 30px rgba(201,168,76,0.4);
-    }
-    #pw-screen .pw-divider {
-      width: 120px; height: 1px;
-      background: linear-gradient(to right, transparent, #c9a84c, transparent);
-    }
-    #pw-screen .pw-box {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 1.2rem;
-      width: 100%; max-width: 320px;
-      padding: 2rem; border: 1px solid rgba(201,168,76,0.2);
-      background: rgba(201,168,76,0.03);
-      position: relative;
-    }
-    #pw-screen .pw-box::before, #pw-screen .pw-box::after {
-      content: '✦'; position: absolute;
-      color: rgba(201,168,76,0.4); font-size: 0.7rem;
-    }
-    #pw-screen .pw-box::before { top: -0.5rem; left: 50%; transform: translateX(-50%); background: #060608; padding: 0 0.4rem; }
-    #pw-screen .pw-box::after  { bottom: -0.5rem; left: 50%; transform: translateX(-50%); background: #060608; padding: 0 0.4rem; }
-    #pw-screen .pw-label {
-      font-size: 0.58rem; letter-spacing: 0.4em;
-      text-transform: uppercase; color: rgba(201,168,76,0.6);
-      text-align: center;
-    }
-    #pw-input {
-      width: 100%; padding: 0.8rem 0;
-      background: transparent; border: none;
-      border-bottom: 1px solid rgba(201,168,76,0.25);
-      color: #f5f0e8; font-family: 'Cinzel', serif;
-      font-size: 1.4rem; letter-spacing: 0.35em;
-      text-align: center; outline: none;
-      transition: border-color 0.3s;
-      -webkit-appearance: none;
-    }
+    /* ── MOT DE PASSE ── */
+    #pw-screen { position: fixed; inset: 0; z-index: 9999; background: #060608; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8rem; padding: 2rem; }
+    #pw-screen h2 { font-family: 'Cinzel Decorative', serif; font-size: clamp(0.9rem, 4vw, 1.2rem); color: #c9a84c; letter-spacing: 0.2em; text-align: center; text-shadow: 0 0 30px rgba(201,168,76,0.4); }
+    .pw-divider { width: 120px; height: 1px; background: linear-gradient(to right, transparent, #c9a84c, transparent); }
+    .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; width: 100%; max-width: 320px; padding: 2rem; border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.03); position: relative; }
+    .pw-box::before, .pw-box::after { content: '✦'; position: absolute; color: rgba(201,168,76,0.4); font-size: 0.7rem; }
+    .pw-box::before { top: -0.5rem; left: 50%; transform: translateX(-50%); background: #060608; padding: 0 0.4rem; }
+    .pw-box::after  { bottom: -0.5rem; left: 50%; transform: translateX(-50%); background: #060608; padding: 0 0.4rem; }
+    .pw-label { font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(201,168,76,0.6); text-align: center; }
+    #pw-input { width: 100%; padding: 0.9rem 0; background: transparent; border: none; border-bottom: 1px solid rgba(201,168,76,0.25); color: #f5f0e8; font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 0.35em; text-align: center; outline: none; transition: border-color 0.3s; -webkit-appearance: none; }
     #pw-input:focus { border-bottom-color: #c9a84c; }
-    #pw-error {
-      font-size: 0.68rem; color: #e05555;
-      font-style: italic; opacity: 0;
-      transition: opacity 0.3s; text-align: center;
-      font-family: 'Cinzel', serif;
-    }
+    #pw-error { font-size: 0.68rem; color: #e05555; font-style: italic; opacity: 0; transition: opacity 0.3s; text-align: center; }
     #pw-error.show { opacity: 1; }
-    #pw-btn {
-      width: 100%; padding: 0.9rem;
-      background: transparent;
-      border: 1px solid rgba(201,168,76,0.35);
-      color: #c9a84c; font-family: 'Cinzel Decorative', serif;
-      font-size: 0.7rem; letter-spacing: 0.2em;
-      cursor: pointer; transition: all 0.3s;
-    }
+    #pw-btn { width: 100%; padding: 0.9rem; background: transparent; border: 1px solid rgba(201,168,76,0.35); color: #c9a84c; font-family: 'Cinzel Decorative', serif; font-size: 0.7rem; letter-spacing: 0.2em; cursor: pointer; transition: all 0.3s; }
     #pw-btn:hover { background: rgba(201,168,76,0.08); border-color: #c9a84c; }
 
-    /* ── CONTENU ADMIN (masqué jusqu'au bon code) ── */
-    #admin-content {
-      display: none;
-      flex-direction: column; align-items: center;
-      width: 100%; min-height: 100vh;
-      padding: 2rem 1.5rem; gap: 1.5rem;
-    }
+    /* ── ADMIN CONTENT ── */
+    #admin-content { display: none; flex-direction: column; align-items: center; width: 100%; min-height: 100vh; padding: 2rem 1rem 4rem; gap: 1.2rem; }
     #admin-content.unlocked { display: flex; }
-    h1 { font-family: 'Cinzel Decorative', serif; font-size: clamp(0.9rem, 4vw, 1.1rem); color: #c9a84c; letter-spacing: 0.2em; text-align: center; text-shadow: 0 0 30px rgba(201,168,76,0.4); }
+    h1 { font-family: 'Cinzel Decorative', serif; font-size: clamp(0.85rem, 3.5vw, 1.1rem); color: #c9a84c; letter-spacing: 0.18em; text-align: center; text-shadow: 0 0 30px rgba(201,168,76,0.4); }
     .divider { width: 160px; height: 1px; background: linear-gradient(to right, transparent, #c9a84c, transparent); }
-    p.sub { font-size: 0.6rem; letter-spacing: 0.25em; color: rgba(201,168,76,0.5); text-transform: uppercase; text-align: center; }
-    .bloc { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 0.5rem; }
+    .sub { font-size: 0.58rem; letter-spacing: 0.25em; color: rgba(201,168,76,0.5); text-transform: uppercase; text-align: center; }
+
+    /* ── MAGIE SECTION ── */
+    .bloc { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 0.5rem; }
     .bloc-label { font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: #c9a84c; font-weight: 600; }
-    .bloc-input { width: 100%; padding: 0.8rem 1rem; background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.25); border-radius: 8px; color: #f5f0e8; font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 0.3em; outline: none; transition: border-color 0.2s; text-align: center; -webkit-appearance: none; }
+    .bloc-input { width: 100%; padding: 0.9rem 1rem; background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.25); border-radius: 8px; color: #f5f0e8; font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 0.3em; outline: none; transition: border-color 0.2s; text-align: center; -webkit-appearance: none; }
     .bloc-input:focus { border-color: #c9a84c; }
     .bloc-hint { font-size: 0.55rem; color: rgba(201,168,76,0.4); letter-spacing: 0.15em; text-align: center; }
-
-    /* Sélecteur couleur */
-    .color-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; width: 100%; max-width: 400px; }
-    .color-tab { padding: 0.6rem; border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.03); border-radius: 6px; cursor: pointer; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; transition: all 0.2s; color: rgba(245,240,232,0.6); }
-    .color-tab.active-red { border-color: #e05050; background: rgba(224,80,80,0.1); color: #e05050; }
-    .color-tab.active-black { border-color: #c9a84c; background: rgba(201,168,76,0.1); color: #c9a84c; }
-
-    /* Sélecteur valeur */
-    .value-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; width: 100%; max-width: 400px; }
-    .val-btn { padding: 0.7rem 0.3rem; border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.03); border-radius: 6px; cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.85rem; text-align: center; transition: all 0.2s; color: rgba(245,240,232,0.7); -webkit-tap-highlight-color: transparent; }
-    .val-btn:active { transform: scale(0.96); }
+    .value-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; width: 100%; max-width: 420px; }
+    .val-btn { padding: 0.8rem 0.3rem; border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.03); border-radius: 6px; cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.95rem; text-align: center; transition: all 0.15s; color: rgba(245,240,232,0.7); -webkit-tap-highlight-color: transparent; }
+    .val-btn:active { transform: scale(0.94); }
     .val-btn.active { background: rgba(201,168,76,0.18); border-color: #c9a84c; color: #c9a84c; }
-
-    /* Sélecteur couleur de carte */
-    .suit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; width: 100%; max-width: 400px; }
-    .suit-btn { padding: 0.9rem 0.3rem; border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.03); border-radius: 6px; cursor: pointer; font-size: 1.6rem; text-align: center; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
-    .suit-btn:active { transform: scale(0.96); }
+    .suit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; width: 100%; max-width: 420px; }
+    .suit-btn { padding: 1rem 0.3rem; border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.03); border-radius: 6px; cursor: pointer; font-size: 1.8rem; text-align: center; transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
+    .suit-btn:active { transform: scale(0.94); }
     .suit-btn.active { background: rgba(201,168,76,0.18); border-color: #c9a84c; }
-
-    /* Aperçu carte sélectionnée */
-    .preview-box { width: 100%; max-width: 400px; padding: 1rem; border: 1px solid rgba(201,168,76,0.15); background: rgba(201,168,76,0.03); border-radius: 8px; text-align: center; min-height: 60px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.3rem; }
+    .preview-box { width: 100%; max-width: 420px; padding: 1rem; border: 1px solid rgba(201,168,76,0.15); background: rgba(201,168,76,0.03); border-radius: 8px; text-align: center; min-height: 60px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.3rem; }
     .preview-label { font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(201,168,76,0.4); }
-    .preview-card { font-size: 1.2rem; color: #c9a84c; letter-spacing: 0.1em; }
-
-    .save-btn { width: 100%; max-width: 400px; padding: 0.9rem; background: #c9a84c; border: none; border-radius: 8px; color: #060608; font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: background 0.2s, transform 0.1s; font-weight: 600; }
-    .save-btn:hover { background: #e2c47a; }
+    .preview-card { font-size: 1.1rem; color: #c9a84c; letter-spacing: 0.08em; }
+    .save-btn { width: 100%; max-width: 420px; padding: 1rem; background: #c9a84c; border: none; border-radius: 8px; color: #060608; font-family: 'Cinzel', serif; font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: background 0.2s, transform 0.1s; font-weight: 600; }
     .save-btn:active { transform: scale(0.98); }
     .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     #status { font-size: 0.65rem; letter-spacing: 0.2em; text-align: center; min-height: 1rem; transition: color 0.3s; }
     #status.ok { color: #4caf50; }
     #status.err { color: #f44336; }
     #status.loading { color: rgba(201,168,76,0.6); }
-    .current-box { width: 100%; max-width: 400px; padding: 0.8rem 1rem; border: 1px solid rgba(201,168,76,0.12); border-radius: 6px; text-align: center; }
+    .current-box { width: 100%; max-width: 420px; padding: 0.8rem 1rem; border: 1px solid rgba(201,168,76,0.12); border-radius: 6px; text-align: center; }
     .current-label { font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(201,168,76,0.35); margin-bottom: 0.3rem; }
     .current-value { font-size: 0.8rem; color: #c9a84c; }
-</style>
+
+    /* ── TOGGLE DEVIS ── */
+    .devis-toggle-btn { width: 100%; max-width: 420px; padding: 0.9rem; background: transparent; border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; color: rgba(201,168,76,0.7); font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+    .devis-toggle-btn:hover, .devis-toggle-btn:active { background: rgba(201,168,76,0.08); border-color: #c9a84c; color: #c9a84c; }
+
+    /* ── DEVIS PANEL (mobile-first) ── */
+    #devis-panel { display: none; width: 100%; max-width: 520px; }
+    #devis-panel.open { display: block; }
+
+    .d-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .d-btn-print { background: #c9a84c; color: #060608; border: none; border-radius: 8px; padding: 11px 18px; font-size: 14px; font-weight: bold; cursor: pointer; flex: 1; min-width: 140px; }
+    .d-btn-reset { background: rgba(201,168,76,0.08); color: #c9a84c; border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; padding: 11px 14px; font-size: 13px; cursor: pointer; }
+    .d-hint { font-size: 11px; color: rgba(201,168,76,0.35); font-style: italic; align-self: center; font-family: Arial, sans-serif; }
+
+    /* Devis document */
+    #devis-doc { background: white; border: 1px solid #ccc; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
+
+    /* Header */
+    .dv-header { background: #1F3864; color: white; padding: 18px 20px; }
+    .dv-header-title { font-size: 17px; font-weight: bold; color: white; letter-spacing: 0.04em; font-family: Arial, sans-serif; }
+    .dv-header-sub { font-size: 12px; color: #93afd4; margin-top: 3px; font-family: Arial, sans-serif; }
+    .dv-num-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .dv-num-row input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: white; padding: 7px 10px; font-size: 13px; font-family: Arial, sans-serif; width: 100%; outline: none; }
+    .dv-num-row input::placeholder { color: rgba(255,255,255,0.4); }
+    .dv-num-row input:focus { border-color: #7fb3e8; background: rgba(255,255,255,0.15); }
+
+    /* Section title */
+    .dv-sec { background: #2E6DA4; color: white; padding: 8px 16px; font-size: 10px; font-weight: bold; letter-spacing: 0.1em; font-family: Arial, sans-serif; }
+
+    /* Field groups — mobile stacked */
+    .dv-fields { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid #e5e5e5; }
+    .dv-field { display: flex; flex-direction: column; gap: 4px; }
+    .dv-label { font-size: 10px; font-weight: bold; color: #2E6DA4; letter-spacing: 0.06em; text-transform: uppercase; font-family: Arial, sans-serif; }
+    .dv-input { width: 100%; padding: 10px 12px; border: 1px solid #d5dde8; border-radius: 6px; font-size: 14px; font-family: Arial, sans-serif; color: #1a1a2e; background: #fafcff; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+    .dv-input:focus { border-color: #2E6DA4; background: white; }
+
+    /* Prestation rows */
+    .dv-prest { padding: 14px 16px; border-bottom: 1px solid #f0f0f0; }
+    .dv-prest-name { font-size: 13px; font-weight: bold; color: #1a1a2e; font-family: Arial, sans-serif; }
+    .dv-prest-sub { font-size: 11px; color: #888; margin-top: 2px; font-family: Arial, sans-serif; }
+    .dv-prest-amount { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+    .dv-prest-amount label { font-size: 11px; color: #555; font-family: Arial, sans-serif; flex: 1; }
+    .dv-amount-input { width: 100px; text-align: right; border: 1px solid #ccc; border-radius: 6px; padding: 8px 10px; font-size: 15px; font-weight: bold; font-family: Arial, sans-serif; color: #1a1a2e; background: white; outline: none; -webkit-appearance: none; }
+    .dv-amount-input:focus { border-color: #2E6DA4; }
+
+    /* Remise */
+    .dv-remise { padding: 14px 16px; border-bottom: 1px solid #f0f0f0; background: #fffaf0; }
+    .dv-remise-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .dv-remise-label { font-size: 12px; color: #b87800; font-family: Arial, sans-serif; flex: 1; font-weight: 500; }
+    .dv-remise-inputs { display: flex; align-items: center; gap: 6px; }
+    .dv-remise-type { padding: 7px 10px; border: 1px solid #e0b84a; border-radius: 6px; font-size: 13px; background: white; color: #b87800; font-family: Arial, sans-serif; outline: none; }
+    .dv-remise-val { width: 80px; text-align: right; border: 1px solid #e0b84a; border-radius: 6px; padding: 7px 10px; font-size: 14px; font-weight: bold; color: #b87800; background: white; font-family: Arial, sans-serif; outline: none; -webkit-appearance: none; }
+    .dv-remise-val:focus { border-color: #c9a84c; }
+
+    /* Totaux */
+    .dv-totals { padding: 14px 16px; border-bottom: 1px solid #e5e5e5; }
+    .dv-total-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
+    .dv-total-row span:first-child { font-size: 12px; color: #666; font-family: Arial, sans-serif; }
+    .dv-total-row span:last-child { font-size: 14px; font-weight: bold; color: #1a1a2e; font-family: Arial, sans-serif; }
+    .dv-total-final { background: #1F3864; margin: 0 -0px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; }
+    .dv-total-final-label { font-size: 12px; font-weight: bold; color: #93afd4; letter-spacing: 0.1em; font-family: Arial, sans-serif; }
+    .dv-total-final-amount { font-size: 22px; font-weight: bold; color: white; font-family: Arial, sans-serif; }
+    .dv-tva-note { font-size: 10px; color: #aaa; font-style: italic; text-align: center; padding: 8px 16px; font-family: Arial, sans-serif; }
+
+    /* Citation */
+    .dv-citation { padding: 12px 16px; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5; font-size: 11px; font-style: italic; color: #2E6DA4; text-align: center; font-family: Arial, sans-serif; }
+
+    /* Conditions */
+    .dv-cond-row { display: grid; grid-template-columns: 90px 1fr; border-bottom: 1px solid #f0f0f0; }
+    .dv-cond-key { padding: 9px 12px; font-size: 10px; font-weight: bold; color: #2E6DA4; background: #f5f7fa; font-family: Arial, sans-serif; }
+    .dv-cond-val { padding: 9px 12px; font-size: 11px; color: #555; font-family: Arial, sans-serif; }
+
+    /* Signatures */
+    .dv-sig-row { display: flex; flex-direction: column; gap: 0; }
+    .dv-sig-bloc { padding: 14px 16px; border-bottom: 1px solid #f0f0f0; }
+    .dv-sig-name { font-size: 13px; font-weight: bold; color: #1a1a2e; font-family: Arial, sans-serif; }
+    .dv-sig-note { font-size: 10px; color: #aaa; font-style: italic; margin-top: 3px; font-family: Arial, sans-serif; }
+    .dv-canvas-wrap { position: relative; margin-top: 10px; }
+    .sig-canvas { width: 100%; height: 100px; border: 1px dashed #ccc; border-radius: 6px; background: #fafafa; display: block; touch-action: none; cursor: crosshair; }
+    .sig-clear { position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,0.9); border: 1px solid #ddd; border-radius: 4px; padding: 3px 8px; font-size: 10px; color: #888; cursor: pointer; font-family: Arial, sans-serif; }
+
+    @media print {
+      body > *:not(#devis-panel) { display: none !important; }
+      #devis-panel { display: block !important; }
+      .d-actions { display: none !important; }
+      #devis-doc { box-shadow: none; border-radius: 0; border: none; }
+      @page { size: A4; margin: 10mm 12mm; }
+      .dv-input, .dv-amount-input, .dv-remise-val, .dv-remise-type { border: none !important; background: transparent !important; }
+      .sig-canvas { border: 1px dashed #bbb !important; background: white !important; }
+      .sig-clear { display: none !important; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ÉCRAN MOT DE PASSE -->
-  <div id="pw-screen">
-    <h2>✦ Espace Admin ✦</h2>
-    <div class="pw-divider"></div>
-    <div class="pw-box">
-      <div class="pw-label">Mot de passe</div>
-      <input type="password" id="pw-input" placeholder="· · · · · · · ·" maxlength="30" autocomplete="off"/>
-      <div id="pw-error">Code incorrect. Réessayez.</div>
-      <button id="pw-btn" onclick="checkPw()">✦ Entrer ✦</button>
-    </div>
+<!-- ÉCRAN MOT DE PASSE -->
+<div id="pw-screen">
+  <h2>✦ Espace Admin ✦</h2>
+  <div class="pw-divider"></div>
+  <div class="pw-box">
+    <div class="pw-label">Mot de passe</div>
+    <input type="password" id="pw-input" placeholder="· · · · · · · ·" maxlength="30" autocomplete="off"/>
+    <div id="pw-error">Code incorrect. Réessayez.</div>
+    <button id="pw-btn" onclick="checkPw()">✦ Entrer ✦</button>
   </div>
+</div>
 
-  <!-- CONTENU ADMIN (déverrouillé après mot de passe) -->
-  <div id="admin-content">
+<!-- CONTENU ADMIN -->
+<div id="admin-content">
 
   <h1>✦ Admin Tour de Magie ✦</h1>
   <div class="divider"></div>
@@ -152,7 +176,7 @@
 
   <!-- Code spectateur -->
   <div class="bloc">
-    <div class="bloc-label">Date de naissance du spectateur (6 chiffres)</div>
+    <div class="bloc-label">Date de naissance du spectateur</div>
     <input type="tel" class="bloc-input" id="code-input" placeholder="JJMMAA" maxlength="6" inputmode="numeric"/>
     <div class="bloc-hint">Ex : 150395 pour le 15 mars 1995</div>
   </div>
@@ -160,32 +184,31 @@
   <div class="divider"></div>
   <p class="sub">Valeur de la carte</p>
 
-  <div class="value-grid" id="value-grid">
-    <button class="val-btn" onclick="selectVal('A')">A</button>
-    <button class="val-btn" onclick="selectVal('2')">2</button>
-    <button class="val-btn" onclick="selectVal('3')">3</button>
-    <button class="val-btn" onclick="selectVal('4')">4</button>
-    <button class="val-btn" onclick="selectVal('5')">5</button>
-    <button class="val-btn" onclick="selectVal('6')">6</button>
-    <button class="val-btn" onclick="selectVal('7')">7</button>
-    <button class="val-btn" onclick="selectVal('8')">8</button>
-    <button class="val-btn" onclick="selectVal('9')">9</button>
-    <button class="val-btn" onclick="selectVal('10')">10</button>
-    <button class="val-btn" onclick="selectVal('J')">J</button>
-    <button class="val-btn" onclick="selectVal('Q')">Q</button>
-    <button class="val-btn" onclick="selectVal('K')" style="grid-column:span 4">K</button>
+  <div class="value-grid">
+    <button class="val-btn" onclick="selectVal(this,'A')">A</button>
+    <button class="val-btn" onclick="selectVal(this,'2')">2</button>
+    <button class="val-btn" onclick="selectVal(this,'3')">3</button>
+    <button class="val-btn" onclick="selectVal(this,'4')">4</button>
+    <button class="val-btn" onclick="selectVal(this,'5')">5</button>
+    <button class="val-btn" onclick="selectVal(this,'6')">6</button>
+    <button class="val-btn" onclick="selectVal(this,'7')">7</button>
+    <button class="val-btn" onclick="selectVal(this,'8')">8</button>
+    <button class="val-btn" onclick="selectVal(this,'9')">9</button>
+    <button class="val-btn" onclick="selectVal(this,'10')">10</button>
+    <button class="val-btn" onclick="selectVal(this,'J')">J</button>
+    <button class="val-btn" onclick="selectVal(this,'Q')">Q</button>
+    <button class="val-btn" onclick="selectVal(this,'K')" style="grid-column:span 4">K</button>
   </div>
 
   <p class="sub">Couleur de la carte</p>
 
-  <div class="suit-grid" id="suit-grid">
-    <button class="suit-btn" onclick="selectSuit('coeur','♥')">♥</button>
-    <button class="suit-btn" onclick="selectSuit('carreau','♦')">♦</button>
-    <button class="suit-btn" onclick="selectSuit('trefle','♣')">♣</button>
-    <button class="suit-btn" onclick="selectSuit('pique','♠')">♠</button>
+  <div class="suit-grid">
+    <button class="suit-btn" onclick="selectSuit(this,'coeur','♥')">♥</button>
+    <button class="suit-btn" onclick="selectSuit(this,'carreau','♦')">♦</button>
+    <button class="suit-btn" onclick="selectSuit(this,'trefle','♣')">♣</button>
+    <button class="suit-btn" onclick="selectSuit(this,'pique','♠')">♠</button>
   </div>
 
-  <!-- Aperçu -->
   <div class="preview-box">
     <div class="preview-label">Carte sélectionnée</div>
     <div class="preview-card" id="preview-card">— Aucune sélection —</div>
@@ -195,295 +218,403 @@
 
   <div class="current-box">
     <div class="current-label">Configuration actuelle en base</div>
-    <div class="current-value" id="active-value">Chargement...</div>
+    <div class="current-value" id="active-value">Chargement…</div>
   </div>
 
-  <div id="status" class="loading">Connexion...</div>
+  <div id="status" class="loading">Connexion…</div>
 
-  <script>
-    const URL = 'https://dfxnaazkbcrvltlcbtsh.supabase.co';
-    const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmeG5hYXprYmNydmx0bGNidHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTIxNDAsImV4cCI6MjA5MDY2ODE0MH0.I1rlwrHSwjEnk82v8Ac-vEBofdMUyUGFTnYTepYGuFw';
-
-    const suitNames = { coeur:'Cœur', carreau:'Carreau', trefle:'Trèfle', pique:'Pique' };
-    const suitSymbols = { coeur:'♥', carreau:'♦', trefle:'♣', pique:'♠' };
-    const valNames = { A:'As', J:'Valet', Q:'Dame', K:'Roi' };
-
-    let selVal = null, selSuit = null, selSuitName = null, selSymbol = null;
-
-    function selectVal(v) {
-      selVal = v;
-      document.querySelectorAll('.val-btn').forEach(b => b.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      updatePreview();
-    }
-    function selectSuit(s, sym) {
-      selSuit = s; selSuitName = suitNames[s]; selSymbol = sym;
-      document.querySelectorAll('.suit-btn').forEach(b => b.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      updatePreview();
-    }
-    function updatePreview() {
-      if (selVal && selSuit) {
-        const vName = valNames[selVal] || selVal;
-        const color = (selSuit==='coeur'||selSuit==='carreau') ? '#e05050' : '#c9a84c';
-        document.getElementById('preview-card').innerHTML =
-          `<span style="color:${color};font-size:1.4rem">${selSymbol} </span>${vName} de ${selSuitName}`;
-      }
-    }
-    function getCardKey() {
-      if (!selVal || !selSuit) return null;
-      const vKey = selVal === 'A' ? 'as' : selVal === 'J' ? 'valet' : selVal === 'Q' ? 'dame' : selVal === 'K' ? 'roi' : selVal;
-      return `${vKey}-${selSuit}`;
-    }
-    function getCardLabel(key) {
-      if (!key) return '—';
-      const parts = key.split('-');
-      const v = parts[0]; const s = parts.slice(1).join('-');
-      const vName = {as:'As',valet:'Valet',dame:'Dame',roi:'Roi'}[v] || v;
-      const sym = suitSymbols[s] || '';
-      const color = (s==='coeur'||s==='carreau') ? '#e05050' : '#c9a84c';
-      return `<span style="color:${color}">${sym} ${vName} de ${suitNames[s]||s}</span>`;
-    }
-
-    async function load() {
-      try {
-        const res = await fetch(URL+'/rest/v1/magie?select=code,carte&limit=1',{headers:{'apikey':KEY,'Authorization':'Bearer '+KEY}});
-        const data = await res.json();
-        if (data && data[0]) {
-          document.getElementById('code-input').value = data[0].code;
-          document.getElementById('active-value').innerHTML = 'Code&nbsp;: '+data[0].code+'  |  Carte&nbsp;: '+getCardLabel(data[0].carte);
-        }
-        document.getElementById('status').textContent = '✦ Prêt';
-        document.getElementById('status').className = 'ok';
-      } catch(e) {
-        document.getElementById('status').textContent = 'Erreur connexion';
-        document.getElementById('status').className = 'err';
-      }
-    }
-
-    async function save() {
-      const code = document.getElementById('code-input').value.trim();
-      if (!code || code.length < 4) { alert('Entrez la date de naissance (minimum 4 chiffres).'); return; }
-      const carte = getCardKey();
-      if (!carte) { alert('Choisissez une valeur ET une couleur de carte.'); return; }
-      const btn = document.getElementById('save-btn');
-      btn.disabled = true; btn.textContent = 'Enregistrement...';
-      document.getElementById('status').textContent = 'Mise à jour...';
-      document.getElementById('status').className = 'loading';
-      try {
-        const res = await fetch(URL+'/rest/v1/magie?id=gte.0',{method:'PATCH',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({code,carte})});
-        if (!res.ok) throw new Error('HTTP '+res.status);
-        document.getElementById('active-value').innerHTML = 'Code&nbsp;: '+code+'  |  Carte&nbsp;: '+getCardLabel(carte);
-        document.getElementById('status').textContent = '✦ Tour configuré !';
-        document.getElementById('status').className = 'ok';
-      } catch(e) {
-        document.getElementById('status').textContent = 'Erreur : '+e.message;
-        document.getElementById('status').className = 'err';
-      } finally {
-        btn.disabled = false; btn.textContent = '✦ Enregistrer le tour ✦';
-      }
-    }
-    load();
-  </script>
-
-  <!-- ══════════════════════════════════════════ -->
-  <!-- ── SECTION DEVIS ── -->
-  <!-- ══════════════════════════════════════════ -->
+  <!-- ══ DEVIS ══ -->
   <div class="divider" style="margin-top:1rem;"></div>
-  <p class="sub" style="margin-top:0.5rem;">Générateur de devis client</p>
+  <p class="sub">Générateur de devis client</p>
 
-  <button onclick="toggleDevis()" id="devis-toggle-btn" style="
-    width:100%;max-width:400px;padding:0.8rem;
-    background:transparent;border:1px solid rgba(201,168,76,0.3);
-    border-radius:8px;color:rgba(201,168,76,0.7);
-    font-family:'Cinzel',serif;font-size:0.72rem;
-    letter-spacing:0.2em;text-transform:uppercase;
-    cursor:pointer;transition:all 0.3s;
-  " onmouseover="this.style.background='rgba(201,168,76,0.08)';this.style.borderColor='#c9a84c';this.style.color='#c9a84c'"
-     onmouseout="this.style.background='transparent';this.style.borderColor='rgba(201,168,76,0.3)';this.style.color='rgba(201,168,76,0.7)'">
-    ✦ Créer un devis ✦
-  </button>
+  <button class="devis-toggle-btn" id="devis-toggle-btn" onclick="toggleDevis()">✦ Créer un devis ✦</button>
 
-  <!-- Panneau devis masqué par défaut -->
-  <div id="devis-panel" style="display:none;width:100%;max-width:760px;margin-top:1rem;font-family:Arial,sans-serif;">
-
-    <!-- Bouton imprimer -->
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
-      <button onclick="window.print()" style="background:#c9a84c;color:#060608;border:none;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:bold;cursor:pointer;">🖨 Imprimer / PDF</button>
-      <button onclick="resetDevis()" style="background:rgba(201,168,76,0.1);color:#c9a84c;border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:10px 16px;font-size:13px;cursor:pointer;">Réinitialiser</button>
-      <span style="font-size:11px;color:rgba(201,168,76,0.4);font-style:italic;">Remplis les champs puis imprime en PDF</span>
+  <div id="devis-panel">
+    <div class="d-actions">
+      <button class="d-btn-print" onclick="window.print()">🖨 Imprimer / PDF</button>
+      <button class="d-btn-reset" onclick="resetDevis()">↺ Réinitialiser</button>
+      <span class="d-hint">Remplis puis imprime en PDF</span>
     </div>
 
-    <div id="devis-doc" style="background:white;border:1px solid #ccc;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.15);">
+    <div id="devis-doc">
 
       <!-- HEADER -->
-      <div style="background:#1F3864;color:white;padding:22px 28px;display:flex;justify-content:space-between;align-items:flex-start;">
-        <div>
-          <div style="font-size:20px;font-weight:bold;letter-spacing:0.05em;">DEVIS DE PRESTATION</div>
-          <div style="font-size:13px;color:#93afd4;margin-top:4px;">Lucas Moreau — Magicien</div>
-        </div>
-        <div style="text-align:right;font-size:12px;color:#93afd4;line-height:2.2;">
-          <span style="display:block;color:#7fb3e8;font-weight:bold;font-size:13px;">N° DEVIS-2026-<input id="d-num" style="width:45px;background:transparent;border:none;border-bottom:1px solid #4a6fa0;color:#7fb3e8;font-size:13px;font-family:Arial,sans-serif;text-align:center;" value="001"></span>
-          <span>Date : <input id="d-date" style="width:105px;background:transparent;border:none;border-bottom:1px solid #4a6fa0;color:#93afd4;font-size:12px;font-family:Arial,sans-serif;" placeholder="__ / __ / 2026"></span>
-          <span style="display:block;">Validité : 30 jours</span>
+      <div class="dv-header">
+        <div class="dv-header-title">DEVIS DE PRESTATION</div>
+        <div class="dv-header-sub">Lucas Moreau — Magicien</div>
+        <div class="dv-num-row">
+          <input id="d-num" placeholder="N° devis (ex: 001)" value="001"/>
+          <input id="d-date" placeholder="Date : __ / __ / 2026"/>
         </div>
       </div>
 
-      <!-- CLIENT + ÉVÉNEMENT -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #e5e5e5;">
-        <div style="padding:16px 22px;">
-          <span style="font-size:11px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:8px;">Client</span>
-          <input class="df" placeholder="Prénom NOM"><input class="df" placeholder="Email" type="email"><input class="df" placeholder="Téléphone" type="tel"><input class="df" placeholder="Adresse">
+      <!-- CLIENT -->
+      <div class="dv-sec">CLIENT</div>
+      <div class="dv-fields">
+        <div class="dv-field">
+          <div class="dv-label">Prénom &amp; Nom</div>
+          <input class="dv-input" placeholder="Prénom NOM" id="d-nom"/>
         </div>
-        <div style="padding:16px 22px;border-left:1px solid #e5e5e5;">
-          <span style="font-size:11px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:8px;">Événement</span>
-          <input class="df" placeholder="Type d'événement"><input class="df" placeholder="Date de l'événement"><input class="df" placeholder="Lieu"><input class="df" placeholder="Nombre d'invités">
+        <div class="dv-field">
+          <div class="dv-label">Email</div>
+          <input class="dv-input" type="email" placeholder="email@exemple.com" id="d-email"/>
+        </div>
+        <div class="dv-field">
+          <div class="dv-label">Téléphone</div>
+          <input class="dv-input" type="tel" placeholder="+33 6 00 00 00 00" id="d-tel"/>
+        </div>
+        <div class="dv-field">
+          <div class="dv-label">Adresse</div>
+          <input class="dv-input" placeholder="Adresse complète" id="d-adresse"/>
         </div>
       </div>
 
-      <!-- TABLEAU PRESTATIONS -->
-      <div style="background:#2E6DA4;color:white;padding:9px 22px;font-size:11px;font-weight:bold;letter-spacing:0.08em;">DÉTAIL DE LA PRESTATION</div>
-      <table style="width:100%;border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="background:#1F3864;color:white;font-size:11px;padding:10px 16px;text-align:left;">Prestation</th>
-            <th style="background:#1F3864;color:white;font-size:11px;padding:10px 16px;text-align:left;">Durée</th>
-            <th style="background:#1F3864;color:white;font-size:11px;padding:10px 16px;text-align:left;">Détails</th>
-            <th style="background:#1F3864;color:white;font-size:11px;padding:10px 16px;text-align:right;">Montant HT</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="background:white;">
-            <td style="padding:11px 16px;"><div style="font-weight:bold;font-size:13px;color:#1a1a2e;">Magie close-up / Magie de table</div><div style="font-size:11px;color:#888;margin-top:2px;">Animation vin d'honneur et/ou dîner</div></td>
-            <td style="padding:11px 16px;font-size:12px;color:#888;">2h min.</td>
-            <td style="padding:11px 16px;font-size:12px;color:#888;">Tout public</td>
-            <td style="padding:11px 16px;text-align:right;"><input type="number" class="da" id="dp1" min="0" step="1" placeholder="0"> €</td>
-          </tr>
-          <tr style="background:#f7f8fa;">
-            <td style="padding:11px 16px;"><div style="font-weight:bold;font-size:13px;color:#1a1a2e;">Frais de déplacement</div><div style="font-size:11px;color:#888;margin-top:2px;">Selon distance depuis l'Île-de-France</div></td>
-            <td style="padding:11px 16px;font-size:12px;color:#888;">—</td>
-            <td style="padding:11px 16px;font-size:12px;color:#888;">Aller-retour</td>
-            <td style="padding:11px 16px;text-align:right;"><input type="number" class="da" id="dp2" min="0" step="1" placeholder="0"> €</td>
-          </tr>
-          <tr style="background:white;">
-            <td style="padding:11px 16px;"><div style="font-weight:bold;font-size:13px;color:#1a1a2e;">Options supplémentaires</div><div style="font-size:11px;color:#888;margin-top:2px;">Durée additionnelle, prestation spéciale…</div></td>
-            <td style="padding:11px 16px;font-size:12px;color:#888;">—</td>
-            <td style="padding:11px 16px;font-size:12px;color:#888;">Sur demande</td>
-            <td style="padding:11px 16px;text-align:right;"><input type="number" class="da" id="dp3" min="0" step="1" placeholder="0"> €</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- TOTAL -->
-      <div style="display:flex;justify-content:flex-end;align-items:center;border-top:1px solid #e5e5e5;">
-        <div style="padding:11px 20px;font-size:11px;color:#aaa;font-style:italic;flex:1;text-align:right;">TVA non applicable — Art. 293B du CGI</div>
-        <div style="background:#1F3864;padding:16px 22px;display:flex;align-items:center;gap:22px;">
-          <span style="font-size:12px;font-weight:bold;letter-spacing:0.08em;color:#93afd4;">TOTAL TTC</span>
-          <span id="d-total" style="font-size:24px;font-weight:bold;color:white;min-width:110px;text-align:right;">0 €</span>
+      <!-- ÉVÉNEMENT -->
+      <div class="dv-sec">ÉVÉNEMENT</div>
+      <div class="dv-fields">
+        <div class="dv-field">
+          <div class="dv-label">Type d'événement</div>
+          <input class="dv-input" placeholder="Mariage, soirée privée, corporate…" id="d-type"/>
         </div>
+        <div class="dv-field">
+          <div class="dv-label">Date</div>
+          <input class="dv-input" type="date" id="d-evdate"/>
+        </div>
+        <div class="dv-field">
+          <div class="dv-label">Lieu</div>
+          <input class="dv-input" placeholder="Ville, salle, adresse…" id="d-lieu"/>
+        </div>
+        <div class="dv-field">
+          <div class="dv-label">Nombre d'invités</div>
+          <input class="dv-input" type="number" placeholder="Ex : 80" id="d-invites" inputmode="numeric"/>
+        </div>
+      </div>
+
+      <!-- PRESTATIONS -->
+      <div class="dv-sec">DÉTAIL DE LA PRESTATION</div>
+
+      <div class="dv-prest">
+        <div class="dv-prest-name">Magie close-up / Magie de table</div>
+        <div class="dv-prest-sub">Animation vin d'honneur et/ou dîner — Tout public — 2h minimum</div>
+        <div class="dv-prest-amount">
+          <label>Montant HT</label>
+          <input type="number" class="dv-amount-input line-amount" id="dp1" min="0" step="1" placeholder="0" inputmode="numeric"/>
+          <span style="font-family:Arial;color:#555;">€</span>
+        </div>
+      </div>
+
+      <div class="dv-prest" style="background:#fafafa;">
+        <div class="dv-prest-name">Frais de déplacement</div>
+        <div class="dv-prest-sub">Selon distance depuis l'Île-de-France — Aller-retour</div>
+        <div class="dv-prest-amount">
+          <label>Montant HT</label>
+          <input type="number" class="dv-amount-input line-amount" id="dp2" min="0" step="1" placeholder="0" inputmode="numeric"/>
+          <span style="font-family:Arial;color:#555;">€</span>
+        </div>
+      </div>
+
+      <div class="dv-prest">
+        <div class="dv-prest-name">Options supplémentaires</div>
+        <div class="dv-prest-sub">Durée additionnelle, prestation spéciale — Sur demande</div>
+        <div class="dv-prest-amount">
+          <label>Montant HT</label>
+          <input type="number" class="dv-amount-input line-amount" id="dp3" min="0" step="1" placeholder="0" inputmode="numeric"/>
+          <span style="font-family:Arial;color:#555;">€</span>
+        </div>
+      </div>
+
+      <!-- REMISE -->
+      <div class="dv-remise">
+        <div class="dv-remise-row">
+          <div class="dv-remise-label">🎁 Remise / Promotion</div>
+          <div class="dv-remise-inputs">
+            <select class="dv-remise-type" id="remise-type" onchange="calcTotal()">
+              <option value="none">Aucune</option>
+              <option value="pct">%</option>
+              <option value="eur">€ fixe</option>
+            </select>
+            <input type="number" class="dv-remise-val" id="remise-val" min="0" step="1" placeholder="0" inputmode="numeric" oninput="calcTotal()"/>
+          </div>
+        </div>
+        <div id="remise-line" style="font-size:11px;color:#b87800;font-family:Arial;margin-top:6px;text-align:right;display:none;"></div>
+      </div>
+
+      <!-- TOTAUX -->
+      <div class="dv-totals">
+        <div class="dv-total-row">
+          <span>Sous-total HT</span>
+          <span id="d-subtotal">0 €</span>
+        </div>
+        <div class="dv-total-row" id="remise-row" style="display:none;">
+          <span id="remise-label-txt" style="color:#b87800;">Remise</span>
+          <span id="d-remise-amount" style="color:#b87800;">− 0 €</span>
+        </div>
+      </div>
+      <div class="dv-tva-note">TVA non applicable — Art. 293B du CGI</div>
+      <div class="dv-total-final">
+        <span class="dv-total-final-label">TOTAL TTC</span>
+        <span class="dv-total-final-amount" id="d-total">0 €</span>
       </div>
 
       <!-- CITATION -->
-      <div style="padding:13px 22px;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;font-size:12px;font-style:italic;color:#2E6DA4;text-align:center;">
-        « Je suis ravi de vous accompagner pour cet événement et ferai tout mon possible pour créer des moments d'émerveillement inoubliables. »
-      </div>
+      <div class="dv-citation">« Je suis ravi de vous accompagner pour cet événement et ferai tout mon possible pour créer des moments d'émerveillement inoubliables. »</div>
 
       <!-- CONDITIONS -->
-      <div style="background:#2E6DA4;color:white;padding:9px 22px;font-size:11px;font-weight:bold;letter-spacing:0.08em;">CONDITIONS &amp; MODALITÉS</div>
-      <div style="display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid #e5e5e5;"><div style="padding:10px 16px;font-size:11px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Acompte</div><div style="padding:10px 16px;font-size:12px;color:#555;">30 % du montant total à la confirmation de la réservation.</div></div>
-      <div style="display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid #e5e5e5;"><div style="padding:10px 16px;font-size:11px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Solde</div><div style="padding:10px 16px;font-size:12px;color:#555;">Réglé le jour de la prestation ou par virement dans les 7 jours précédant l'événement.</div></div>
-      <div style="display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid #e5e5e5;"><div style="padding:10px 16px;font-size:11px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Annulation</div><div style="padding:10px 16px;font-size:12px;color:#555;">Moins de 30 jours : l'acompte reste acquis. Moins de 7 jours : 50 % du montant total est dû.</div></div>
-      <div style="display:grid;grid-template-columns:120px 1fr;"><div style="padding:10px 16px;font-size:11px;font-weight:bold;color:#2E6DA4;background:#f5f7fa;">Déplacements</div><div style="padding:10px 16px;font-size:12px;color:#555;">Hors Île-de-France, facturés en sus selon conditions définies ensemble.</div></div>
+      <div class="dv-sec">CONDITIONS &amp; MODALITÉS</div>
+      <div class="dv-cond-row"><div class="dv-cond-key">Acompte</div><div class="dv-cond-val">30 % du montant total à la confirmation de la réservation.</div></div>
+      <div class="dv-cond-row"><div class="dv-cond-key">Solde</div><div class="dv-cond-val">Réglé le jour de la prestation ou par virement dans les 7 jours précédant l'événement.</div></div>
+      <div class="dv-cond-row"><div class="dv-cond-key">Annulation</div><div class="dv-cond-val">Moins de 30 jours : l'acompte reste acquis. Moins de 7 jours : 50 % du montant total est dû.</div></div>
+      <div class="dv-cond-row" style="border-bottom:none;"><div class="dv-cond-key">Déplacements</div><div class="dv-cond-val">Hors Île-de-France, facturés en sus selon conditions définies ensemble.</div></div>
 
       <!-- SIGNATURES -->
-      <div style="background:#2E6DA4;color:white;padding:9px 22px;font-size:11px;font-weight:bold;letter-spacing:0.08em;">BON POUR ACCORD</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e5e5e5;">
-        <div style="padding:16px 22px;">
-          <div style="font-size:13px;font-weight:bold;color:#1a1a2e;">Lucas Moreau — Magicien</div>
-          <div style="font-size:11px;color:#aaa;font-style:italic;margin-top:4px;">Signature &amp; date</div>
-          <div style="height:44px;margin-top:10px;border-bottom:1px dashed #ccc;"></div>
-        </div>
-        <div style="padding:16px 22px;border-left:1px solid #e5e5e5;">
-          <div style="font-size:11px;color:#aaa;font-style:italic;">Précédé de la mention « Bon pour accord »</div>
-          <div style="font-size:11px;color:#aaa;font-style:italic;margin-top:4px;">Signature, date &amp; tampon si société</div>
-          <div style="height:44px;margin-top:10px;border-bottom:1px dashed #ccc;"></div>
-        </div>
-      </div>
+      <div class="dv-sec">BON POUR ACCORD</div>
+      <div class="dv-sig-row">
 
+        <div class="dv-sig-bloc">
+          <div class="dv-sig-name">Lucas Moreau — Magicien</div>
+          <div class="dv-sig-note">Votre signature ci-dessous</div>
+          <div class="dv-canvas-wrap">
+            <canvas class="sig-canvas" id="sig-prestataire" width="480" height="100"></canvas>
+            <button class="sig-clear" onclick="clearSig('sig-prestataire')">Effacer</button>
+          </div>
+        </div>
+
+        <div class="dv-sig-bloc" style="border-bottom:none;">
+          <div class="dv-sig-name">Le client</div>
+          <div class="dv-sig-note">Précédé de « Bon pour accord » — Signature &amp; date</div>
+          <div class="dv-canvas-wrap">
+            <canvas class="sig-canvas" id="sig-client" width="480" height="100"></canvas>
+            <button class="sig-clear" onclick="clearSig('sig-client')">Effacer</button>
+          </div>
+        </div>
+
+      </div>
     </div><!-- fin devis-doc -->
   </div><!-- fin devis-panel -->
 
-  <style>
-    .df { width:100%;border:none;border-bottom:1px solid #c5d5e8;background:transparent;font-size:13px;color:#1a1a2e;padding:3px 0;margin:3px 0 7px;font-family:Arial,sans-serif;display:block; }
-    .df:focus { outline:none;border-bottom-color:#2E6DA4; }
-    .da { width:90px;text-align:right;border:1px solid #ccc;border-radius:6px;padding:5px 8px;font-size:14px;font-weight:bold;font-family:Arial,sans-serif;color:#1a1a2e;background:white; }
-    .da:focus { outline:none;border-color:#2E6DA4; }
-    @media print {
-      body > *:not(#devis-panel) { display:none !important; }
-      #devis-panel { display:block !important; }
-      #devis-panel > div:first-child { display:none !important; }
-      #devis-doc { box-shadow:none;border-radius:0;border:none; }
-      .df, .da, input { border:none !important;background:transparent !important;box-shadow:none !important; }
-      @page { size:A4;margin:12mm 14mm; }
-    }
-  </style>
+</div><!-- fin admin-content -->
 
-  <script>
-    function toggleDevis() {
-      var p = document.getElementById('devis-panel');
-      var btn = document.getElementById('devis-toggle-btn');
-      if (p.style.display === 'none') {
-        p.style.display = 'block';
-        btn.textContent = '✕ Fermer le devis';
-      } else {
-        p.style.display = 'none';
-        btn.textContent = '✦ Créer un devis ✦';
+<script>
+  /* ── MOT DE PASSE ── */
+  function checkPw() {
+    var val = document.getElementById('pw-input').value;
+    var err = document.getElementById('pw-error');
+    if (val === '7zbnl3I1') {
+      document.getElementById('pw-screen').style.display = 'none';
+      document.getElementById('admin-content').classList.add('unlocked');
+      err.classList.remove('show');
+      load();
+    } else {
+      err.classList.add('show');
+      document.getElementById('pw-input').value = '';
+    }
+  }
+  document.getElementById('pw-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') checkPw(); });
+  document.getElementById('pw-input').focus();
+
+  /* ── MAGIE ── */
+  var URL_S = 'https://dfxnaazkbcrvltlcbtsh.supabase.co';
+  var KEY_S = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmeG5hYXprYmNydmx0bGNidHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTIxNDAsImV4cCI6MjA5MDY2ODE0MH0.I1rlwrHSwjEnk82v8Ac-vEBofdMUyUGFTnYTepYGuFw';
+  var suitNames = { coeur:'Cœur', carreau:'Carreau', trefle:'Trèfle', pique:'Pique' };
+  var suitSymbols = { coeur:'♥', carreau:'♦', trefle:'♣', pique:'♠' };
+  var valNames = { A:'As', J:'Valet', Q:'Dame', K:'Roi' };
+  var selVal = null, selSuit = null, selSuitName = null, selSymbol = null;
+
+  function selectVal(btn, v) {
+    selVal = v;
+    document.querySelectorAll('.val-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    updatePreview();
+  }
+  function selectSuit(btn, s, sym) {
+    selSuit = s; selSuitName = suitNames[s]; selSymbol = sym;
+    document.querySelectorAll('.suit-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    updatePreview();
+  }
+  function updatePreview() {
+    if (selVal && selSuit) {
+      var vName = valNames[selVal] || selVal;
+      var color = (selSuit === 'coeur' || selSuit === 'carreau') ? '#e05050' : '#c9a84c';
+      document.getElementById('preview-card').innerHTML =
+        '<span style="color:' + color + ';font-size:1.4rem">' + selSymbol + ' </span>' + vName + ' de ' + selSuitName;
+    }
+  }
+  function getCardKey() {
+    if (!selVal || !selSuit) return null;
+    var vKey = selVal === 'A' ? 'as' : selVal === 'J' ? 'valet' : selVal === 'Q' ? 'dame' : selVal === 'K' ? 'roi' : selVal;
+    return vKey + '-' + selSuit;
+  }
+  function getCardLabel(key) {
+    if (!key) return '—';
+    var parts = key.split('-');
+    var v = parts[0]; var s = parts.slice(1).join('-');
+    var vName = {as:'As',valet:'Valet',dame:'Dame',roi:'Roi'}[v] || v;
+    var sym = suitSymbols[s] || '';
+    var color = (s === 'coeur' || s === 'carreau') ? '#e05050' : '#c9a84c';
+    return '<span style="color:' + color + '">' + sym + ' ' + vName + ' de ' + (suitNames[s] || s) + '</span>';
+  }
+  async function load() {
+    try {
+      var res = await fetch(URL_S + '/rest/v1/magie?select=code,carte&limit=1', { headers: { 'apikey': KEY_S, 'Authorization': 'Bearer ' + KEY_S } });
+      var data = await res.json();
+      if (data && data[0]) {
+        document.getElementById('code-input').value = data[0].code;
+        document.getElementById('active-value').innerHTML = 'Code : ' + data[0].code + '  |  Carte : ' + getCardLabel(data[0].carte);
       }
+      document.getElementById('status').textContent = '✦ Prêt';
+      document.getElementById('status').className = 'ok';
+    } catch(e) {
+      document.getElementById('status').textContent = 'Erreur connexion';
+      document.getElementById('status').className = 'err';
     }
-    function calcDevis() {
-      var total = 0;
-      ['dp1','dp2','dp3'].forEach(function(id) {
-        var v = parseFloat(document.getElementById(id).value);
-        if (!isNaN(v) && v > 0) total += v;
+  }
+  async function save() {
+    var code = document.getElementById('code-input').value.trim();
+    if (!code || code.length < 4) { alert('Entrez la date de naissance (minimum 4 chiffres).'); return; }
+    var carte = getCardKey();
+    if (!carte) { alert('Choisissez une valeur ET une couleur.'); return; }
+    var btn = document.getElementById('save-btn');
+    btn.disabled = true; btn.textContent = 'Enregistrement…';
+    document.getElementById('status').textContent = 'Mise à jour…';
+    document.getElementById('status').className = 'loading';
+    try {
+      var res = await fetch(URL_S + '/rest/v1/magie?id=gte.0', {
+        method: 'PATCH',
+        headers: { 'apikey': KEY_S, 'Authorization': 'Bearer ' + KEY_S, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ code: code, carte: carte })
       });
-      document.getElementById('d-total').textContent = total.toLocaleString('fr-FR') + ' €';
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      document.getElementById('active-value').innerHTML = 'Code : ' + code + '  |  Carte : ' + getCardLabel(carte);
+      document.getElementById('status').textContent = '✦ Tour configuré !';
+      document.getElementById('status').className = 'ok';
+    } catch(e) {
+      document.getElementById('status').textContent = 'Erreur : ' + e.message;
+      document.getElementById('status').className = 'err';
+    } finally {
+      btn.disabled = false; btn.textContent = '✦ Enregistrer le tour ✦';
     }
-    ['dp1','dp2','dp3'].forEach(function(id) {
-      document.getElementById(id).addEventListener('input', calcDevis);
+  }
+
+  /* ── DEVIS ── */
+  function toggleDevis() {
+    var p = document.getElementById('devis-panel');
+    var btn = document.getElementById('devis-toggle-btn');
+    if (p.classList.contains('open')) {
+      p.classList.remove('open');
+      btn.textContent = '✦ Créer un devis ✦';
+    } else {
+      p.classList.add('open');
+      btn.textContent = '✕ Fermer le devis';
+      setTimeout(function() { p.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+    }
+  }
+
+  function calcTotal() {
+    var sub = 0;
+    document.querySelectorAll('.line-amount').forEach(function(inp) {
+      var v = parseFloat(inp.value);
+      if (!isNaN(v) && v > 0) sub += v;
     });
-    function resetDevis() {
-      if (!confirm('Réinitialiser le devis ?')) return;
-      document.querySelectorAll('#devis-doc input').forEach(function(inp) {
-        if (inp.id !== 'd-num') inp.value = '';
-      });
-      document.getElementById('d-num').value = '001';
-      document.getElementById('d-total').textContent = '0 €';
-    }
-  </script>
+    document.getElementById('d-subtotal').textContent = sub.toLocaleString('fr-FR') + ' €';
 
-  </div><!-- fin admin-content -->
+    var type = document.getElementById('remise-type').value;
+    var remiseVal = parseFloat(document.getElementById('remise-val').value) || 0;
+    var remiseMontant = 0;
 
-  <script>
-    // Mot de passe admin
-    function checkPw() {
-      var val = document.getElementById('pw-input').value;
-      var err = document.getElementById('pw-error');
-      if (val === '7zbnl3I1') {
-        document.getElementById('pw-screen').style.display = 'none';
-        document.getElementById('admin-content').classList.add('unlocked');
-        err.classList.remove('show');
-        // Charger la config Supabase une fois déverrouillé
-        load();
+    if (type !== 'none' && remiseVal > 0) {
+      if (type === 'pct') {
+        remiseMontant = Math.round(sub * remiseVal / 100);
+        document.getElementById('remise-label-txt').textContent = 'Remise (' + remiseVal + '%)';
+        document.getElementById('remise-line').textContent = '− ' + remiseVal + '% appliqués sur le sous-total';
       } else {
-        err.classList.add('show');
-        document.getElementById('pw-input').value = '';
+        remiseMontant = Math.min(remiseVal, sub);
+        document.getElementById('remise-label-txt').textContent = 'Remise';
+        document.getElementById('remise-line').textContent = '− ' + remiseMontant.toLocaleString('fr-FR') + ' € déduits';
       }
+      document.getElementById('remise-row').style.display = 'flex';
+      document.getElementById('remise-line').style.display = 'block';
+      document.getElementById('d-remise-amount').textContent = '− ' + remiseMontant.toLocaleString('fr-FR') + ' €';
+    } else {
+      document.getElementById('remise-row').style.display = 'none';
+      document.getElementById('remise-line').style.display = 'none';
+      remiseMontant = 0;
     }
-    document.getElementById('pw-input').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') checkPw();
-    });
-    // Focus automatique sur le champ mot de passe
-    document.getElementById('pw-input').focus();
-  </script>
+
+    var total = Math.max(0, sub - remiseMontant);
+    document.getElementById('d-total').textContent = total.toLocaleString('fr-FR') + ' €';
+  }
+
+  document.querySelectorAll('.line-amount').forEach(function(inp) { inp.addEventListener('input', calcTotal); });
+
+  function resetDevis() {
+    if (!confirm('Réinitialiser le devis ?')) return;
+    document.querySelectorAll('#devis-doc input').forEach(function(inp) { if (inp.id !== 'd-num') inp.value = ''; });
+    document.getElementById('d-num').value = '001';
+    document.getElementById('remise-type').value = 'none';
+    document.getElementById('d-subtotal').textContent = '0 €';
+    document.getElementById('d-total').textContent = '0 €';
+    document.getElementById('remise-row').style.display = 'none';
+    document.getElementById('remise-line').style.display = 'none';
+    clearSig('sig-prestataire'); clearSig('sig-client');
+  }
+
+  /* ── SIGNATURES ── */
+  function initCanvas(id) {
+    var canvas = document.getElementById(id);
+    var ctx = canvas.getContext('2d');
+    // Retina / mobile resolution fix
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    if (rect.width > 0) {
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+    }
+    ctx.strokeStyle = '#1a1a2e';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    var drawing = false;
+
+    function getPos(e) {
+      var r = canvas.getBoundingClientRect();
+      var src = e.touches ? e.touches[0] : e;
+      return { x: (src.clientX - r.left), y: (src.clientY - r.top) };
+    }
+    function start(e) { e.preventDefault(); drawing = true; var p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }
+    function move(e) { if (!drawing) return; e.preventDefault(); var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }
+    function end(e) { drawing = false; }
+
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    canvas.addEventListener('mouseup', end);
+    canvas.addEventListener('mouseleave', end);
+    canvas.addEventListener('touchstart', start, { passive: false });
+    canvas.addEventListener('touchmove', move, { passive: false });
+    canvas.addEventListener('touchend', end);
+  }
+
+  function clearSig(id) {
+    var canvas = document.getElementById(id);
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  // Init canvases after layout
+  window.addEventListener('load', function() {
+    setTimeout(function() { initCanvas('sig-prestataire'); initCanvas('sig-client'); }, 200);
+  });
+
+  // Re-init on devis open (canvas may have 0 width before display)
+  var _devisInited = false;
+  document.getElementById('devis-toggle-btn').addEventListener('click', function() {
+    if (!_devisInited) {
+      setTimeout(function() { initCanvas('sig-prestataire'); initCanvas('sig-client'); _devisInited = true; }, 300);
+    }
+  });
+</script>
+
 </body>
 </html>
