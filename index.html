@@ -37,7 +37,6 @@
       100% { opacity: 0;              transform: translateY(var(--travel)) rotate(calc(var(--rot) + var(--rotd))) scale(1.05); }
     }
 
-    /* Durées réduites pour un effet plus dynamique et fluide */
     .float-card:nth-child(1){left:4%;   top:12%;    width:110px; --rot:-12deg; --rotd:8deg;   --travel:-90px;  --max-op:.6;  animation-duration:6s;  animation-delay:0s;}
     .float-card:nth-child(2){right:5%;  top:18%;    width:130px; --rot:15deg;  --rotd:-10deg; --travel:-105px; --max-op:.55; animation-duration:7s;  animation-delay:0.4s;}
     .float-card:nth-child(3){left:11%;  bottom:15%; width:100px; --rot:7deg;   --rotd:15deg;  --travel:-85px;  --max-op:.5;  animation-duration:6.5s;animation-delay:0.8s;}
@@ -107,7 +106,7 @@
     .prest-desc { font-size: 0.9rem; line-height: 2; color: var(--text-muted); font-weight: 400; }
     .prest-tag { display: inline-block; margin-top: 1.5rem; font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-border); padding: 0.3rem 0.8rem; font-weight: 500; }
 
-    /* ── TARIFS — simplifié ── */
+    /* ── TARIFS ── */
     #tarifs { background: var(--bg2); }
     .tarifs-inner { max-width: 720px; margin: 0 auto; text-align: center; }
 
@@ -191,47 +190,6 @@
     .zone-text p { font-size: 0.95rem; line-height: 2.1; color: var(--text-muted); margin-bottom: 1rem; font-weight: 400; }
     .zone-highlight { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold); font-style: italic; margin-bottom: 1.2rem; }
 
-    /* ── CONTACT ── */
-    #contact { background: var(--bg); }
-    .contact-inner { max-width: 700px; margin: 0 auto; }
-    .contact-intro { font-size: 1rem; line-height: 2.1; color: var(--text-muted); margin-bottom: 2rem; font-weight: 400; }
-
-    /* Coordonnées */
-    .contact-coords { display: flex; gap: 2rem; margin-bottom: 3rem; padding: 1.8rem 2rem; border: 1px solid var(--gold-border); background: var(--card-bg); }
-    .coord-item { display: flex; align-items: center; gap: 0.8rem; }
-    .coord-icon { font-size: 1.1rem; color: var(--gold); }
-    .coord-label { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; font-weight: 600; }
-    .coord-value { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--text); text-decoration: none; transition: color 0.3s; font-weight: 400; }
-    .coord-value:hover { color: var(--gold); }
-    .coord-sep { width: 1px; background: var(--gold-border); align-self: stretch; }
-
-    .form-group { margin-bottom: 1.8rem; }
-    .form-label { display: block; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; font-weight: 600; }
-    .form-input, .form-select, .form-textarea { width: 100%; padding: 0.9rem 0; background: transparent; border: none; border-bottom: 1px solid var(--gold-border); color: var(--text); font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 400; outline: none; transition: border-color 0.3s; appearance: none; }
-    .form-select option { background: var(--bg2); color: var(--text); }
-    .form-input:focus, .form-select:focus, .form-textarea:focus { border-bottom-color: var(--gold); }
-    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); }
-    .form-textarea { resize: none; min-height: 100px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .form-submit { width: 100%; padding: 1.1rem; background: transparent; border: 1px solid var(--gold-border); color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 1rem; font-weight: 500; }
-    .form-submit:hover { background: var(--gold-dim); border-color: var(--gold); }
-    #form-success { display: none; text-align: center; padding: 2rem; border: 1px solid var(--gold-border); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; color: var(--gold); }
-
-    /* ── FAQ ── */
-    #faq { background: var(--bg2); }
-    .faq-inner { max-width: 800px; margin: 0 auto; }
-    .faq-list { margin-top: 3rem; display: flex; flex-direction: column; }
-    .faq-item { border-bottom: 1px solid var(--gold-border); }
-    .faq-item:first-child { border-top: 1px solid var(--gold-border); }
-    .faq-question { width: 100%; background: none; border: none; display: flex; align-items: center; justify-content: space-between; padding: 1.6rem 0; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; color: var(--text); cursor: pointer; text-align: left; gap: 1rem; transition: color 0.3s; }
-    .faq-question:hover { color: var(--gold); }
-    .faq-question.active { color: var(--gold); }
-    .faq-icon { flex-shrink: 0; font-size: 1rem; color: var(--gold); transition: transform 0.35s ease; }
-    .faq-question.active .faq-icon { transform: rotate(45deg); }
-    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-    .faq-answer.open { max-height: 300px; }
-    .faq-answer p { font-size: 0.95rem; line-height: 2.1; color: var(--text-muted); padding-bottom: 1.6rem; font-weight: 400; }
-
     /* ── GALERIE ── */
     #galerie { background: var(--bg3); }
     .galerie-inner { max-width: 800px; margin: 0 auto; text-align: center; }
@@ -256,6 +214,46 @@
     .galerie-coming-icon { font-size: 2.5rem; margin-bottom: 1.5rem; opacity: 0.5; }
     .galerie-coming-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-style: italic; color: var(--gold); margin-bottom: 1rem; }
     .galerie-coming-text { font-size: 0.92rem; line-height: 2; color: var(--text-muted); font-weight: 400; }
+
+    /* ── FAQ ── */
+    #faq { background: var(--bg2); }
+    .faq-inner { max-width: 800px; margin: 0 auto; }
+    .faq-list { margin-top: 3rem; display: flex; flex-direction: column; }
+    .faq-item { border-bottom: 1px solid var(--gold-border); }
+    .faq-item:first-child { border-top: 1px solid var(--gold-border); }
+    .faq-question { width: 100%; background: none; border: none; display: flex; align-items: center; justify-content: space-between; padding: 1.6rem 0; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; color: var(--text); cursor: pointer; text-align: left; gap: 1rem; transition: color 0.3s; }
+    .faq-question:hover { color: var(--gold); }
+    .faq-question.active { color: var(--gold); }
+    .faq-icon { flex-shrink: 0; font-size: 1rem; color: var(--gold); transition: transform 0.35s ease; }
+    .faq-question.active .faq-icon { transform: rotate(45deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-answer.open { max-height: 300px; }
+    .faq-answer p { font-size: 0.95rem; line-height: 2.1; color: var(--text-muted); padding-bottom: 1.6rem; font-weight: 400; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg); }
+    .contact-inner { max-width: 700px; margin: 0 auto; }
+    .contact-intro { font-size: 1rem; line-height: 2.1; color: var(--text-muted); margin-bottom: 2rem; font-weight: 400; }
+
+    .contact-coords { display: flex; gap: 2rem; margin-bottom: 3rem; padding: 1.8rem 2rem; border: 1px solid var(--gold-border); background: var(--card-bg); }
+    .coord-item { display: flex; align-items: center; gap: 0.8rem; }
+    .coord-icon { font-size: 1.1rem; color: var(--gold); }
+    .coord-label { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; font-weight: 600; }
+    .coord-value { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--text); text-decoration: none; transition: color 0.3s; font-weight: 400; }
+    .coord-value:hover { color: var(--gold); }
+    .coord-sep { width: 1px; background: var(--gold-border); align-self: stretch; }
+
+    .form-group { margin-bottom: 1.8rem; }
+    .form-label { display: block; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; font-weight: 600; }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 0.9rem 0; background: transparent; border: none; border-bottom: 1px solid var(--gold-border); color: var(--text); font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 400; outline: none; transition: border-color 0.3s; appearance: none; }
+    .form-select option { background: var(--bg2); color: var(--text); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-bottom-color: var(--gold); }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); }
+    .form-textarea { resize: none; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .form-submit { width: 100%; padding: 1.1rem; background: transparent; border: 1px solid var(--gold-border); color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 1rem; font-weight: 500; }
+    .form-submit:hover { background: var(--gold-dim); border-color: var(--gold); }
+    #form-success { display: none; text-align: center; padding: 2rem; border: 1px solid var(--gold-border); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; color: var(--gold); }
 
     /* ── FOOTER ── */
     footer { background: var(--bg2); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--gold-border); transition: background 0.4s; }
@@ -371,7 +369,7 @@
     </div>
   </section>
 
-  <!-- TARIFS — simplifié -->
+  <!-- TARIFS -->
   <section id="tarifs">
     <div class="tarifs-inner">
       <div class="fade-in">
@@ -426,6 +424,54 @@
     </div>
   </section>
 
+  <!-- GALERIE -->
+  <section id="galerie">
+    <div class="galerie-inner">
+      <div class="fade-in">
+        <p class="section-label" style="text-align:center">Galerie</p>
+        <h2 class="section-title" style="text-align:center">Mes <em>prestations</em></h2>
+        <div class="divider" style="margin:0 auto 2.5rem;"></div>
+      </div>
+      <div class="galerie-lock fade-in" id="galerie-lock">
+        <div class="lock-icon">🔒</div>
+        <div class="lock-title">Espace réservé</div>
+        <p class="lock-subtitle">Cette galerie est en cours de constitution. Si vous avez reçu un code d'accès, entrez-le ci-dessous pour la découvrir en avant-première.</p>
+        <div class="lock-form">
+          <label class="lock-label">Code d'accès</label>
+          <input type="password" class="lock-input" id="lock-input" placeholder="· · · · · · · ·" maxlength="20"/>
+          <div class="lock-error" id="lock-error">Code incorrect. Veuillez réessayer.</div>
+          <button class="lock-btn" onclick="unlockGalerie()">✦ &nbsp; Accéder &nbsp; ✦</button>
+        </div>
+      </div>
+      <div class="galerie-content" id="galerie-content">
+        <div class="galerie-coming">
+          <div class="galerie-coming-icon">📸</div>
+          <div class="galerie-coming-title">Bientôt disponible</div>
+          <p class="galerie-coming-text">Les photos et vidéos de mes prestations arrivent très prochainement.<br>Revenez dans quelques semaines pour découvrir mes meilleurs moments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="faq-inner">
+      <div class="fade-in">
+        <p class="section-label">FAQ</p>
+        <h2 class="section-title">Questions<br><em>fréquentes</em></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="faq-list fade-in">
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Combien de temps dure une prestation ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Chaque prestation dure un minimum de 2 heures — le temps nécessaire pour créer de vrais moments de magie avec vos invités. Il n'y a pas de durée maximale : je m'adapte entièrement au rythme de votre soirée.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Y a-t-il un nombre d'invités minimum ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Non, il n'y a pas de minimum d'invités. La seule condition est le temps minimum de prestation de 2 heures. Que vous soyez une poignée d'amis ou plusieurs centaines de convives, je m'adapte à votre événement.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous pour des événements avec des enfants ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Avec plaisir ! Les enfants sont souvent les stars de ces moments — leur réaction spontanée et leur émerveillement sincère rendent la magie encore plus belle. Je m'adapte naturellement à tous les âges.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Comment se passe la réservation ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Contactez-moi par téléphone, par email ou via le formulaire sur ce site. Je vous réponds en moins de 12h avec une proposition personnalisée. Ensemble, nous définirons les détails avant de confirmer la réservation.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous en dehors de l'Île-de-France ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Oui, j'interviens partout en France. Des frais de déplacement sont à prévoir selon la distance. Tout est discuté ensemble de manière transparente lors du devis.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Avez-vous besoin d'un espace particulier pour intervenir ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Aucun aménagement particulier n'est nécessaire. Il me suffit de la table de vos spectateurs — c'est là que la magie prend vie, entre leurs mains. Pas de scène, pas de matériel encombrant.</p></div></div>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="contact-inner">
@@ -441,7 +487,7 @@
           <span class="coord-icon">✉</span>
           <div>
             <div class="coord-label">Email</div>
-            <a href="/cdn-cgi/l/email-protection#096a66677d686a7d497f667d7b6c64686e606a606c67276f7b" class="coord-value"><span class="__cf_email__" data-cfemail="9efdf1f0eafffdeadee8f1eaecfbf3fff9f7fdf7fbf0b0f8ec">[email&#160;protected]</span></a>
+            <a href="mailto:votremagicien@contact.fr" class="coord-value">votremagicien@contact.fr</a>
           </div>
         </div>
         <div class="coord-sep"></div>
@@ -482,54 +528,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="faq-inner">
-      <div class="fade-in">
-        <p class="section-label">FAQ</p>
-        <h2 class="section-title">Questions<br><em>fréquentes</em></h2>
-        <div class="divider"></div>
-      </div>
-      <div class="faq-list fade-in">
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Combien de temps dure une prestation ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Chaque prestation dure un minimum de 2 heures — le temps nécessaire pour créer de vrais moments de magie avec vos invités. Il n'y a pas de durée maximale : je m'adapte entièrement au rythme de votre soirée.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Y a-t-il un nombre d'invités minimum ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Non, il n'y a pas de minimum d'invités. La seule condition est le temps minimum de prestation de 2 heures. Que vous soyez une poignée d'amis ou plusieurs centaines de convives, je m'adapte à votre événement.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous pour des événements avec des enfants ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Avec plaisir ! Les enfants sont souvent les stars de ces moments — leur réaction spontanée et leur émerveillement sincère rendent la magie encore plus belle. Je m'adapte naturellement à tous les âges.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Comment se passe la réservation ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Contactez-moi par téléphone, par email ou via le formulaire sur ce site. Je vous réponds en moins de 12h avec une proposition personnalisée. Ensemble, nous définirons les détails avant de confirmer la réservation.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous en dehors de l'Île-de-France ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Oui, j'interviens partout en France. Des frais de déplacement sont à prévoir selon la distance. Tout est discuté ensemble de manière transparente lors du devis.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Avez-vous besoin d'un espace particulier pour intervenir ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Aucun aménagement particulier n'est nécessaire. Il me suffit de la table de vos spectateurs — c'est là que la magie prend vie, entre leurs mains. Pas de scène, pas de matériel encombrant.</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALERIE -->
-  <section id="galerie">
-    <div class="galerie-inner">
-      <div class="fade-in">
-        <p class="section-label" style="text-align:center">Galerie</p>
-        <h2 class="section-title" style="text-align:center">Mes <em>prestations</em></h2>
-        <div class="divider" style="margin:0 auto 2.5rem;"></div>
-      </div>
-      <div class="galerie-lock fade-in" id="galerie-lock">
-        <div class="lock-icon">🔒</div>
-        <div class="lock-title">Espace réservé</div>
-        <p class="lock-subtitle">Cette galerie est en cours de constitution. Si vous avez reçu un code d'accès, entrez-le ci-dessous pour la découvrir en avant-première.</p>
-        <div class="lock-form">
-          <label class="lock-label">Code d'accès</label>
-          <input type="password" class="lock-input" id="lock-input" placeholder="· · · · · · · ·" maxlength="20"/>
-          <div class="lock-error" id="lock-error">Code incorrect. Veuillez réessayer.</div>
-          <button class="lock-btn" onclick="unlockGalerie()">✦ &nbsp; Accéder &nbsp; ✦</button>
-        </div>
-      </div>
-      <div class="galerie-content" id="galerie-content">
-        <div class="galerie-coming">
-          <div class="galerie-coming-icon">📸</div>
-          <div class="galerie-coming-title">Bientôt disponible</div>
-          <p class="galerie-coming-text">Les photos et vidéos de mes prestations arrivent très prochainement.<br>Revenez dans quelques semaines pour découvrir mes meilleurs moments.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <footer>
     <div class="footer-logo">Lucas Moreau</div>
     <div class="footer-copy">© 2026 &nbsp;·&nbsp; Magicien close-up &nbsp;·&nbsp; Île-de-France &amp; France entière</div>
@@ -549,7 +547,6 @@
     <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,rgba(201,168,76,0.07) 0%,transparent 65%);animation:mglow 4s ease-in-out infinite;"></div>
     <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 25%,rgba(8,6,8,0.55) 65%,rgba(8,6,8,0.92) 100%);"></div>
 
-    <!-- Cartes flottantes dans l'overlay -->
     <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
       <div style="position:absolute;left:2%;top:10%;width:75px;border-radius:7px;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5));animation:cardFloat 8s linear infinite;--rot:-14deg;--rotd:9deg;--travel:-65px;--max-op:.35;animation-delay:0s;"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">A</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">♥</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">♥</text></svg></div>
       <div style="position:absolute;right:2%;top:15%;width:85px;border-radius:7px;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5));animation:cardFloat 8s linear infinite;--rot:17deg;--rotd:-11deg;--travel:-65px;--max-op:.30;animation-delay:2s;"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">A</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">♠</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">♠</text></svg></div>
@@ -565,7 +562,6 @@
       <div style="width:60px;height:1px;background:linear-gradient(to right,transparent,#c9a84c,transparent);"></div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:rgba(245,240,232,0.6);text-align:center;line-height:1.7;">Un secret vous a été confié.<br>Le moment est venu de le révéler.</div>
 
-      <!-- Bloc code -->
       <div id="magic-lock-bloc" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:1.1rem;">
         <div style="width:100%;padding:2rem;border:1px solid rgba(201,168,76,0.2);background:rgba(201,168,76,0.03);display:flex;flex-direction:column;align-items:center;gap:1.1rem;position:relative;">
           <div style="font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(201,168,76,0.7);font-weight:500;text-align:center;font-family:'Montserrat',sans-serif;">Entrez votre code secret</div>
@@ -578,7 +574,6 @@
         <button onclick="magicTryUnlock()" style="width:100%;padding:1rem 2rem;background:transparent;border:1px solid rgba(201,168,76,0.35);color:#c9a84c;font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-style:italic;letter-spacing:0.15em;cursor:pointer;transition:all 0.3s;" onmouseover="this.style.background='rgba(201,168,76,0.08)';this.style.borderColor='#c9a84c'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(201,168,76,0.35)'">✦ Révéler ✦</button>
       </div>
 
-      <!-- Carte révélée -->
       <div id="magic-reveal-bloc" style="display:none;flex-direction:column;align-items:center;gap:1.5rem;width:100%;">
         <p id="magic-reveal-msg" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,3.5vw,1.3rem);font-style:italic;color:rgba(245,240,232,0.75);text-align:center;line-height:1.8;">Votre carte était…</p>
         <div id="magic-card-wrap" style="width:min(220px,58vw);aspect-ratio:63/88;position:relative;filter:drop-shadow(0 0 40px rgba(201,168,76,0.25)) drop-shadow(0 16px 40px rgba(0,0,0,0.7));animation:cardAppearMagic 1s cubic-bezier(0.23,1,0.32,1) both;"></div>
@@ -652,7 +647,7 @@
         if (response.ok) {
           form.style.display = 'none';
           document.getElementById('form-success').style.display = 'block';
-        } else         { btn.textContent = '✦ Envoyer la demande ✦'; btn.disabled = false; }
+        } else { btn.textContent = '✦ Envoyer la demande ✦'; btn.disabled = false; }
       } catch(err) { btn.textContent = '✦ Envoyer la demande ✦'; btn.disabled = false; }
     });
 
