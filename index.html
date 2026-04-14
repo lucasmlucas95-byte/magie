@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lucas Moreau — Magicien Close-up Île-de-France | Mariage, Soirée, Corporate Paris</title>
-  <meta name="description" content="Lucas Moreau, magicien close-up en Île-de-France. Magie de proximité pour mariages, soirées privées et événements corporate à Paris (75, 92, 93, 94, 77, 78, 91, 95). Devis gratuit sous 12h."/>
+  <title>Lucas Magicien — Close-up Île-de-France | Mariage, Soirée, Corporate Paris</title>
+  <meta name="description" content="Lucas Magicien, spécialiste close-up en Île-de-France. Magie de proximité pour mariages, soirées privées et événements corporate à Paris (75, 92, 93, 94, 77, 78, 91, 95). Devis gratuit sous 12h."/>
   <meta name="keywords" content="magicien île de france, magicien close-up paris, magicien mariage paris, magicien soirée entreprise ile de france, magie de table paris, magicien proximité, magicien 75, magicien 92, magicien 93, magicien 94, magicien 77, magicien 78, animation mariage magicien, magicien anniversaire paris, magicien corporate paris"/>
   <meta name="robots" content="index, follow"/>
   <meta name="author" content="Lucas Moreau"/>
@@ -14,14 +14,14 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Lucas Moreau — Magicien Close-up Île-de-France | Paris"/>
+  <meta property="og:title" content="Lucas Magicien — Close-up Île-de-France | Paris"/>
   <meta property="og:description" content="Magicien close-up professionnel à Paris et en Île-de-France. Mariages, soirées privées, corporate. Devis gratuit sous 12h."/>
   <meta property="og:url" content="https://www.lucasmoreau-magicien.fr/"/>
   <meta property="og:locale" content="fr_FR"/>
-  <meta property="og:site_name" content="Lucas Moreau — Magicien Close-up"/>
+  <meta property="og:site_name" content="Lucas Magicien"/>
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary"/>
-  <meta name="twitter:title" content="Lucas Moreau — Magicien Close-up Île-de-France"/>
+  <meta name="twitter:title" content="Lucas Magicien — Close-up Île-de-France"/>
   <meta name="twitter:description" content="Magie de proximité pour mariages, soirées et événements corporate à Paris et en Île-de-France."/>
 
   <!-- Schema.org LocalBusiness + Performer -->
@@ -29,7 +29,7 @@
   {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "PerformingGroup"],
-    "name": "Lucas Moreau — Magicien Close-up",
+    "name": "Lucas Magicien",
     "description": "Lucas Moreau, magicien close-up professionnel en Île-de-France. Spécialiste de la magie de proximité pour mariages, soirées privées, événements corporate et séminaires. Intervention à Paris et dans toute la France. Devis gratuit sous 12h.",
     "url": "https://www.lucasmoreau-magicien.fr",
     "telephone": "+33608802201",
@@ -128,12 +128,20 @@
     .theme-toggle { position: fixed; bottom: 2rem; right: 2rem; z-index: 200; width: 48px; height: 48px; border-radius: 50%; background: var(--bg2); border: 1px solid var(--gold-border); color: var(--gold); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); transition: all 0.3s; }
     .theme-toggle:hover { background: var(--gold-dim); border-color: var(--gold); transform: scale(1.08); }
 
+    /* ── TOPBAR ── */
+    .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 101; display: flex; align-items: center; justify-content: center; gap: 2.5rem; padding: 0.45rem 4rem; background: var(--bg3); border-bottom: 1px solid var(--gold-border); transition: background 0.4s; }
+    .topbar-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.62rem; letter-spacing: 0.18em; color: var(--text-dim); text-decoration: none; transition: color 0.3s; white-space: nowrap; }
+    .topbar-item:hover { color: var(--gold); }
+    .topbar-icon { font-size: 0.75rem; color: var(--gold); }
+    .topbar-sep { width: 1px; height: 12px; background: var(--gold-border); }
+
     /* ── NAV ── */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 4rem; background: var(--nav-bg); border-bottom: 1px solid var(--gold-border); backdrop-filter: blur(10px); transition: background 0.4s, border-color 0.4s; }
-    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; text-decoration: none; }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
+    nav { position: fixed; top: 28px; left: 0; right: 0; z-index: 100; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 1.1rem 4rem; background: var(--nav-bg); border-bottom: 1px solid var(--gold-border); backdrop-filter: blur(10px); transition: background 0.4s, border-color 0.4s; }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; text-decoration: none; justify-self: start; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; justify-self: center; }
+    .nav-links a { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
     .nav-links a:hover { color: var(--gold); }
+    .nav-right { justify-self: end; display: flex; align-items: center; }
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
     .nav-hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); transition: all 0.3s; }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
@@ -143,6 +151,8 @@
     .mobile-menu.open { display: flex; }
     .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--text); text-decoration: none; letter-spacing: 0.1em; transition: color 0.3s; }
     .mobile-menu a:hover { color: var(--gold); }
+    /* Décaler le hero pour compenser topbar + nav */
+    #hero { padding-top: 28px; }
 
     /* ── HERO ── */
     #hero { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
@@ -180,33 +190,33 @@
     .about-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-style: italic; font-weight: 300; color: var(--text); line-height: 1.6; border-left: 2px solid var(--gold); padding-left: 2rem; }
 
     /* ── PRESTATIONS ── */
-    #prestations { background: var(--bg); }
+    #prestations { background: var(--bg); padding-top: 4.5rem; padding-bottom: 4.5rem; }
     .prestations-inner { max-width: 1100px; margin: 0 auto; }
-    .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 3rem; }
-    .prest-card { background: var(--card-bg); padding: 2.5rem 2rem; border: 1px solid var(--gold-border); transition: border-color 0.3s, background 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+    .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 2rem; }
+    .prest-card { background: var(--card-bg); padding: 1.5rem 1.6rem; border: 1px solid var(--gold-border); transition: border-color 0.3s, background 0.3s, transform 0.3s; position: relative; overflow: hidden; }
     .prest-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.3s; }
-    .prest-card:hover { background: var(--gold-dim); border-color: var(--gold); transform: translateY(-4px); }
+    .prest-card:hover { background: var(--gold-dim); border-color: var(--gold); transform: translateY(-3px); }
     .prest-card:hover::before { opacity: 1; }
-    .prest-icon { font-size: 1.8rem; margin-bottom: 1.5rem; }
-    .prest-title { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400; color: var(--text); margin-bottom: 0.8rem; }
-    .prest-desc { font-size: 0.9rem; line-height: 2; color: var(--text-muted); font-weight: 400; }
-    .prest-tag { display: inline-block; margin-top: 1.5rem; font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-border); padding: 0.3rem 0.8rem; font-weight: 500; }
+    .prest-icon { font-size: 1.4rem; margin-bottom: 0.8rem; }
+    .prest-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; color: var(--text); margin-bottom: 0.5rem; }
+    .prest-desc { font-size: 0.88rem; line-height: 1.85; color: var(--text-muted); font-weight: 400; }
+    .prest-tag { display: inline-block; margin-top: 1rem; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-border); padding: 0.25rem 0.65rem; font-weight: 500; }
 
     /* ── TARIFS ── */
-    #tarifs { background: var(--bg2); }
-    .tarifs-inner { max-width: 720px; margin: 0 auto; text-align: center; }
-    .tarif-central { border: 1px solid var(--gold-border); background: var(--card-bg); padding: 3.5rem 3rem; margin: 3rem 0 2rem; position: relative; }
+    #tarifs { background: var(--bg2); padding-top: 4.5rem; padding-bottom: 4.5rem; }
+    .tarifs-inner { max-width: 620px; margin: 0 auto; text-align: center; }
+    .tarif-central { border: 1px solid var(--gold-border); background: var(--card-bg); padding: 2rem 2.5rem; margin: 2rem 0 1.5rem; position: relative; }
     .tarif-central::before, .tarif-central::after { content: '✦'; position: absolute; color: var(--gold); font-size: 0.8rem; background: var(--bg2); padding: 0 0.5rem; }
     .tarif-central::before { top: -0.6rem; left: 50%; transform: translateX(-50%); }
     .tarif-central::after  { bottom: -0.6rem; left: 50%; transform: translateX(-50%); }
-    .tarif-base-label { font-size: 0.68rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 1.2rem; }
-    .tarif-base-price { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: 0.3rem; }
-    .tarif-base-price sup { font-size: 2rem; vertical-align: super; }
-    .tarif-base-unit { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); font-weight: 400; margin-bottom: 2rem; }
-    .tarif-base-sep { width: 40px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 2rem auto; }
-    .tarif-base-text { font-size: 1.2rem; line-height: 2; color: var(--text-muted); font-weight: 400; font-family: 'Cormorant Garamond', serif; font-style: italic; }
-    .tarif-disclaimer { font-size: 0.88rem; color: var(--text-muted); line-height: 2; border: 1px solid var(--gold-border); padding: 1.5rem 2rem; background: var(--card-bg); font-weight: 400; }
-    .tarif-cta { display: inline-block; padding: 0.9rem 2.5rem; background: var(--gold); color: #fff; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: opacity 0.3s, box-shadow 0.3s; margin-top: 2rem; cursor: pointer; border: none; font-family: 'Montserrat', sans-serif; }
+    .tarif-base-label { font-size: 0.68rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 0.8rem; }
+    .tarif-base-price { font-family: 'Cormorant Garamond', serif; font-size: 3.8rem; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: 0.2rem; }
+    .tarif-base-price sup { font-size: 1.6rem; vertical-align: super; }
+    .tarif-base-unit { font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); font-weight: 400; margin-bottom: 1.2rem; }
+    .tarif-base-sep { width: 40px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 1.2rem auto; }
+    .tarif-base-text { font-size: 1.1rem; line-height: 1.9; color: var(--text-muted); font-weight: 400; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+    .tarif-disclaimer { font-size: 0.86rem; color: var(--text-muted); line-height: 1.9; border: 1px solid var(--gold-border); padding: 1.1rem 1.6rem; background: var(--card-bg); font-weight: 400; }
+    .tarif-cta { display: inline-block; padding: 0.9rem 2.5rem; background: var(--gold); color: #fff; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: opacity 0.3s, box-shadow 0.3s; margin-top: 1.5rem; cursor: pointer; border: none; font-family: 'Montserrat', sans-serif; }
     [data-theme="dark"] .tarif-cta { color: #0d0d0d; }
     .tarif-cta:hover { opacity: 0.85; box-shadow: 0 8px 30px rgba(201,168,76,0.3); }
 
@@ -367,8 +377,11 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 1.2rem 1.5rem; }
+      .topbar { padding: 0.4rem 1.5rem; gap: 1.2rem; }
+      .topbar-sep { display: none; }
+      nav { top: 26px; padding: 1rem 1.5rem; grid-template-columns: 1fr auto; }
       .nav-links { display: none; }
+      .nav-right { display: none; }
       .nav-hamburger { display: flex; }
       section { padding: 5rem 1.5rem; }
       .about-grid, .zone-grid, .form-row { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -379,6 +392,7 @@
       .float-card { display: none; }
       .float-card:nth-child(1), .float-card:nth-child(2) { display: block; }
       .hero-stats { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+      #hero { padding-top: 26px; }
     }
 
     .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
@@ -390,6 +404,19 @@
   <button class="theme-toggle" onclick="toggleTheme()" title="Changer le thème" aria-label="Basculer le mode sombre/clair">
     <span id="theme-icon">🌙</span>
   </button>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <a href="tel:0608802201" class="topbar-item">
+      <span class="topbar-icon">✆</span>
+      06 08 80 22 01
+    </a>
+    <div class="topbar-sep"></div>
+    <a href="mailto:votremagicien@contact.fr" class="topbar-item">
+      <span class="topbar-icon">✉</span>
+      votremagicien@contact.fr
+    </a>
+  </div>
 
   <!-- Menu mobile -->
   <div class="mobile-menu" id="mobile-menu">
@@ -404,7 +431,7 @@
   </div>
 
   <nav>
-    <a href="#hero" class="nav-logo">Lucas Moreau</a>
+    <a href="#hero" class="nav-logo">Lucas Magicien</a>
     <ul class="nav-links">
       <li><a href="#about">À propos</a></li>
       <li><a href="#prestations">Prestations</a></li>
@@ -415,9 +442,11 @@
       <li><a href="#avis">Avis</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -749,7 +778,7 @@
       </div>
 
       <form id="contact-form" class="fade-in" action="https://formspree.io/f/mlgowzrl" method="POST">
-        <input type="hidden" name="_subject" value="Nouvelle demande de devis — Lucas Moreau Magicien"/>
+        <input type="hidden" name="_subject" value="Nouvelle demande de devis — Lucas Magicien"/>
         <div class="form-row">
           <div class="form-group"><label class="form-label">Prénom</label><input type="text" name="prenom" class="form-input" placeholder="Votre prénom" required/></div>
           <div class="form-group"><label class="form-label">Nom</label><input type="text" name="nom" class="form-input" placeholder="Votre nom" required/></div>
@@ -794,18 +823,11 @@
   </section>
 
   <footer>
-    <div class="footer-logo">Lucas Moreau</div>
+    <div class="footer-logo">Lucas Magicien</div>
     <div class="footer-copy">© 2026 &nbsp;·&nbsp; <span>Magicien close-up Paris &amp; Île-de-France</span></div>
     <button class="footer-legal" onclick="openMentions()">Mentions légales</button>
   </footer>
 
-  <!-- Bouton carte caché -->
-  <div style="background:var(--bg2);border-top:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;padding:1.2rem;">
-    <button onclick="openMagicReveal()" title="✦" aria-label="Magie secrète" style="background:none;border:1px solid rgba(154,110,26,0.2);border-radius:8px;cursor:pointer;padding:0.6rem 1.2rem;display:flex;align-items:center;gap:0.6rem;color:var(--text-dim);transition:all 0.3s;opacity:0.45;" onmouseover="this.style.opacity='1';this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.opacity='0.45';this.style.borderColor='rgba(154,110,26,0.2)';this.style.color='var(--text-dim)'">
-      <svg viewBox="0 0 24 34" xmlns="http://www.w3.org/2000/svg" width="14" height="20"><rect width="24" height="34" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="22" font-family="serif" font-size="14" fill="currentColor" text-anchor="middle">♠</text></svg>
-      <span style="font-family:'Cormorant Garamond',serif;font-size:0.75rem;letter-spacing:0.2em;font-style:italic;">Magie</span>
-    </button>
-  </div>
 
   <!-- MODALE MENTIONS LÉGALES -->
   <div class="modal-overlay" id="mentions-overlay" onclick="closeMentionsIfBg(event)">
@@ -851,46 +873,6 @@
     </div>
   </div>
 
-  <!-- OVERLAY MAGIE -->
-  <div id="magic-overlay" style="display:none;position:fixed;inset:0;z-index:1000;background:#080608;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 50%,#1a0e08 0%,#080608 100%);"></div>
-    <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,rgba(201,168,76,0.07) 0%,transparent 65%);animation:mglow 4s ease-in-out infinite;"></div>
-    <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 25%,rgba(8,6,8,0.55) 65%,rgba(8,6,8,0.92) 100%);"></div>
-    <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
-      <div style="position:absolute;left:2%;top:10%;width:75px;border-radius:7px;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5));animation:cardFloat 8s linear infinite;--rot:-14deg;--rotd:9deg;--travel:-65px;--max-op:.35;animation-delay:0s;"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">A</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">♥</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">♥</text></svg></div>
-      <div style="position:absolute;right:2%;top:15%;width:85px;border-radius:7px;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5));animation:cardFloat 8s linear infinite;--rot:17deg;--rotd:-11deg;--travel:-65px;--max-op:.30;animation-delay:2s;"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#1a1a1a">A</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#1a1a1a">♠</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#1a1a1a" text-anchor="middle" dominant-baseline="middle">♠</text></svg></div>
-      <div style="position:absolute;left:3%;bottom:15%;width:70px;border-radius:7px;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5));animation:cardFloat 8s linear infinite;--rot:8deg;--rotd:16deg;--travel:-65px;--max-op:.28;animation-delay:4s;"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="#1a1020"/><rect x="4" y="4" width="62" height="92" rx="4" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.7"/><text x="35" y="56" font-family="Georgia,serif" font-size="24" fill="#c9a84c" text-anchor="middle" dominant-baseline="middle">✦</text></svg></div>
-      <div style="position:absolute;right:3%;bottom:20%;width:80px;border-radius:7px;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5));animation:cardFloat 8s linear infinite;--rot:-11deg;--rotd:-19deg;--travel:-65px;--max-op:.30;animation-delay:6s;"><svg viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="100" rx="6" fill="white" stroke="#ddd" stroke-width="0.5"/><text x="7" y="19" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c0392b">K</text><text x="7" y="31" font-family="Georgia,serif" font-size="11" fill="#c0392b">♦</text><text x="35" y="62" font-family="Georgia,serif" font-size="38" fill="#c0392b" text-anchor="middle" dominant-baseline="middle">♦</text></svg></div>
-    </div>
-    <button onclick="closeMagicReveal()" style="position:absolute;top:1.2rem;right:1.5rem;z-index:10;background:none;border:none;color:rgba(201,168,76,0.4);font-size:1.6rem;cursor:pointer;font-family:'Cormorant Garamond',serif;line-height:1;transition:color 0.3s;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(201,168,76,0.4)'">✕</button>
-    <div id="magic-scene" style="position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:1.6rem;padding:3rem 2rem;width:100%;max-width:440px;">
-      <div style="font-size:0.72rem;letter-spacing:0.7em;color:rgba(201,168,76,0.8);text-transform:uppercase;">✦ &nbsp; Magie &nbsp; ✦</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,5vw,2.4rem);font-style:italic;color:#f5f0e8;text-align:center;line-height:1.3;">Votre carte <em style="color:#c9a84c;">vous attend</em></div>
-      <div style="width:60px;height:1px;background:linear-gradient(to right,transparent,#c9a84c,transparent);"></div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:rgba(245,240,232,0.6);text-align:center;line-height:1.7;">Un secret vous a été confié.<br>Le moment est venu de le révéler.</div>
-      <div id="magic-lock-bloc" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:1.1rem;">
-        <div style="width:100%;padding:2rem;border:1px solid rgba(201,168,76,0.2);background:rgba(201,168,76,0.03);display:flex;flex-direction:column;align-items:center;gap:1.1rem;position:relative;">
-          <div style="font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(201,168,76,0.7);font-weight:500;text-align:center;font-family:'Montserrat',sans-serif;">Entrez votre code secret</div>
-          <input type="tel" id="magic-code-input" inputmode="numeric" autocomplete="off" maxlength="30" placeholder="· · · · · · · ·" style="width:100%;padding:0.8rem 0;background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,0.25);color:#f5f0e8;font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;letter-spacing:0.4em;text-align:center;outline:none;-webkit-appearance:none;" onfocus="this.style.borderBottomColor='#c9a84c'" onblur="this.style.borderBottomColor='rgba(201,168,76,0.25)'"/>
-          <div id="magic-lock-error" style="font-size:0.72rem;color:#e05555;opacity:0;transition:opacity 0.3s;letter-spacing:0.1em;font-family:'Cormorant Garamond',serif;font-style:italic;text-align:center;">Ce code ne correspond pas… Réessayez.</div>
-        </div>
-        <button onclick="magicTryUnlock()" style="width:100%;padding:1rem 2rem;background:transparent;border:1px solid rgba(201,168,76,0.35);color:#c9a84c;font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-style:italic;letter-spacing:0.15em;cursor:pointer;transition:all 0.3s;" onmouseover="this.style.background='rgba(201,168,76,0.08)';this.style.borderColor='#c9a84c'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(201,168,76,0.35)'">✦ Révéler ✦</button>
-      </div>
-      <div id="magic-reveal-bloc" style="display:none;flex-direction:column;align-items:center;gap:1.5rem;width:100%;">
-        <p id="magic-reveal-msg" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,3.5vw,1.3rem);font-style:italic;color:rgba(245,240,232,0.75);text-align:center;line-height:1.8;">Votre carte était…</p>
-        <div id="magic-card-wrap" style="width:min(220px,58vw);aspect-ratio:63/88;position:relative;filter:drop-shadow(0 0 40px rgba(201,168,76,0.25)) drop-shadow(0 16px 40px rgba(0,0,0,0.7));animation:cardAppearMagic 1s cubic-bezier(0.23,1,0.32,1) both;"></div>
-        <p id="magic-card-name" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,3.5vw,1.6rem);font-style:italic;color:#c9a84c;text-align:center;letter-spacing:0.05em;text-shadow:0 0 30px rgba(201,168,76,0.4);"></p>
-        <button onclick="magicReset()" style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(245,240,232,0.3);background:none;border:none;cursor:pointer;transition:color 0.3s;font-family:'Montserrat',sans-serif;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(245,240,232,0.3)'">↩ Recommencer</button>
-      </div>
-    </div>
-  </div>
-  <div id="magic-flash" style="position:fixed;inset:0;z-index:1010;background:white;opacity:0;pointer-events:none;transition:opacity 0.06s;"></div>
-
-  <style>
-    @keyframes mglow { 0%,100%{opacity:.4} 50%{opacity:1} }
-    @keyframes cardAppearMagic { from{transform:scale(0.7) translateY(30px) rotateY(90deg);opacity:0} to{transform:none;opacity:1} }
-    #magic-overlay.open { display:flex !important; }
-  </style>
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* ── FADE IN ── */
@@ -1118,105 +1100,13 @@
       animate();
     })();
 
-    /* ── MAGIC REVEAL ── */
-    const SUPA_URL = 'https://dfxnaazkbcrvltlcbtsh.supabase.co';
-    const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmeG5hYXprYmNydmx0bGNidHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwOTIxNDAsImV4cCI6MjA5MDY2ODE0MH0.I1rlwrHSwjEnk82v8Ac-vEBofdMUyUGFTnYTepYGuFw';
-
-    function openMagicReveal() {
-      document.getElementById('magic-overlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-      setTimeout(function () { document.getElementById('magic-code-input').focus(); }, 300);
-    }
-    function closeMagicReveal() {
-      document.getElementById('magic-overlay').classList.remove('open');
-      document.body.style.overflow = '';
-      magicReset();
-    }
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
-        closeMagicReveal();
         closeMentions();
       }
     });
 
-    function magicCardSVG(rank, suit, color) {
-      var c = color === 'red' ? '#c8000a' : '#0a0a0a';
-      return '<svg viewBox="0 0 630 880" xmlns="http://www.w3.org/2000/svg">'
-        + '<defs><radialGradient id="cbg" cx="50%" cy="38%" r="65%"><stop offset="0%" stop-color="#fffef5"/><stop offset="100%" stop-color="#f7f0e2"/></radialGradient></defs>'
-        + '<rect width="630" height="880" rx="30" fill="url(#cbg)"/>'
-        + '<rect x="5" y="5" width="620" height="870" rx="26" fill="none" stroke="#c8bfa8" stroke-width="2.5"/>'
-        + '<g transform="translate(42,36)"><text font-family="Times New Roman,serif" font-size="80" font-weight="bold" fill="' + c + '" text-anchor="middle" x="26" y="74">' + rank + '</text>'
-        + '<text font-family="Arial,sans-serif" font-size="56" fill="' + c + '" text-anchor="middle" x="26" y="132">' + suit + '</text></g>'
-        + '<text font-family="Arial,sans-serif" font-size="220" fill="' + c + '" text-anchor="middle" dominant-baseline="middle" x="315" y="460">' + suit + '</text>'
-        + '<g transform="translate(588,844) rotate(180)"><text font-family="Times New Roman,serif" font-size="80" font-weight="bold" fill="' + c + '" text-anchor="middle" x="26" y="74">' + rank + '</text>'
-        + '<text font-family="Arial,sans-serif" font-size="56" fill="' + c + '" text-anchor="middle" x="26" y="132">' + suit + '</text></g></svg>';
-    }
 
-    var MAGIC_CARDS = {
-      'as-coeur':{rank:'A',suit:'♥',color:'red',name:'As de Cœur'},'as-carreau':{rank:'A',suit:'♦',color:'red',name:'As de Carreau'},'as-trefle':{rank:'A',suit:'♣',color:'black',name:'As de Trèfle'},'as-pique':{rank:'A',suit:'♠',color:'black',name:'As de Pique'},
-      'roi-coeur':{rank:'K',suit:'♥',color:'red',name:'Roi de Cœur'},'roi-carreau':{rank:'K',suit:'♦',color:'red',name:'Roi de Carreau'},'roi-trefle':{rank:'K',suit:'♣',color:'black',name:'Roi de Trèfle'},'roi-pique':{rank:'K',suit:'♠',color:'black',name:'Roi de Pique'},
-      'dame-coeur':{rank:'Q',suit:'♥',color:'red',name:'Dame de Cœur'},'dame-carreau':{rank:'Q',suit:'♦',color:'red',name:'Dame de Carreau'},'dame-trefle':{rank:'Q',suit:'♣',color:'black',name:'Dame de Trèfle'},'dame-pique':{rank:'Q',suit:'♠',color:'black',name:'Dame de Pique'},
-      'valet-coeur':{rank:'J',suit:'♥',color:'red',name:'Valet de Cœur'},'valet-carreau':{rank:'J',suit:'♦',color:'red',name:'Valet de Carreau'},'valet-trefle':{rank:'J',suit:'♣',color:'black',name:'Valet de Trèfle'},'valet-pique':{rank:'J',suit:'♠',color:'black',name:'Valet de Pique'},
-      '10-coeur':{rank:'10',suit:'♥',color:'red',name:'10 de Cœur'},'10-carreau':{rank:'10',suit:'♦',color:'red',name:'10 de Carreau'},'10-trefle':{rank:'10',suit:'♣',color:'black',name:'10 de Trèfle'},'10-pique':{rank:'10',suit:'♠',color:'black',name:'10 de Pique'},
-      '9-coeur':{rank:'9',suit:'♥',color:'red',name:'9 de Cœur'},'9-pique':{rank:'9',suit:'♠',color:'black',name:'9 de Pique'},
-      '8-coeur':{rank:'8',suit:'♥',color:'red',name:'8 de Cœur'},'8-pique':{rank:'8',suit:'♠',color:'black',name:'8 de Pique'},
-      '7-coeur':{rank:'7',suit:'♥',color:'red',name:'7 de Cœur'},'7-carreau':{rank:'7',suit:'♦',color:'red',name:'7 de Carreau'},'7-trefle':{rank:'7',suit:'♣',color:'black',name:'7 de Trèfle'},'7-pique':{rank:'7',suit:'♠',color:'black',name:'7 de Pique'},
-      '6-coeur':{rank:'6',suit:'♥',color:'red',name:'6 de Cœur'},'6-pique':{rank:'6',suit:'♠',color:'black',name:'6 de Pique'},
-      '5-coeur':{rank:'5',suit:'♥',color:'red',name:'5 de Cœur'},'5-pique':{rank:'5',suit:'♠',color:'black',name:'5 de Pique'},
-      '4-coeur':{rank:'4',suit:'♥',color:'red',name:'4 de Cœur'},'4-pique':{rank:'4',suit:'♠',color:'black',name:'4 de Pique'},
-      '3-coeur':{rank:'3',suit:'♥',color:'red',name:'3 de Cœur'},'3-carreau':{rank:'3',suit:'♦',color:'red',name:'3 de Carreau'},'3-trefle':{rank:'3',suit:'♣',color:'black',name:'3 de Trèfle'},'3-pique':{rank:'3',suit:'♠',color:'black',name:'3 de Pique'},
-      '2-coeur':{rank:'2',suit:'♥',color:'red',name:'2 de Cœur'},'2-pique':{rank:'2',suit:'♠',color:'black',name:'2 de Pique'}
-    };
-
-    async function magicTryUnlock() {
-      var input = document.getElementById('magic-code-input').value.trim();
-      var error = document.getElementById('magic-lock-error');
-      if (!input) return;
-      try {
-        var res = await fetch(SUPA_URL + '/rest/v1/magie?select=code,carte&limit=1', {
-          headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
-        });
-        var data = await res.json();
-        if (data && data[0] && input === data[0].code) {
-          var flash = document.getElementById('magic-flash');
-          flash.style.opacity = '0.25';
-          setTimeout(function () { flash.style.opacity = '0'; }, 150);
-          setTimeout(function () { magicRevealCard(data[0].carte); }, 100);
-          error.style.opacity = '0';
-        } else {
-          error.style.opacity = '1';
-          document.getElementById('magic-code-input').value = '';
-        }
-      } catch (e) {
-        error.textContent = 'Erreur de connexion. Réessayez.';
-        error.style.opacity = '1';
-      }
-    }
-
-    function magicRevealCard(carte) {
-      document.getElementById('magic-lock-bloc').style.display = 'none';
-      var bloc = document.getElementById('magic-reveal-bloc');
-
-      var bloc = document.getElementById('magic-reveal-bloc');
-      var card = MAGIC_CARDS[carte];
-      if (!card) { card = { rank: '?', suit: '✦', color: 'red', name: carte }; }
-      document.getElementById('magic-card-wrap').innerHTML = magicCardSVG(card.rank, card.suit, card.color);
-      document.getElementById('magic-card-name').textContent = card.name;
-      bloc.style.display = 'flex';
-    }
-
-    function magicReset() {
-      document.getElementById('magic-lock-bloc').style.display = 'flex';
-      document.getElementById('magic-reveal-bloc').style.display = 'none';
-      document.getElementById('magic-code-input').value = '';
-      document.getElementById('magic-lock-error').style.opacity = '0';
-      document.getElementById('magic-card-wrap').innerHTML = '';
-      document.getElementById('magic-card-name').textContent = '';
-    }
-
-    document.getElementById('magic-code-input').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') magicTryUnlock();
-    });
 
     /* ── PARTICULES HERO ── */
     (function () {
