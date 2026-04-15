@@ -141,7 +141,11 @@
     .nav-links { display: flex; gap: 2rem; list-style: none; justify-self: center; }
     .nav-links a { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
     .nav-links a:hover { color: var(--gold); }
-    .nav-right { justify-self: end; display: flex; align-items: center; }
+    .nav-right { justify-self: end; display: flex; align-items: center; gap: 1.5rem; }
+    .nav-contact { display: flex; align-items: center; gap: 1.2rem; }
+    .nav-contact a { font-size: 0.62rem; letter-spacing: 0.18em; color: var(--text-muted); text-decoration: none; transition: color 0.3s; display: flex; align-items: center; gap: 0.4rem; }
+    .nav-contact a:hover { color: var(--gold); }
+    .nav-contact-sep { width: 1px; height: 14px; background: var(--gold-border); }
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
     .nav-hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); transition: all 0.3s; }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
@@ -508,7 +512,8 @@
       .topbar-sep { display: none; }
       nav { top: 26px; padding: 1rem 1.5rem; grid-template-columns: 1fr auto; }
       .nav-links { display: none; }
-      .nav-right { display: none; }
+      .nav-right { display: flex; }
+      .nav-contact { display: none; }
       .nav-hamburger { display: flex; }
       section { padding: 5rem 1.5rem; }
       .about-grid, .zone-grid, .form-row { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -568,6 +573,11 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-right">
+      <div class="nav-contact">
+        <a href="tel:0608802201">✆ 06 08 80 22 01</a>
+        <div class="nav-contact-sep"></div>
+        <a href="mailto:votremagicien@contact.fr">✉ votremagicien@contact.fr</a>
+      </div>
       <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
