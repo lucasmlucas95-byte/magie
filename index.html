@@ -69,7 +69,7 @@
     },
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "4.8",
+      "ratingValue": "5",
       "reviewCount": "6",
       "bestRating": "5"
     },
@@ -301,11 +301,34 @@
     .avis-inner { max-width: 1100px; margin: 0 auto; padding: 0 4rem; display: grid; grid-template-columns: auto 1fr; gap: 3rem; align-items: center; }
 
     /* Bloc note à gauche */
-    .avis-note-bloc { display: flex; flex-direction: column; gap: 0.4rem; flex-shrink: 0; }
-    .avis-note-num { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-style: italic; color: var(--gold); line-height: 1; }
-    .avis-note-stars-sm { display: flex; gap: 3px; }
-    .avis-note-stars-sm span { font-size: 0.8rem; color: var(--gold); }
-    .avis-note-label { font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.1rem; }
+    .avis-note-bloc { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; align-items: flex-start; }
+    .avis-note-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 7rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: #e8c84a;
+      text-shadow: 0 0 30px rgba(232,200,74,0.5), 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .avis-note-stars-sm { display: flex; gap: 6px; margin-top: 0.1rem; }
+    .avis-note-stars-sm span {
+      font-size: 1.4rem;
+      color: #e8c84a;
+      text-shadow: 0 0 8px rgba(232,200,74,0.8);
+      animation: star-pulse 2.8s ease-in-out infinite;
+    }
+    .avis-note-stars-sm span:nth-child(1) { animation-delay: 0s; }
+    .avis-note-stars-sm span:nth-child(2) { animation-delay: 0.12s; }
+    .avis-note-stars-sm span:nth-child(3) { animation-delay: 0.24s; }
+    .avis-note-stars-sm span:nth-child(4) { animation-delay: 0.36s; }
+    .avis-note-stars-sm span:nth-child(5) { animation-delay: 0.48s; }
+    @keyframes star-pulse {
+      0%, 80%, 100% { transform: scale(1); text-shadow: 0 0 6px rgba(232,200,74,0.6); }
+      40% { transform: scale(1.2); text-shadow: 0 0 14px rgba(232,200,74,1); }
+    }
+    .avis-note-label { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.2rem; }
 
     /* Séparateur vertical */
     .avis-sep { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--gold-border), transparent); flex-shrink: 0; }
@@ -495,7 +518,7 @@
 
       <!-- Note globale -->
       <div class="avis-note-bloc fade-in">
-        <div class="avis-note-num">4,8</div>
+        <div class="avis-note-num">5</div>
         <div>
           <div class="avis-note-stars-sm"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
           <div class="avis-note-label">6 avis clients</div>
@@ -510,7 +533,7 @@
           <div class="avis-row">
             <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
             <div class="avis-row-dot"></div>
-            <p class="avis-row-quote">Ma belle-mère qui "n'aime pas la magie" était la première à le rappeler — bluffant.</p>
+            <p class="avis-row-quote">Ma belle-mère qui "n'aime pas la magie" était la première à le rappeler. Bluffant.</p>
             <div class="avis-row-dot"></div>
             <span class="avis-row-author">Sophie & Romain L. · Mariage Versailles</span>
           </div>
@@ -524,9 +547,9 @@
           </div>
 
           <div class="avis-row">
-            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star empty">★</span></div>
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
             <div class="avis-row-dot"></div>
-            <p class="avis-row-quote">Tous les âges ont adoré. Je retire une étoile car 1h30 c'est trop court !</p>
+            <p class="avis-row-quote">Tous les âges ont adoré. Une heure et demie de pur bonheur, on en aurait bien voulu encore !</p>
             <div class="avis-row-dot"></div>
             <span class="avis-row-author">Claire M. · Anniversaire 40 ans</span>
           </div>
@@ -534,7 +557,7 @@
           <div class="avis-row">
             <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
             <div class="avis-row-dot"></div>
-            <p class="avis-row-quote">Un tour avec ma carte retrouvée dans mon portefeuille fermé — impossible à expliquer.</p>
+            <p class="avis-row-quote">Un tour avec ma carte retrouvée dans mon portefeuille fermé. Impossible à expliquer.</p>
             <div class="avis-row-dot"></div>
             <span class="avis-row-author">Thomas B. · Soirée privée Neuilly</span>
           </div>
@@ -548,7 +571,7 @@
           </div>
 
           <div class="avis-row">
-            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star empty">★</span></div>
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Pas de mise en scène envahissante, juste de la magie au bon moment. On refera appel à lui.</p>
             <div class="avis-row-dot"></div>
@@ -560,7 +583,7 @@
           <div class="avis-row">
             <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
             <div class="avis-row-dot"></div>
-            <p class="avis-row-quote">Ma belle-mère qui "n'aime pas la magie" était la première à le rappeler — bluffant.</p>
+            <p class="avis-row-quote">Ma belle-mère qui "n'aime pas la magie" était la première à le rappeler. Bluffant.</p>
             <div class="avis-row-dot"></div>
             <span class="avis-row-author">Sophie & Romain L. · Mariage Versailles</span>
           </div>
@@ -574,9 +597,9 @@
           </div>
 
           <div class="avis-row">
-            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star empty">★</span></div>
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
             <div class="avis-row-dot"></div>
-            <p class="avis-row-quote">Tous les âges ont adoré. Je retire une étoile car 1h30 c'est trop court !</p>
+            <p class="avis-row-quote">Tous les âges ont adoré. Une heure et demie de pur bonheur, on en aurait bien voulu encore !</p>
             <div class="avis-row-dot"></div>
             <span class="avis-row-author">Claire M. · Anniversaire 40 ans</span>
           </div>
@@ -584,7 +607,7 @@
           <div class="avis-row">
             <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
             <div class="avis-row-dot"></div>
-            <p class="avis-row-quote">Un tour avec ma carte retrouvée dans mon portefeuille fermé — impossible à expliquer.</p>
+            <p class="avis-row-quote">Un tour avec ma carte retrouvée dans mon portefeuille fermé. Impossible à expliquer.</p>
             <div class="avis-row-dot"></div>
             <span class="avis-row-author">Thomas B. · Soirée privée Neuilly</span>
           </div>
@@ -598,7 +621,7 @@
           </div>
 
           <div class="avis-row">
-            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star empty">★</span></div>
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Pas de mise en scène envahissante, juste de la magie au bon moment. On refera appel à lui.</p>
             <div class="avis-row-dot"></div>
@@ -618,12 +641,12 @@
         <p class="section-label">À propos</p>
         <h2 class="section-title">L'art de<br>l'<em>impossible</em></h2>
         <div class="divider"></div>
-        <p>Vos invités se souviendront de ce moment. Pas du buffet, pas du décor — du moment où la magie s'est passée entre leurs mains, en direct, sans explication possible.</p>
+        <p>Vos invités se souviendront de ce moment. Pas du buffet, pas du décor. Du moment où la magie s'est passée entre leurs mains, en direct, sans explication possible.</p>
         <p>Spécialiste de la <strong>magie close-up</strong> en <strong>Île-de-France</strong>, j'interviens pour vos <strong>mariages</strong>, soirées privées, événements d'entreprise et galas à Paris et dans toute la région parisienne.</p>
-        <p>Chaque prestation est préparée en fonction de votre événement, de votre public et de vos envies. Je m'adapte à votre programme — pas l'inverse.</p>
+        <p>Chaque prestation est préparée en fonction de votre événement, de votre public et de vos envies. Je m'adapte à votre programme, pas l'inverse.</p>
       </div>
       <div class="fade-in" style="animation-delay:0.2s">
-        <blockquote class="about-quote">"La magie ne fait pas que surprendre — elle réunit, elle émerveille, elle crée du lien entre les personnes."</blockquote>
+        <blockquote class="about-quote">"La magie ne fait pas que surprendre. Elle réunit, elle émerveille, elle crée du lien entre les personnes."</blockquote>
       </div>
     </div>
   </section>
@@ -637,15 +660,15 @@
         <div class="divider"></div>
       </div>
       <div class="cards-grid fade-in">
-        <div class="prest-card"><div class="prest-icon">💍</div><div class="prest-title">Mariage</div><p class="prest-desc">Vos invités garderont un souvenir précis de votre mariage — le moment où la magie s'est produite entre leurs mains. J'interviens au vin d'honneur, au dîner, ou aux deux.</p><span class="prest-tag">Vin d'honneur · Dîner</span></div>
-        <div class="prest-card"><div class="prest-icon">🥂</div><div class="prest-title">Soirée privée</div><p class="prest-desc">Anniversaire, réception, dîner entre amis — offrez à vos proches un moment dont ils parleront encore le lendemain. Une animation qui s'adapte à tous les âges, sans exception.</p><span class="prest-tag">Tous types d'événements</span></div>
+        <div class="prest-card"><div class="prest-icon">💍</div><div class="prest-title">Mariage</div><p class="prest-desc">Vos invités garderont un souvenir précis de votre mariage. Le moment où la magie s'est produite entre leurs mains. J'interviens au vin d'honneur, au dîner, ou aux deux.</p><span class="prest-tag">Vin d'honneur · Dîner</span></div>
+        <div class="prest-card"><div class="prest-icon">🥂</div><div class="prest-title">Soirée privée</div><p class="prest-desc">Anniversaire, réception, dîner entre amis : offrez à vos proches un moment dont ils parleront encore le lendemain. Une animation qui s'adapte à tous les âges, sans exception.</p><span class="prest-tag">Tous types d'événements</span></div>
         <div class="prest-card"><div class="prest-icon">🏢</div><div class="prest-title">Corporate</div><p class="prest-desc">Brisez la glace, créez du lien, marquez les esprits. La magie est l'animation idéale pour vos séminaires, soirées d'entreprise et lancements de produit en Île-de-France.</p><span class="prest-tag">Entreprises · Séminaires</span></div>
-        <div class="prest-card"><div class="prest-icon">🎭</div><div class="prest-title">Magie de table</div><p class="prest-desc">Des tours réalisés directement dans les mains de vos invités, à quelques centimètres. Pas de scène, pas de distance — juste l'impossible, en direct, pour chaque table.</p><span class="prest-tag">Close-up · Proximité</span></div>
-        <div class="prest-card"><div class="prest-icon">🎪</div><div class="prest-title">Tout événement</div><p class="prest-desc">Gala, inauguration, fête de famille, cocktail professionnel — quelle que soit l'occasion, la prestation est construite autour de votre événement et de vos invités.</p><span class="prest-tag">Sur mesure</span></div>
+        <div class="prest-card"><div class="prest-icon">🎭</div><div class="prest-title">Magie de table</div><p class="prest-desc">Des tours réalisés directement dans les mains de vos invités, à quelques centimètres. Pas de scène, pas de distance. Juste l'impossible, en direct, pour chaque table.</p><span class="prest-tag">Close-up · Proximité</span></div>
+        <div class="prest-card"><div class="prest-icon">🎪</div><div class="prest-title">Tout événement</div><p class="prest-desc">Gala, inauguration, fête de famille, cocktail professionnel : quelle que soit l'occasion, la prestation est construite autour de votre événement et de vos invités.</p><span class="prest-tag">Sur mesure</span></div>
         <div class="prest-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--gold);margin-bottom:1.5rem;line-height:1.6;">Votre événement mérite quelque chose d'extraordinaire.</div><a href="#contact" class="tarif-cta" style="font-size:0.62rem;">Nous contacter</a></div>
       </div>
       <div class="fade-in" style="text-align:center;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--gold-border);">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--text-muted);margin-bottom:1.2rem;">Votre prestation, votre programme, vos invités — tout est pensé sur mesure.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--text-muted);margin-bottom:1.2rem;">Votre prestation, votre programme, vos invités. Tout est pensé sur mesure.</p>
         <a href="#contact" class="tarif-cta">Obtenir un devis gratuit</a>
       </div>
     </div>
@@ -667,7 +690,7 @@
         <p class="tarif-base-text">Le tarif final dépend de la durée,<br>du type d'événement et de vos besoins.</p>
       </div>
       <div class="tarif-disclaimer fade-in">
-        Chaque demande reçoit une proposition personnalisée, <strong>gratuite et sans engagement</strong>, envoyée sous 12h. Les déplacements hors Île-de-France sont intégrés de manière transparente dans le devis — aucun frais caché.
+        Chaque demande reçoit une proposition personnalisée, <strong>gratuite et sans engagement</strong>, envoyée sous 12h. Les déplacements hors Île-de-France sont intégrés de manière transparente dans le devis, sans frais cachés.
       </div>
       <div style="text-align:center;">
         <a href="#contact" class="tarif-cta">Obtenir mon devis en 12h</a>
@@ -698,7 +721,7 @@
         <div class="zone-text fade-in">
           <p class="zone-highlight">Magicien basé en Île-de-France</p>
           <p>Disponible pour tous vos événements en région parisienne : <strong>Paris (75)</strong>, <strong>Hauts-de-Seine (92)</strong>, <strong>Seine-Saint-Denis (93)</strong>, <strong>Val-de-Marne (94)</strong>, <strong>Seine-et-Marne (77)</strong>, <strong>Yvelines (78)</strong>, <strong>Essonne (91)</strong>, <strong>Val-d'Oise (95)</strong>.</p>
-          <p>Magicien pour <strong>mariage en Île-de-France</strong>, <strong>soirée d'entreprise à Paris</strong>, anniversaire, gala ou cocktail — je me déplace partout en France. Les frais de transport hors Île-de-France sont intégrés de manière transparente dans le devis.</p>
+          <p>Magicien pour <strong>mariage en Île-de-France</strong>, <strong>soirée d'entreprise à Paris</strong>, anniversaire, gala ou cocktail : je me déplace partout en France. Les frais de transport hors Île-de-France sont intégrés de manière transparente dans le devis.</p>
           <p>N'hésitez pas à me contacter quelle que soit votre localisation, nous trouverons ensemble la meilleure organisation.</p>
           <a href="#contact" class="hero-cta" style="margin-top:2rem;display:inline-block;">Prendre contact</a>
         </div>
@@ -744,13 +767,13 @@
         <div class="divider"></div>
       </div>
       <div class="faq-list fade-in">
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Combien d'invités pouvez-vous couvrir ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Cela dépend de la configuration de la salle, du rythme de la soirée et de la durée de la prestation. On adapte tout ensemble lors du devis afin que chaque invité profite d'un moment de magie — quelle que soit la taille de votre événement.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Que se passe-t-il si vous êtes indisponible le jour J ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Je travaille en professionnel et m'engage sur chaque date confirmée. En cas d'empêchement exceptionnel et imprévisible, je ferai tout pour vous orienter vers une solution de remplacement fiable et vous en informerai le plus tôt possible. Ce cas ne s'est jamais produit à ce jour.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Avez-vous besoin d'un espace ou de matériel particulier ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Aucun aménagement particulier n'est nécessaire — pas de scène, pas de sono, pas de lumières spéciales. Il me suffit de la table de vos convives. Je suis totalement autonome en matériel pour les événements jusqu'à 150 personnes environ.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">À quel moment de la soirée intervenez-vous ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Le vin d'honneur est le moment idéal : les invités se mélangent, l'ambiance est décontractée, et la magie crée immédiatement du lien. J'interviens aussi pendant le dîner table par table, ou lors des deux. Tout est organisé selon votre programme.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">La magie fonctionne-t-elle aussi avec des invités sceptiques ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>C'est souvent eux qui réagissent le mieux. Le scepticisme se transforme en stupeur — et cette surprise-là est la plus sincère. L'objectif n'est pas de "tromper" mais de créer un moment partagé que personne ne peut expliquer.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Comment se passe la réservation ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Contactez-moi par téléphone, par email ou via le formulaire. Je vous réponds sous 12h avec un devis personnalisé gratuit et sans engagement. Une fois la date confirmée, un contrat simple est établi pour sécuriser les deux parties.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous en dehors de l'Île-de-France ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Oui, j'interviens partout en France. Les frais de déplacement sont intégrés au devis de manière transparente. N'hésitez pas à me contacter quelle que soit votre localisation.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Combien d'invités pouvez-vous couvrir ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Ça dépend vraiment de la configuration de la salle, du rythme de la soirée et de la durée. On voit ça ensemble lors du devis pour que chaque invité ait son moment de magie.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Que se passe-t-il si vous êtes indisponible le jour J ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Je m'engage sur chaque date confirmée et je travaille en professionnel. En cas d'imprévu exceptionnel, je vous préviens le plus tôt possible et je fais tout pour vous trouver une solution fiable. Ça ne m'est jamais arrivé à ce jour.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Avez-vous besoin d'un espace ou de matériel particulier ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Rien de spécial. Pas de scène, pas de sono, pas de lumières particulières. La table de vos convives me suffit. Je suis totalement autonome en matériel.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">À quel moment de la soirée intervenez-vous ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Le vin d'honneur est souvent le meilleur moment : les invités se mélangent, l'ambiance est détendue, et la magie crée du lien naturellement. J'interviens aussi pendant le dîner table par table, ou les deux. On organise ça selon votre programme.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">La magie fonctionne-t-elle aussi avec des invités sceptiques ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>C'est souvent eux qui réagissent le mieux, sincèrement. Le scepticisme se transforme en stupeur, et cette surprise-là est la plus authentique. L'objectif n'est pas de tromper mais de créer quelque chose que personne ne peut expliquer.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Comment se passe la réservation ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Contactez-moi par téléphone, par email ou via le formulaire. Je vous réponds sous 12h avec un devis personnalisé, gratuit et sans engagement. Une fois la date confirmée, un contrat simple est établi pour sécuriser les deux parties.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Intervenez-vous en dehors de l'Île-de-France ?<span class="faq-icon">✦</span></button><div class="faq-answer"><p>Oui, partout en France. Les frais de déplacement sont intégrés dans le devis de façon transparente. N'hésitez pas à me contacter quelle que soit votre localisation.</p></div></div>
       </div>
       <div class="fade-in" style="text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--gold-border);">
         <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--text-muted);margin-bottom:1.2rem;">Une question qui n'est pas ici ? Écrivez-moi directement.</p>
