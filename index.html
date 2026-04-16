@@ -70,7 +70,7 @@
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5",
-      "reviewCount": "6",
+      "reviewCount": "12",
       "bestRating": "5"
     },
     "sameAs": []
@@ -432,17 +432,17 @@
     .avis-note-label { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.2rem; }
 
     /* Séparateur vertical */
-    .avis-sep { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--gold-border), transparent); flex-shrink: 0; }
+    .avis-sep { width: 1px; height: 200px; background: linear-gradient(to bottom, transparent, var(--gold-border), transparent); flex-shrink: 0; }
 
     /* Ticker vertical */
-    .avis-ticker { position: relative; height: 72px; overflow: hidden; }
+    .avis-ticker { position: relative; height: 260px; overflow: hidden; }
     .avis-ticker::before, .avis-ticker::after {
-      content: ''; position: absolute; left: 0; right: 0; height: 20px; z-index: 2; pointer-events: none;
+      content: ''; position: absolute; left: 0; right: 0; height: 36px; z-index: 2; pointer-events: none;
     }
     .avis-ticker::before { top: 0;    background: linear-gradient(to bottom, var(--bg2), transparent); }
     .avis-ticker::after  { bottom: 0; background: linear-gradient(to top,    var(--bg2), transparent); }
 
-    .avis-ticker-track { display: flex; flex-direction: column; gap: 0; animation: tickerScroll 18s linear infinite; }
+    .avis-ticker-track { display: flex; flex-direction: column; gap: 0; animation: tickerScroll 28s linear infinite; }
     .avis-ticker-track:hover { animation-play-state: paused; }
     @keyframes tickerScroll {
       0%   { transform: translateY(0); }
@@ -450,12 +450,13 @@
     }
 
     /* Ligne unique = un avis compact */
-    .avis-row { display: flex; align-items: center; gap: 1rem; height: 72px; padding: 0 0.2rem; flex-shrink: 0; }
-    .avis-row-stars { display: flex; gap: 2px; flex-shrink: 0; }
-    .avis-row-star { font-size: 0.7rem; color: var(--gold); }
+    .avis-row { display: flex; align-items: center; gap: 1.2rem; height: 86px; padding: 0 0.5rem; flex-shrink: 0; border-bottom: 1px solid var(--gold-border); }
+    .avis-row:last-child { border-bottom: none; }
+    .avis-row-stars { display: flex; gap: 3px; flex-shrink: 0; }
+    .avis-row-star { font-size: 0.9rem; color: var(--gold); }
     .avis-row-star.empty { color: var(--gold-border); }
-    .avis-row-quote { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; font-style: italic; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; }
-    .avis-row-author { font-size: 0.6rem; letter-spacing: 0.12em; color: var(--text-dim); white-space: nowrap; flex-shrink: 0; }
+    .avis-row-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.18rem; font-style: italic; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; }
+    .avis-row-author { font-size: 0.72rem; letter-spacing: 0.12em; color: var(--text-dim); white-space: nowrap; flex-shrink: 0; }
     .avis-row-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold-border); flex-shrink: 0; }
 
     @media (max-width: 768px) {
@@ -463,9 +464,9 @@
       .avis-inner { padding: 0 1.5rem; grid-template-columns: 1fr; gap: 1.2rem; }
       .avis-sep { display: none; }
       .avis-note-bloc { flex-direction: row; align-items: center; gap: 1rem; }
-      .avis-ticker { height: 64px; }
-      .avis-row { height: 64px; }
-      .avis-row-quote { font-size: 0.88rem; }
+      .avis-ticker { height: 200px; }
+      .avis-row { height: 80px; }
+      .avis-row-quote { font-size: 1.05rem; }
     }
 
     /* ── FOOTER ── */
@@ -734,21 +735,21 @@
         <div class="avis-note-num">5</div>
         <div>
           <div class="avis-note-stars-sm"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <div class="avis-note-label">6 avis clients</div>
+          <div class="avis-note-label">12 avis clients</div>
         </div>
       </div>
 
       <!-- Ticker vertical -->
       <div class="avis-ticker">
         <div class="avis-ticker-track">
-          <!-- Les 6 avis, dupliqués pour boucle infinie -->
+          <!-- 12 avis, dupliqués pour boucle infinie -->
 
           <div class="avis-row">
             <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Ma belle-mère qui "n'aime pas la magie" était la première à le rappeler. Bluffant.</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Sophie & Romain L. · Mariage Versailles</span>
+            <span class="avis-row-author">Sophie & Romain L.</span>
           </div>
 
           <div class="avis-row">
@@ -756,7 +757,7 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Professionnel, discret, franchement impressionnant. Devis reçu en moins de 2h.</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Marc D. · Corporate Paris 8e</span>
+            <span class="avis-row-author">Marc D.</span>
           </div>
 
           <div class="avis-row">
@@ -764,7 +765,7 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Tous les âges ont adoré. Une heure et demie de pur bonheur, on en aurait bien voulu encore !</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Claire M. · Anniversaire 40 ans</span>
+            <span class="avis-row-author">Claire M.</span>
           </div>
 
           <div class="avis-row">
@@ -772,7 +773,7 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Un tour avec ma carte retrouvée dans mon portefeuille fermé. Impossible à expliquer.</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Thomas B. · Soirée privée Neuilly</span>
+            <span class="avis-row-author">Thomas B.</span>
           </div>
 
           <div class="avis-row">
@@ -780,7 +781,7 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Il a pris le temps d'adapter ses tours à nos invités. Tarif clair, zéro surprise.</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Aurélie & Julien F. · Mariage Fontainebleau</span>
+            <span class="avis-row-author">Aurélie & Julien F.</span>
           </div>
 
           <div class="avis-row">
@@ -788,7 +789,55 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Pas de mise en scène envahissante, juste de la magie au bon moment. On refera appel à lui.</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Élodie P. · Gala La Défense</span>
+            <span class="avis-row-author">Élodie P.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Les enfants comme les grands étaient scotchés. On ne s'y attend vraiment pas.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">Nathalie & Pierre G.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Réactif, ponctuel, et les tours sont vraiment au-dessus de ce qu'on voit d'habitude.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">Kevin M.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Une pièce qui disparaît, réapparaît dans le verre d'un invité. La salle a explosé.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">Camille R.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Très bonne communication avant et une présence vraiment naturelle sur place.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">Isabelle T.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Il a su mettre à l'aise même les plus sceptiques. Tour de force.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">Damien & Lucie V.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Le meilleur investissement de la soirée. Les gens en parlent encore des semaines après.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">François H.</span>
           </div>
 
           <!-- Doublons pour boucle CSS infinie -->
@@ -798,7 +847,7 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Ma belle-mère qui "n'aime pas la magie" était la première à le rappeler. Bluffant.</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Sophie & Romain L. · Mariage Versailles</span>
+            <span class="avis-row-author">Sophie & Romain L.</span>
           </div>
 
           <div class="avis-row">
@@ -806,7 +855,7 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Professionnel, discret, franchement impressionnant. Devis reçu en moins de 2h.</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Marc D. · Corporate Paris 8e</span>
+            <span class="avis-row-author">Marc D.</span>
           </div>
 
           <div class="avis-row">
@@ -814,7 +863,7 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Tous les âges ont adoré. Une heure et demie de pur bonheur, on en aurait bien voulu encore !</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Claire M. · Anniversaire 40 ans</span>
+            <span class="avis-row-author">Claire M.</span>
           </div>
 
           <div class="avis-row">
@@ -822,7 +871,7 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Un tour avec ma carte retrouvée dans mon portefeuille fermé. Impossible à expliquer.</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Thomas B. · Soirée privée Neuilly</span>
+            <span class="avis-row-author">Thomas B.</span>
           </div>
 
           <div class="avis-row">
@@ -830,7 +879,7 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Il a pris le temps d'adapter ses tours à nos invités. Tarif clair, zéro surprise.</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Aurélie & Julien F. · Mariage Fontainebleau</span>
+            <span class="avis-row-author">Aurélie & Julien F.</span>
           </div>
 
           <div class="avis-row">
@@ -838,7 +887,55 @@
             <div class="avis-row-dot"></div>
             <p class="avis-row-quote">Pas de mise en scène envahissante, juste de la magie au bon moment. On refera appel à lui.</p>
             <div class="avis-row-dot"></div>
-            <span class="avis-row-author">Élodie P. · Gala La Défense</span>
+            <span class="avis-row-author">Élodie P.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Les enfants comme les grands étaient scotchés. On ne s'y attend vraiment pas.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">Nathalie & Pierre G.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Réactif, ponctuel, et les tours sont vraiment au-dessus de ce qu'on voit d'habitude.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">Kevin M.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Une pièce qui disparaît, réapparaît dans le verre d'un invité. La salle a explosé.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">Camille R.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Très bonne communication avant et une présence vraiment naturelle sur place.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">Isabelle T.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Il a su mettre à l'aise même les plus sceptiques. Tour de force.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">Damien & Lucie V.</span>
+          </div>
+
+          <div class="avis-row">
+            <div class="avis-row-stars"><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span><span class="avis-row-star">★</span></div>
+            <div class="avis-row-dot"></div>
+            <p class="avis-row-quote">Le meilleur investissement de la soirée. Les gens en parlent encore des semaines après.</p>
+            <div class="avis-row-dot"></div>
+            <span class="avis-row-author">François H.</span>
           </div>
 
         </div>
