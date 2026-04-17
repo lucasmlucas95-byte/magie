@@ -132,12 +132,78 @@
     nav { position: static; top: 0; left: 0; right: 0; z-index: 100; display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 1.5rem; padding: 1.1rem 4rem; background: var(--nav-bg); border-bottom: 1px solid var(--gold-border); backdrop-filter: blur(10px); transition: background 0.4s, border-color 0.4s; }
     .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; text-decoration: none; }
     .nav-links { display: flex; gap: 2rem; list-style: none; justify-self: center; }
-    .nav-links a { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
+    .nav-links > li { position: relative; }
+    .nav-links a { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; font-weight: 400; display: flex; align-items: center; gap: 0.3rem; }
     .nav-links a:hover { color: var(--gold); }
+    .nav-links > li > a::after { content: ''; display: inline-block; width: 0; height: 0; border-left: 3px solid transparent; border-right: 3px solid transparent; border-top: 3px solid currentColor; opacity: 0.5; margin-top: 1px; transition: transform 0.25s; }
+    .nav-links > li:not(.has-dropdown) > a::after { display: none; }
+    .nav-links > li:hover > a { color: var(--gold); }
+    .nav-links > li:hover > a::after { transform: rotate(180deg); opacity: 1; }
+
+    /* ── DROPDOWN ── */
+    .nav-dropdown {
+      position: absolute;
+      top: calc(100% + 1rem);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 240px;
+      background: var(--nav-bg);
+      border: 1px solid var(--gold-border);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+      border-radius: 4px;
+      padding: 0.6rem 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 300;
+    }
+    .nav-links > li:hover .nav-dropdown {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid var(--gold-border);
+    }
+    .nav-dropdown::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid var(--nav-bg);
+    }
+    .nav-dropdown-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 0.7rem 1.2rem;
+      text-decoration: none;
+      transition: background 0.2s;
+      cursor: pointer;
+      border-bottom: 1px solid var(--gold-border);
+    }
+    .nav-dropdown-item:last-child { border-bottom: none; }
+    .nav-dropdown-item:hover { background: var(--gold-dim); }
+    .nav-dropdown-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; opacity: 0.8; }
+    .nav-dropdown-text { display: flex; flex-direction: column; gap: 0.15rem; }
+    .nav-dropdown-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text); font-weight: 500; }
+    .nav-dropdown-desc { font-size: 0.58rem; color: var(--text-dim); letter-spacing: 0.05em; line-height: 1.4; }
     .nav-right { justify-self: end; display: flex; align-items: center; gap: 1.5rem; }
     .nav-contact { display: flex; align-items: center; gap: 1.2rem; }
-    .nav-contact a { font-size: 0.62rem; letter-spacing: 0.18em; color: var(--text-muted); text-decoration: none; transition: color 0.3s; display: flex; align-items: center; gap: 0.4rem; }
-    .nav-contact a:hover { color: var(--gold); }
+    .nav-contact a { font-size: 0.63rem; letter-spacing: 0.15em; color: var(--gold); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.4rem; font-weight: 500; border: 1px solid var(--gold-border); padding: 0.35rem 0.75rem; border-radius: 3px; }
+    .nav-contact a:hover { background: var(--gold-dim); border-color: var(--gold); box-shadow: 0 0 12px var(--gold-dim); }
     .nav-contact-sep { width: 1px; height: 14px; background: var(--gold-border); }
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
     .nav-hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); transition: all 0.3s; }
@@ -629,11 +695,69 @@
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.25s, padding-left 0.25s;
+      position: relative;
     }
     .left-menu-links li:first-child a { border-top: 1px solid var(--gold-border); }
     .left-menu-links li a:hover { color: var(--gold); padding-left: 0.5rem; }
     .left-menu-links li a .lm-dot { font-size: 0.45rem; color: var(--gold); opacity: 0.5; flex-shrink: 0; }
     .left-menu-links li a:hover .lm-dot { opacity: 1; }
+
+    /* Description au survol dans le panneau gauche */
+    .lm-desc {
+      position: absolute;
+      left: calc(100% + 1.5rem);
+      top: 50%;
+      transform: translateY(-50%) translateX(6px);
+      width: 200px;
+      background: var(--bg3);
+      border: 1px solid var(--gold-border);
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      z-index: 200;
+    }
+    .lm-desc::before {
+      content: '';
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-right: 6px solid var(--gold-border);
+    }
+    .lm-desc::after {
+      content: '';
+      position: absolute;
+      right: calc(100% - 1px);
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-right: 5px solid var(--bg3);
+    }
+    .lm-desc-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+    .lm-desc-body {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+      letter-spacing: 0.03em;
+    }
+    .left-menu-links li a:hover .lm-desc {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
 
     .left-menu-footer {
       margin-top: 3rem;
@@ -671,14 +795,54 @@
   <div class="left-menu-panel" id="left-panel">
     <div class="left-menu-logo">Lucas Magicien</div>
     <ul class="left-menu-links">
-      <li><a href="#prestations" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Prestations</a></li>
-      <li><a href="#galerie" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Galerie</a></li>
-      <li><a href="#avis" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Avis</a></li>
-      <li><a href="#about" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> À propos</a></li>
-      <li><a href="#tarifs" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Tarifs</a></li>
-      <li><a href="#zone" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Zone</a></li>
-      <li><a href="#faq" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> FAQ</a></li>
-      <li><a href="#contact" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Contact</a></li>
+      <li><a href="#prestations" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Prestations
+        <span class="lm-desc">
+          <span class="lm-desc-title">Mes prestations</span>
+          <span class="lm-desc-body">Mariage, soirée d'entreprise, anniversaire. Magie close-up sur mesure pour chaque événement.</span>
+        </span>
+      </a></li>
+      <li><a href="#galerie" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Galerie
+        <span class="lm-desc">
+          <span class="lm-desc-title">Galerie privée</span>
+          <span class="lm-desc-body">Photos et vidéos de prestations. Accès protégé par code.</span>
+        </span>
+      </a></li>
+      <li><a href="#avis" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Avis
+        <span class="lm-desc">
+          <span class="lm-desc-title">Avis clients</span>
+          <span class="lm-desc-body">12 retours authentiques de mariés, organisateurs et particuliers.</span>
+        </span>
+      </a></li>
+      <li><a href="#about" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> À propos
+        <span class="lm-desc">
+          <span class="lm-desc-title">Qui suis-je ?</span>
+          <span class="lm-desc-body">Mon parcours, ma vision de la magie et ce qui me distingue.</span>
+        </span>
+      </a></li>
+      <li><a href="#tarifs" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Tarifs
+        <span class="lm-desc">
+          <span class="lm-desc-title">Tarif sur mesure</span>
+          <span class="lm-desc-body">Pas de grille tarifaire fixe. Devis gratuit adapté à votre projet, sous 12h.</span>
+        </span>
+      </a></li>
+      <li><a href="#zone" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Zone
+        <span class="lm-desc">
+          <span class="lm-desc-title">Zone d'intervention</span>
+          <span class="lm-desc-body">Paris et toute l'Île-de-France. Déplacements France entière sur demande.</span>
+        </span>
+      </a></li>
+      <li><a href="#faq" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> FAQ
+        <span class="lm-desc">
+          <span class="lm-desc-title">Questions fréquentes</span>
+          <span class="lm-desc-body">Comment se déroule une prestation, quel matériel, quel délai de réservation...</span>
+        </span>
+      </a></li>
+      <li><a href="#contact" onclick="closeLeftMenu()"><span class="lm-dot">✦</span> Contact
+        <span class="lm-desc">
+          <span class="lm-desc-title">Me contacter</span>
+          <span class="lm-desc-body">06 08 80 22 01 · votremagicien@contact.fr · Formulaire de devis gratuit.</span>
+        </span>
+      </a></li>
     </ul>
     <div class="left-menu-footer">Magie close-up · Île-de-France</div>
   </div>
@@ -704,12 +868,95 @@
     <a href="#hero" class="nav-logo">Lucas Magicien</a>
     <ul class="nav-links">
       <li><a href="#about">À propos</a></li>
-      <li><a href="#prestations">Prestations</a></li>
-      <li><a href="#galerie">Galerie</a></li>
-      <li><a href="#avis">Avis</a></li>
-      <li><a href="#tarifs">Tarifs</a></li>
+      <li class="has-dropdown">
+        <a href="#prestations">Prestations</a>
+        <div class="nav-dropdown">
+          <a class="nav-dropdown-item" href="#prestations">
+            <span class="nav-dropdown-icon">💍</span>
+            <span class="nav-dropdown-text">
+              <span class="nav-dropdown-label">Mariage</span>
+              <span class="nav-dropdown-desc">Close-up pendant le vin d'honneur et le dîner</span>
+            </span>
+          </a>
+          <a class="nav-dropdown-item" href="#prestations">
+            <span class="nav-dropdown-icon">🏢</span>
+            <span class="nav-dropdown-text">
+              <span class="nav-dropdown-label">Corporate</span>
+              <span class="nav-dropdown-desc">Séminaires, cocktails et galas d'entreprise</span>
+            </span>
+          </a>
+          <a class="nav-dropdown-item" href="#prestations">
+            <span class="nav-dropdown-icon">🎉</span>
+            <span class="nav-dropdown-text">
+              <span class="nav-dropdown-label">Soirée privée</span>
+              <span class="nav-dropdown-desc">Anniversaires, fêtes et événements familiaux</span>
+            </span>
+          </a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#galerie">Galerie</a>
+        <div class="nav-dropdown">
+          <a class="nav-dropdown-item" href="#galerie">
+            <span class="nav-dropdown-icon">🔐</span>
+            <span class="nav-dropdown-text">
+              <span class="nav-dropdown-label">Accès protégé</span>
+              <span class="nav-dropdown-desc">Photos et vidéos de prestations en situation</span>
+            </span>
+          </a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#avis">Avis</a>
+        <div class="nav-dropdown">
+          <a class="nav-dropdown-item" href="#avis">
+            <span class="nav-dropdown-icon">⭐</span>
+            <span class="nav-dropdown-text">
+              <span class="nav-dropdown-label">12 avis clients</span>
+              <span class="nav-dropdown-desc">Retours authentiques de mariés et organisateurs</span>
+            </span>
+          </a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#tarifs">Tarifs</a>
+        <div class="nav-dropdown">
+          <a class="nav-dropdown-item" href="#tarifs">
+            <span class="nav-dropdown-icon">✦</span>
+            <span class="nav-dropdown-text">
+              <span class="nav-dropdown-label">Tarif sur mesure</span>
+              <span class="nav-dropdown-desc">Devis gratuit adapté à votre événement, sous 12h</span>
+            </span>
+          </a>
+        </div>
+      </li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li class="has-dropdown">
+        <a href="#contact">Contact</a>
+        <div class="nav-dropdown">
+          <a class="nav-dropdown-item" href="tel:0608802201">
+            <span class="nav-dropdown-icon">✆</span>
+            <span class="nav-dropdown-text">
+              <span class="nav-dropdown-label">06 08 80 22 01</span>
+              <span class="nav-dropdown-desc">Disponible 7j/7 de 9h à 21h</span>
+            </span>
+          </a>
+          <a class="nav-dropdown-item" href="mailto:votremagicien@contact.fr">
+            <span class="nav-dropdown-icon">✉</span>
+            <span class="nav-dropdown-text">
+              <span class="nav-dropdown-label">votremagicien@contact.fr</span>
+              <span class="nav-dropdown-desc">Réponse garantie sous 12h</span>
+            </span>
+          </a>
+          <a class="nav-dropdown-item" href="#contact">
+            <span class="nav-dropdown-icon">📋</span>
+            <span class="nav-dropdown-text">
+              <span class="nav-dropdown-label">Formulaire de devis</span>
+              <span class="nav-dropdown-desc">Décrivez votre projet, réponse rapide assurée</span>
+            </span>
+          </a>
+        </div>
+      </li>
     </ul>
     <div class="nav-right">
       <div class="nav-contact">
