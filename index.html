@@ -129,7 +129,7 @@
     .theme-toggle:hover { background: var(--gold-dim); border-color: var(--gold); transform: scale(1.08); }
 
     /* ── NAV ── */
-    nav { position: fixed; top: 28px; left: 0; right: 0; z-index: 100; display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 1.5rem; padding: 1.1rem 4rem; background: var(--nav-bg); border-bottom: 1px solid var(--gold-border); backdrop-filter: blur(10px); transition: background 0.4s, border-color 0.4s; }
+    nav { position: static; top: 0; left: 0; right: 0; z-index: 100; display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 1.5rem; padding: 1.1rem 4rem; background: var(--nav-bg); border-bottom: 1px solid var(--gold-border); backdrop-filter: blur(10px); transition: background 0.4s, border-color 0.4s; }
     .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; text-decoration: none; }
     .nav-links { display: flex; gap: 2rem; list-style: none; justify-self: center; }
     .nav-links a { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; font-weight: 400; }
@@ -148,8 +148,40 @@
     .mobile-menu.open { display: flex; }
     .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--text); text-decoration: none; letter-spacing: 0.1em; transition: color 0.3s; }
     .mobile-menu a:hover { color: var(--gold); }
-    /* Décaler le hero pour compenser la nav */
-    #hero { padding-top: 28px; }
+    /* Bouton hamburger gauche fixe (suit le scroll) */
+    .floating-left-btn {
+      position: fixed;
+      top: 1.4rem;
+      left: 2.2rem;
+      z-index: 200;
+      background: var(--nav-bg);
+      border: 1px solid var(--gold-border);
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px 10px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .floating-left-btn:hover { background: var(--gold-dim); border-color: var(--gold); }
+    .floating-left-btn span {
+      display: block;
+      height: 1px;
+      background: var(--gold);
+      transition: all 0.35s ease;
+      transform-origin: center;
+    }
+    .floating-left-btn span:nth-child(1) { width: 20px; }
+    .floating-left-btn span:nth-child(2) { width: 14px; }
+    .floating-left-btn span:nth-child(3) { width: 20px; }
+    .floating-left-btn:hover span { width: 20px; }
+    .floating-left-btn.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); width: 20px; }
+    .floating-left-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .floating-left-btn.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 20px; }
+    @media (max-width: 768px) { .floating-left-btn { display: none; } }
 
     /* ── HERO ── */
     #hero { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
@@ -527,7 +559,7 @@
       background: none;
       border: none;
       cursor: pointer;
-      display: flex;
+      display: none !important;
       flex-direction: column;
       gap: 5px;
       padding: 4px 6px;
@@ -630,6 +662,11 @@
 <body>
 
   <!-- MENU LATÉRAL GAUCHE -->
+  <!-- Bouton hamburger gauche fixe — suit le scroll -->
+  <button class="floating-left-btn" id="floating-left-btn" onclick="toggleLeftMenu()" aria-label="Menu sections">
+    <span></span><span></span><span></span>
+  </button>
+
   <div class="left-menu-overlay" id="left-overlay" onclick="closeLeftMenu()"></div>
   <div class="left-menu-panel" id="left-panel">
     <div class="left-menu-logo">Lucas Magicien</div>
@@ -1594,15 +1631,15 @@
 </html>
 <script>
 function toggleLeftMenu() {
-  var btn = document.getElementById('left-btn');
+  var floatingBtn = document.getElementById('floating-left-btn');
   var panel = document.getElementById('left-panel');
   var overlay = document.getElementById('left-overlay');
-  btn.classList.toggle('open');
+  floatingBtn.classList.toggle('open');
   panel.classList.toggle('open');
   overlay.classList.toggle('open');
 }
 function closeLeftMenu() {
-  document.getElementById('left-btn').classList.remove('open');
+  document.getElementById('floating-left-btn').classList.remove('open');
   document.getElementById('left-panel').classList.remove('open');
   document.getElementById('left-overlay').classList.remove('open');
 }
