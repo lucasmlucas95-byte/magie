@@ -708,11 +708,11 @@
       left: calc(100% + 1.5rem);
       top: 50%;
       transform: translateY(-50%) translateX(6px);
-      width: 200px;
+      width: 220px;
       background: var(--bg3);
       border: 1px solid var(--gold-border);
       border-radius: 4px;
-      padding: 0.75rem 1rem;
+      padding: 0.85rem 1rem;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.22s ease, transform 0.22s ease;
@@ -740,21 +740,24 @@
     }
     .lm-desc-title {
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.58rem;
-      letter-spacing: 0.18em;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--gold);
-      font-weight: 500;
-      margin-bottom: 0.35rem;
+      font-weight: 600;
+      display: inline;
+      margin-right: 0.35rem;
     }
     .lm-desc-body {
       font-family: 'Montserrat', sans-serif;
-      font-size: 0.6rem;
-      color: var(--text-dim);
-      line-height: 1.55;
-      letter-spacing: 0.03em;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+      display: inline;
     }
-    .left-menu-links li a:hover .lm-desc {
+    .left-menu-links li a:hover .lm-desc,
+    .lm-desc.touch-open {
       opacity: 1;
       transform: translateY(-50%) translateX(0);
     }
@@ -1890,4 +1893,32 @@ function closeLeftMenu() {
   document.getElementById('left-panel').classList.remove('open');
   document.getElementById('left-overlay').classList.remove('open');
 }
+
+// Bulles du panneau gauche : tap sur mobile
+(function() {
+  var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (!isTouchDevice) return;
+  document.querySelectorAll('.left-menu-links li a').forEach(function(link) {
+    var desc = link.querySelector('.lm-desc');
+    if (!desc) return;
+    link.addEventListener('touchstart', function(e) {
+      var alreadyOpen = desc.classList.contains('touch-open');
+      // Fermer toutes les autres bulles
+      document.querySelectorAll('.lm-desc.touch-open').forEach(function(d) {
+        d.classList.remove('touch-open');
+      });
+      if (!alreadyOpen) {
+        e.preventDefault();
+        desc.classList.add('touch-open');
+      }
+    }, { passive: false });
+  });
+  document.addEventListener('touchstart', function(e) {
+    if (!e.target.closest('.left-menu-links li a')) {
+      document.querySelectorAll('.lm-desc.touch-open').forEach(function(d) {
+        d.classList.remove('touch-open');
+      });
+    }
+  });
+})();
 </script>
