@@ -224,13 +224,6 @@ var STORAGE_KEY='lucas_events_v1';
 var events=[];
 try{var s=localStorage.getItem(STORAGE_KEY);if(s)events=JSON.parse(s);}catch(e){}
 if(!events.length){
-  events=[
-    {id:1,name:'Mariage Fontaine',date:'2026-05-17',type:'mariage',lieu:'Versailles',contact:'Julie Fontaine',tel:'06 12 34 56 78',duree:'3h',notes:'Vin d\'honneur 17h-20h. Ambiance champêtre.',status:'confirmé'},
-    {id:2,name:'Séminaire Crédit Agricole',date:'2026-05-28',type:'corporate',lieu:'La Défense',contact:'Marc Renard',tel:'01 23 45 67 89',duree:'1h30',notes:'Cocktail après les discours. Public cadres.',status:'confirmé'},
-    {id:3,name:'Anniversaire Theo 8 ans',date:'2026-06-07',type:'enfants',lieu:'Vincennes',contact:'Sandra Petit',tel:'06 77 88 99 00',duree:'1h',notes:'8 enfants de 6 à 10 ans.',status:'confirmé'},
-    {id:4,name:'Dîner Famille Bernard',date:'2026-06-20',type:'prive',lieu:'Boulogne',contact:'Alain Bernard',tel:'06 55 44 33 22',duree:'2h',notes:'15 convives adultes.',status:'option'},
-    {id:5,name:'Gala Mairie Paris 16',date:'2026-07-04',type:'corporate',lieu:'Paris 16e',contact:'Isabelle Morel',tel:'01 44 55 66 77',duree:'2h',notes:'200 invités. Déambulation. Tenue soirée.',status:'confirmé'},
-  ];
   save();
 }
 
