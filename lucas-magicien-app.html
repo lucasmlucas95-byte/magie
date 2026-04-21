@@ -197,6 +197,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--t);font-f
   <button class="nav-item" id="nav-setlists" onclick="switchTab('setlists',this)"><span class="nav-item-icon">♠</span>Setlists</button>
   <div class="nav-sep"></div>
   <button class="nav-item" onclick="openModal();closeNav()"><span class="nav-item-icon">✦</span>Nouvelle prestation</button>
+  <div class="nav-sep"></div>
+  <button class="nav-item" onclick="resetData()" style="color:var(--t3)"><span class="nav-item-icon">🗑</span>Réinitialiser</button>
   <div class="nav-panel-foot">Magie close-up · Île-de-France</div>
 </div>
 
@@ -545,6 +547,11 @@ function saveEvent(){
   document.getElementById('modal-ov').classList.remove('open');
   exportICS(nev.id);
   renderDashboard();
+}
+
+function resetData(){
+  if(!confirm('Supprimer toutes les prestations ?'))return;
+  events=[];save();closeNav();renderDashboard();
 }
 
 renderDashboard();
