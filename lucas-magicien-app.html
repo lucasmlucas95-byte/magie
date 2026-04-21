@@ -18,6 +18,14 @@
   --card:#1e1b12;--card2:#252018;
   --t:#f0e8d5;--t2:rgba(240,232,213,0.72);--t3:rgba(240,232,213,0.42);
   --border:rgba(201,168,76,0.15);
+}
+:root[data-theme="light"]{
+  --gold:#8a6010;--gold-l:#a07828;--gold-d:#6a4808;
+  --gold-bg:rgba(138,96,16,0.08);--gold-border:rgba(138,96,16,0.25);
+  --bg:#faf7f2;--bg2:#f0ebe0;--bg3:#e8e0d0;
+  --card:#ffffff;--card2:#f5f0e8;
+  --t:#1a1508;--t2:rgba(26,21,8,0.7);--t3:rgba(26,21,8,0.42);
+  --border:rgba(138,96,16,0.15);
   --radius:16px;--radm:10px;
   --safe-top:env(safe-area-inset-top,0px);
   --safe-bot:env(safe-area-inset-bottom,0px);
@@ -27,6 +35,9 @@
   --c-prive:#6ed4a0;--c-prive-bg:rgba(110,212,160,0.12);--c-prive-bd:rgba(110,212,160,0.3);
   --c-autre:#a0a090;--c-autre-bg:rgba(160,160,144,0.12);--c-autre-bd:rgba(160,160,144,0.3);
 }
+html,body{transition:background 0.3s,color 0.3s}
+.theme-btn{background:var(--bg2);border:0.5px solid var(--border);border-radius:20px;padding:4px 10px;font-size:13px;cursor:pointer;color:var(--t2);-webkit-tap-highlight-color:transparent;transition:all 0.2s;flex-shrink:0}
+.theme-btn:active{opacity:0.7}
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;-webkit-text-size-adjust:100%}
 .app{display:flex;flex-direction:column;height:100%;padding-top:var(--safe-top)}
 
@@ -35,9 +46,33 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--t);font-f
 .app-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.65rem}
 .app-logo{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);font-weight:600}
 .app-date{font-size:11px;color:var(--t3)}
-.tab-bar{display:flex;gap:0;background:var(--bg2);border-radius:var(--radm);padding:3px}
-.tab{flex:1;padding:7px 3px;font-size:11px;font-weight:500;text-align:center;border:none;background:none;cursor:pointer;border-radius:8px;color:var(--t3);transition:all 0.2s;-webkit-tap-highlight-color:transparent}
-.tab.active{background:var(--card);color:var(--gold);box-shadow:0 1px 4px rgba(0,0,0,0.4)}
+
+/* MENU HAMBURGER */
+.hamburger{background:none;border:0.5px solid var(--border);border-radius:var(--radm);width:36px;height:36px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;transition:background 0.2s}
+.hamburger:active{background:var(--bg2)}
+.hamburger span{display:block;height:1.5px;background:var(--gold);border-radius:1px;transition:all 0.28s ease}
+.hamburger span:nth-child(1){width:18px}
+.hamburger span:nth-child(2){width:13px}
+.hamburger span:nth-child(3){width:18px}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);width:18px}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);width:18px}
+
+.nav-overlay{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,0);pointer-events:none;transition:background 0.3s}
+.nav-overlay.open{background:rgba(0,0,0,0.5);pointer-events:all}
+.nav-panel{position:fixed;top:0;left:0;bottom:0;width:72vw;max-width:260px;z-index:60;background:var(--bg2);border-right:0.5px solid var(--border);display:flex;flex-direction:column;padding:calc(var(--safe-top) + 1.5rem) 0 calc(1.5rem + var(--safe-bot));transform:translateX(-100%);transition:transform 0.32s cubic-bezier(0.4,0,0.2,1)}
+.nav-panel.open{transform:translateX(0)}
+.nav-panel-logo{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-weight:600;padding:0 1.3rem 1.5rem;border-bottom:0.5px solid var(--border);margin-bottom:0.5rem}
+.nav-item{display:flex;align-items:center;gap:0.9rem;padding:0.85rem 1.3rem;font-size:15px;font-weight:500;color:var(--t2);cursor:pointer;border:none;background:none;width:100%;text-align:left;-webkit-tap-highlight-color:transparent;transition:all 0.18s;border-left:3px solid transparent}
+.nav-item:active{background:var(--bg3)}
+.nav-item.active{color:var(--gold);border-left-color:var(--gold);background:var(--gold-bg)}
+.nav-item-icon{font-size:16px;width:22px;text-align:center;flex-shrink:0}
+.nav-sep{height:0.5px;background:var(--border);margin:0.5rem 1.3rem}
+.nav-panel-foot{margin-top:auto;padding:1rem 1.3rem 0;font-size:10px;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase}
+
+/* SCREEN TITLE */
+.screen-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.screen-title{font-size:18px;font-weight:600;color:var(--t)}
 
 /* SCREENS */
 .screens{flex:1;overflow:hidden;position:relative}
@@ -153,22 +188,35 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--t);font-f
 </style>
 </head>
 <body>
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+<div class="nav-panel" id="nav-panel">
+  <div class="nav-panel-logo">✦ Lucas Magicien</div>
+  <button class="nav-item active" id="nav-dashboard" onclick="switchTab('dashboard',this)"><span class="nav-item-icon">🏠</span>Accueil</button>
+  <button class="nav-item" id="nav-agenda" onclick="switchTab('agenda',this)"><span class="nav-item-icon">📅</span>Agenda</button>
+  <button class="nav-item" id="nav-fiches" onclick="switchTab('fiches',this)"><span class="nav-item-icon">📋</span>Prestations</button>
+  <button class="nav-item" id="nav-setlists" onclick="switchTab('setlists',this)"><span class="nav-item-icon">♠</span>Setlists</button>
+  <div class="nav-sep"></div>
+  <button class="nav-item" onclick="openModal();closeNav()"><span class="nav-item-icon">✦</span>Nouvelle prestation</button>
+  <div class="nav-panel-foot">Magie close-up · Île-de-France</div>
+</div>
+
 <div class="app">
   <div class="app-header">
     <div class="app-header-top">
+      <button class="hamburger" id="hamburger" onclick="toggleNav()">
+        <span></span><span></span><span></span>
+      </button>
       <span class="app-logo">✦ Lucas Magicien</span>
-      <span class="app-date" id="today-date"></span>
-    </div>
-    <div class="tab-bar">
-      <button class="tab active" onclick="switchTab('dashboard',this)">Accueil</button>
-      <button class="tab" onclick="switchTab('agenda',this)">Agenda</button>
-      <button class="tab" onclick="switchTab('fiches',this)">Prestations</button>
-      <button class="tab" onclick="switchTab('setlists',this)">Setlists</button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀️</button>
+        <span class="app-date" id="today-date"></span>
+      </div>
     </div>
   </div>
 
   <div class="screens">
     <div id="screen-dashboard" class="screen active">
+      <div class="screen-header"><span class="screen-title">Accueil</span></div>
       <div id="next-hero-wrap"></div>
       <p class="sec-label" style="margin-top:0.3rem">À venir</p>
       <div id="upcoming-list"></div>
@@ -176,6 +224,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--t);font-f
     </div>
 
     <div id="screen-agenda" class="screen">
+      <div class="screen-header"><span class="screen-title">Agenda</span></div>
       <div class="cal-nav">
         <button class="cal-nav-btn" onclick="prevMonth()">‹</button>
         <span class="cal-month" id="cal-label"></span>
@@ -186,13 +235,13 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--t);font-f
     </div>
 
     <div id="screen-fiches" class="screen">
-      <p class="sec-label">Toutes les prestations</p>
+      <div class="screen-header"><span class="screen-title">Prestations</span></div>
       <div id="fiches-list"></div>
       <button class="add-btn" onclick="openModal()">✦ Nouvelle prestation</button>
     </div>
 
     <div id="screen-setlists" class="screen">
-      <p class="sec-label">Setlists par type</p>
+      <div class="screen-header"><span class="screen-title">Setlists</span></div>
       <div id="setlists-wrap"></div>
     </div>
   </div>
@@ -223,6 +272,18 @@ var TYPES={
 var STORAGE_KEY='lucas_events_v1';
 var events=[];
 try{var s=localStorage.getItem(STORAGE_KEY);if(s)events=JSON.parse(s);}catch(e){}
+
+// Thème
+var isDark=true;
+try{var th=localStorage.getItem('lucas_theme');if(th)isDark=(th==='dark');}catch(e){}
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
+  var btn=document.getElementById('theme-btn');
+  if(btn)btn.textContent=isDark?'☀️':'🌙';
+  try{localStorage.setItem('lucas_theme',isDark?'dark':'light');}catch(e){}
+}
+function toggleTheme(){isDark=!isDark;applyTheme();}
+applyTheme();
 if(!events.length){
   save();
 }
@@ -250,11 +311,24 @@ function daysLabel(n){
   return'<span class="days-badge">Dans '+n+' j</span>';
 }
 
+function toggleNav(){
+  var h=document.getElementById('hamburger');
+  var p=document.getElementById('nav-panel');
+  var o=document.getElementById('nav-overlay');
+  h.classList.toggle('open');p.classList.toggle('open');o.classList.toggle('open');
+}
+function closeNav(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('nav-panel').classList.remove('open');
+  document.getElementById('nav-overlay').classList.remove('open');
+}
+
 function switchTab(name,btn){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.nav-item').forEach(function(t){t.classList.remove('active');});
   document.getElementById('screen-'+name).classList.add('active');
-  btn.classList.add('active');
+  if(btn)btn.classList.add('active');
+  closeNav();
   if(name==='dashboard')renderDashboard();
   if(name==='agenda')renderCalendar();
   if(name==='fiches')renderFiches();
@@ -311,6 +385,7 @@ function renderFiches(){
       +'<div class="fiche-row"><span class="fiche-k">Contact</span><span class="fiche-v">'+e.contact+(e.tel?' · '+e.tel:'')+'</span></div>'
       +(e.notes?'<div class="fiche-row"><span class="fiche-k">Notes</span><span class="fiche-v">'+e.notes+'</span></div>':'')
       +'<div class="fiche-row"><span class="fiche-k">Attentes</span><span class="fiche-v">'+T.attentes.slice(0,2).join(' · ')+'</span></div>'
+      +(e.setlist&&e.setlist.length?'<div class="fiche-row"><span class="fiche-k">Setlist</span><span class="fiche-v">'+e.setlist.map(function(s,i){return(i+1)+'. '+s;}).join(' · ')+'</span></div>':'')
       +'</div>'
       +'<div class="fiche-ft">'
       +'<button class="fiche-btn ics" onclick="exportICS('+e.id+')">📅 Agenda</button>'
@@ -328,12 +403,23 @@ function deleteEvent(id){
 }
 
 function renderSetlists(){
-  var el=document.getElementById('setlists-wrap');el.innerHTML='';
-  Object.keys(TYPES).forEach(function(k){
-    var T=TYPES[k];
+  var el=document.getElementById('setlists-wrap');
+  var withSetlist=events.filter(function(e){return e.setlist&&e.setlist.length>0;}).sort(function(a,b){return new Date(a.date)-new Date(b.date);});
+  if(!withSetlist.length){
+    el.innerHTML='<div style="text-align:center;padding:2rem 1rem;color:var(--t3);font-size:13px">Aucune setlist enregistrée.<br>Ajoutez des tours lors de la création d\'une prestation.</div>';
+    return;
+  }
+  el.innerHTML='';
+  withSetlist.forEach(function(e){
+    var c=typeColor(e.type);
+    var d=new Date(e.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'});
     el.innerHTML+='<div class="sl-card">'
-      +'<div class="sl-header">'+typeTag(k)+'<span class="sl-count">'+T.setlist.length+' tours</span></div>'
-      +T.setlist.map(function(s,i){return'<div class="sl-item"><span class="sl-num">'+(i+1)+'</span><span>'+s+'</span></div>';}).join('')
+      +'<div class="sl-header" style="margin-bottom:0.5rem">'
+      +'<div><div style="font-size:14px;font-weight:600;color:var(--t)">'+e.name+'</div>'
+      +'<div style="font-size:11px;color:var(--t3);margin-top:2px">'+d+' · '+e.lieu+'</div></div>'
+      +typeTag(e.type)+'</div>'
+      +'<div style="height:0.5px;background:var(--border);margin-bottom:0.5rem"></div>'
+      +e.setlist.map(function(s,i){return'<div class="sl-item"><span class="sl-num">'+(i+1)+'</span><span>'+s+'</span></div>';}).join('')
       +'</div>';
   });
 }
@@ -385,8 +471,10 @@ function exportICS(id){
 }
 
 var selType='mariage';
+var modalSetlist=[];
+
 function openModal(){
-  selType='mariage';
+  selType='mariage';modalSetlist=[];
   document.getElementById('modal-inner').innerHTML='<div class="modal-handle"></div>'
     +'<div class="modal-title">Nouvelle prestation</div>'
     +'<div class="form-group"><label class="form-label">Type d\'événement</label>'
@@ -401,9 +489,40 @@ function openModal(){
     +'<div class="form-group"><label class="form-label">Téléphone</label><input class="form-input" id="f-tel" type="tel" placeholder="06 xx xx xx xx"/></div></div>'
     +'<div class="form-group"><label class="form-label">Statut</label><select class="form-select" id="f-status"><option value="confirmé">Confirmé</option><option value="option">Option</option></select></div>'
     +'<div class="form-group"><label class="form-label">Notes client</label><textarea class="form-textarea" id="f-notes" placeholder="Attentes, contexte, contraintes..."></textarea></div>'
+    +'<div class="form-group"><label class="form-label">Setlist (tours prévus)</label>'
+    +'<div style="display:flex;gap:7px;margin-bottom:8px"><input class="form-input" id="f-tour" placeholder="Nom du tour..." style="flex:1"/>'
+    +'<button onclick="addTourToList()" style="padding:0 14px;background:var(--gold-bg);border:0.5px solid var(--gold-border);border-radius:var(--radm);color:var(--gold);font-size:18px;cursor:pointer;flex-shrink:0">+</button></div>'
+    +'<div id="setlist-preview" style="display:flex;flex-direction:column;gap:5px"></div></div>'
     +'<button class="modal-submit" onclick="saveEvent()">Enregistrer + Exporter vers Calendrier</button>';
   document.getElementById('modal-ov').classList.add('open');
 }
+
+function addTourToList(){
+  var inp=document.getElementById('f-tour');
+  var val=inp.value.trim();
+  if(!val)return;
+  modalSetlist.push(val);
+  inp.value='';inp.focus();
+  refreshSetlistPreview();
+}
+
+function removeTour(i){
+  modalSetlist.splice(i,1);
+  refreshSetlistPreview();
+}
+
+function refreshSetlistPreview(){
+  var el=document.getElementById('setlist-preview');
+  if(!modalSetlist.length){el.innerHTML='<div style="font-size:12px;color:var(--t3);padding:4px 0">Aucun tour ajouté</div>';return;}
+  el.innerHTML=modalSetlist.map(function(t,i){
+    return'<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--bg2);border-radius:var(--radm);font-size:13px;color:var(--t2)">'
+      +'<span style="font-size:10px;color:var(--t3);font-weight:600;width:16px">'+(i+1)+'</span>'
+      +'<span style="flex:1">'+t+'</span>'
+      +'<button onclick="removeTour('+i+')" style="background:none;border:none;color:var(--t3);font-size:16px;cursor:pointer;padding:0;line-height:1">×</button>'
+      +'</div>';
+  }).join('');
+}
+
 function pickType(btn,type){
   selType=type;
   document.querySelectorAll('.type-opt').forEach(function(b){b.className='type-opt';});
@@ -420,7 +539,8 @@ function saveEvent(){
     tel:document.getElementById('f-tel').value||'',
     duree:document.getElementById('f-duree').value||'À définir',
     notes:document.getElementById('f-notes').value||'',
-    status:document.getElementById('f-status').value};
+    status:document.getElementById('f-status').value,
+    setlist:modalSetlist.slice()};
   events.push(nev);save();
   document.getElementById('modal-ov').classList.remove('open');
   exportICS(nev.id);
