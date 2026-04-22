@@ -645,7 +645,7 @@ function saveEvent(){
 }
 
 function resetData(){
-  if(!confirm('Supprimer toutes les prestations ?'))return;
+  if(!confirm('Supprimer toutes les prestations ? (Votre bibliothèque de tours sera conservée)'))return;
   events=[];save();closeNav();renderDashboard();
 }
 
