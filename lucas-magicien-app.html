@@ -446,23 +446,54 @@ function renderSetlists(){
 function renderToursLib(){
   var el=document.getElementById('tours-lib');
   if(!el)return;
+  // Migration : convertir anciens strings en objets
+  myTours=myTours.map(function(t){return typeof t==='string'?{nom:t,desc:''}:t;});
   if(!myTours.length){
     el.innerHTML='<div style="font-size:12px;color:var(--t3);padding:4px 0 8px">Aucun tour dans la bibliothèque. Ajoutez-en ci-dessus.</div>';
     return;
   }
   el.innerHTML=myTours.map(function(t,i){
-    return'<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--card);border:0.5px solid var(--border);border-radius:var(--radm);margin-bottom:6px">'
-      +'<span style="font-size:13px;color:var(--t2);flex:1">'+t+'</span>'
-      +'<button onclick="deleteTourLib('+i+')" style="background:none;border:none;color:var(--t3);font-size:16px;cursor:pointer;padding:2px 4px;line-height:1">×</button>'
+    var hasDesc=t.desc&&t.desc.length>0;
+    return'<div style="background:var(--card);border:0.5px solid var(--border);border-radius:var(--radm);margin-bottom:8px;overflow:hidden">'
+      +'<div style="display:flex;align-items:center;gap:8px;padding:9px 10px;cursor:pointer" onclick="toggleTourDesc('+i+')">'
+      +'<span style="font-size:13px;font-weight:500;color:var(--t);flex:1">'+t.nom+'</span>'
+      +(hasDesc?'<span style="font-size:10px;color:var(--t3);letter-spacing:0.05em">note</span>':'')
+      +'<span style="font-size:11px;color:var(--t3)" id="tour-arrow-'+i+'">'+(hasDesc?'▾':'▸')+'</span>'
+      +'<button onclick="event.stopPropagation();deleteTourLib('+i+')" style="background:none;border:none;color:var(--t3);font-size:16px;cursor:pointer;padding:2px 6px;line-height:1">×</button>'
+      +'</div>'
+      +'<div id="tour-desc-'+i+'" style="display:'+(hasDesc?'block':'none')+';padding:0 10px 10px;border-top:0.5px solid var(--border)">'
+      +'<textarea id="tour-textarea-'+i+'" class="form-textarea" placeholder="Description, mémo, matériel nécessaire..." style="margin-top:8px;font-size:12px;min-height:60px" onblur="saveTourDesc('+i+')" onchange="saveTourDesc('+i+')">'+t.desc+'</textarea>'
+      +'</div>'
       +'</div>';
   }).join('');
+}
+
+function toggleTourDesc(i){
+  var block=document.getElementById('tour-desc-'+i);
+  var arrow=document.getElementById('tour-arrow-'+i);
+  if(!block)return;
+  var open=block.style.display==='block';
+  block.style.display=open?'none':'block';
+  arrow.textContent=open?'▸':'▾';
+  if(!open){var ta=document.getElementById('tour-textarea-'+i);if(ta)ta.focus();}
+}
+
+function saveTourDesc(i){
+  var ta=document.getElementById('tour-textarea-'+i);
+  if(!ta)return;
+  myTours[i].desc=ta.value;
+  saveTours();
+  // Mettre à jour l'indicateur "note" sans re-render complet
+  var arrow=document.getElementById('tour-arrow-'+i);
+  if(arrow)arrow.textContent=ta.value?'▾':'▸';
 }
 
 function addTourLib(){
   var inp=document.getElementById('new-tour-input');
   var val=inp.value.trim();
   if(!val)return;
-  if(myTours.indexOf(val)===-1){myTours.push(val);saveTours();}
+  var exists=myTours.some(function(t){return(typeof t==='object'?t.nom:t)===val;});
+  if(!exists){myTours.push({nom:val,desc:''});saveTours();}
   inp.value='';inp.focus();
   renderToursLib();
 }
@@ -538,7 +569,7 @@ function openModal(){
     +'<div class="form-group"><label class="form-label">Notes client</label><textarea class="form-textarea" id="f-notes" placeholder="Attentes, contexte, contraintes..."></textarea></div>'
     +'<div class="form-group"><label class="form-label">Setlist (tours prévus)</label>'
     +(myTours.length
-      ? '<select class="form-select" id="f-tour-select" style="margin-bottom:7px"><option value="">— Choisir dans ma bibliothèque —</option>'+myTours.map(function(t){return'<option value="'+t+'">'+t+'</option>';}).join('')+'</select>'
+      ? '<select class="form-select" id="f-tour-select" style="margin-bottom:7px"><option value="">— Choisir dans ma bibliothèque —</option>'+myTours.map(function(t){var n=typeof t==='object'?t.nom:t;return'<option value="'+n+'">'+n+'</option>';}).join('')+'</select>'
         +'<div style="display:flex;gap:7px;margin-bottom:8px;align-items:center">'
         +'<button onclick="addTourFromSelect()" style="flex:1;padding:8px;background:var(--gold-bg);border:0.5px solid var(--gold-border);border-radius:var(--radm);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer">+ Ajouter ce tour</button>'
         +'</div>'
