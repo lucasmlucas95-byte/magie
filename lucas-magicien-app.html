@@ -272,8 +272,11 @@ var TYPES={
 };
 
 var STORAGE_KEY='lucas_events_v1';
+var TOURS_KEY='lucas_tours_v1';
 var events=[];
+var myTours=[];
 try{var s=localStorage.getItem(STORAGE_KEY);if(s)events=JSON.parse(s);}catch(e){}
+try{var t=localStorage.getItem(TOURS_KEY);if(t)myTours=JSON.parse(t);}catch(e){}
 
 // Thème
 var isDark=true;
@@ -291,6 +294,7 @@ if(!events.length){
 }
 
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(events));}catch(e){}}
+function saveTours(){try{localStorage.setItem(TOURS_KEY,JSON.stringify(myTours));}catch(e){}}
 
 var calY=new Date().getFullYear(),calM=new Date().getMonth(),selDay=null;
 var MONTHS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
@@ -406,24 +410,65 @@ function deleteEvent(id){
 
 function renderSetlists(){
   var el=document.getElementById('setlists-wrap');
+  el.innerHTML='';
+
+  // Bloc bibliothèque de tours
+  el.innerHTML+='<p class="sec-label">Ma bibliothèque de tours</p>'
+    +'<div style="display:flex;gap:7px;margin-bottom:8px">'
+    +'<input class="form-input" id="new-tour-input" placeholder="Nom du tour (ex: Monte Carlo)..." style="flex:1"/>'
+    +'<button onclick="addTourLib()" style="padding:0 14px;background:var(--gold-bg);border:0.5px solid var(--gold-border);border-radius:var(--radm);color:var(--gold);font-size:18px;cursor:pointer;flex-shrink:0">+</button>'
+    +'</div>'
+    +'<div id="tours-lib"></div>'
+    +'<div style="height:0.5px;background:var(--border);margin:1.2rem 0"></div>';
+
+  renderToursLib();
+
+  // Setlists par prestation
+  el.innerHTML+='<p class="sec-label">Setlists par prestation</p>';
   var withSetlist=events.filter(function(e){return e.setlist&&e.setlist.length>0;}).sort(function(a,b){return new Date(a.date)-new Date(b.date);});
   if(!withSetlist.length){
-    el.innerHTML='<div style="text-align:center;padding:2rem 1rem;color:var(--t3);font-size:13px">Aucune setlist enregistrée.<br>Ajoutez des tours lors de la création d\'une prestation.</div>';
+    el.innerHTML+='<div style="font-size:12px;color:var(--t3);padding:0.5rem 0 1rem">Aucune setlist enregistrée sur vos prestations.</div>';
+  } else {
+    withSetlist.forEach(function(e){
+      var d=new Date(e.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'});
+      el.innerHTML+='<div class="sl-card">'
+        +'<div class="sl-header" style="margin-bottom:0.5rem">'
+        +'<div><div style="font-size:14px;font-weight:600;color:var(--t)">'+e.name+'</div>'
+        +'<div style="font-size:11px;color:var(--t3);margin-top:2px">'+d+' · '+e.lieu+'</div></div>'
+        +typeTag(e.type)+'</div>'
+        +'<div style="height:0.5px;background:var(--border);margin-bottom:0.6rem"></div>'
+        +e.setlist.map(function(s,i){return'<div class="sl-item"><span class="sl-num">'+(i+1)+'</span><span>'+s+'</span></div>';}).join('')
+        +'</div>';
+    });
+  }
+}
+
+function renderToursLib(){
+  var el=document.getElementById('tours-lib');
+  if(!el)return;
+  if(!myTours.length){
+    el.innerHTML='<div style="font-size:12px;color:var(--t3);padding:4px 0 8px">Aucun tour dans la bibliothèque. Ajoutez-en ci-dessus.</div>';
     return;
   }
-  el.innerHTML='';
-  withSetlist.forEach(function(e){
-    var c=typeColor(e.type);
-    var d=new Date(e.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'});
-    el.innerHTML+='<div class="sl-card">'
-      +'<div class="sl-header" style="margin-bottom:0.5rem">'
-      +'<div><div style="font-size:14px;font-weight:600;color:var(--t)">'+e.name+'</div>'
-      +'<div style="font-size:11px;color:var(--t3);margin-top:2px">'+d+' · '+e.lieu+'</div></div>'
-      +typeTag(e.type)+'</div>'
-      +'<div style="height:0.5px;background:var(--border);margin-bottom:0.5rem"></div>'
-      +e.setlist.map(function(s,i){return'<div class="sl-item"><span class="sl-num">'+(i+1)+'</span><span>'+s+'</span></div>';}).join('')
+  el.innerHTML=myTours.map(function(t,i){
+    return'<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--card);border:0.5px solid var(--border);border-radius:var(--radm);margin-bottom:6px">'
+      +'<span style="font-size:13px;color:var(--t2);flex:1">'+t+'</span>'
+      +'<button onclick="deleteTourLib('+i+')" style="background:none;border:none;color:var(--t3);font-size:16px;cursor:pointer;padding:2px 4px;line-height:1">×</button>'
       +'</div>';
-  });
+  }).join('');
+}
+
+function addTourLib(){
+  var inp=document.getElementById('new-tour-input');
+  var val=inp.value.trim();
+  if(!val)return;
+  if(myTours.indexOf(val)===-1){myTours.push(val);saveTours();}
+  inp.value='';inp.focus();
+  renderToursLib();
+}
+
+function deleteTourLib(i){
+  myTours.splice(i,1);saveTours();renderToursLib();
 }
 
 function renderCalendar(){
@@ -492,11 +537,30 @@ function openModal(){
     +'<div class="form-group"><label class="form-label">Statut</label><select class="form-select" id="f-status"><option value="confirmé">Confirmé</option><option value="option">Option</option></select></div>'
     +'<div class="form-group"><label class="form-label">Notes client</label><textarea class="form-textarea" id="f-notes" placeholder="Attentes, contexte, contraintes..."></textarea></div>'
     +'<div class="form-group"><label class="form-label">Setlist (tours prévus)</label>'
-    +'<div style="display:flex;gap:7px;margin-bottom:8px"><input class="form-input" id="f-tour" placeholder="Nom du tour..." style="flex:1"/>'
-    +'<button onclick="addTourToList()" style="padding:0 14px;background:var(--gold-bg);border:0.5px solid var(--gold-border);border-radius:var(--radm);color:var(--gold);font-size:18px;cursor:pointer;flex-shrink:0">+</button></div>'
+    +(myTours.length
+      ? '<select class="form-select" id="f-tour-select" style="margin-bottom:7px"><option value="">— Choisir dans ma bibliothèque —</option>'+myTours.map(function(t){return'<option value="'+t+'">'+t+'</option>';}).join('')+'</select>'
+        +'<div style="display:flex;gap:7px;margin-bottom:8px;align-items:center">'
+        +'<button onclick="addTourFromSelect()" style="flex:1;padding:8px;background:var(--gold-bg);border:0.5px solid var(--gold-border);border-radius:var(--radm);color:var(--gold);font-size:12px;font-weight:600;cursor:pointer">+ Ajouter ce tour</button>'
+        +'</div>'
+        +'<div style="display:flex;gap:7px;margin-bottom:8px"><input class="form-input" id="f-tour" placeholder="Ou saisir un autre tour..." style="flex:1"/>'
+        +'<button onclick="addTourToList()" style="padding:0 14px;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radm);color:var(--t2);font-size:18px;cursor:pointer;flex-shrink:0">+</button></div>'
+      : '<div style="display:flex;gap:7px;margin-bottom:8px"><input class="form-input" id="f-tour" placeholder="Nom du tour..." style="flex:1"/>'
+        +'<button onclick="addTourToList()" style="padding:0 14px;background:var(--gold-bg);border:0.5px solid var(--gold-border);border-radius:var(--radm);color:var(--gold);font-size:18px;cursor:pointer;flex-shrink:0">+</button></div>'
+        +'<div style="font-size:11px;color:var(--t3);margin-bottom:8px">Astuce : ajoutez vos tours dans la bibliothèque (Setlists) pour les retrouver ici.</div>'
+    )
     +'<div id="setlist-preview" style="display:flex;flex-direction:column;gap:5px"></div></div>'
     +'<button class="modal-submit" onclick="saveEvent()">Enregistrer + Exporter vers Calendrier</button>';
   document.getElementById('modal-ov').classList.add('open');
+}
+
+function addTourFromSelect(){
+  var sel=document.getElementById('f-tour-select');
+  if(!sel||!sel.value)return;
+  if(modalSetlist.indexOf(sel.value)===-1){
+    modalSetlist.push(sel.value);
+    refreshSetlistPreview();
+  }
+  sel.value='';
 }
 
 function addTourToList(){
