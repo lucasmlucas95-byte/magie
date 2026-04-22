@@ -473,6 +473,14 @@ function toggleTourDesc(i){
   var arrow=document.getElementById('tour-arrow-'+i);
   if(!block)return;
   var open=block.style.display==='block';
+  // Fermer tous les autres
+  myTours.forEach(function(_,j){
+    if(j===i)return;
+    var b=document.getElementById('tour-desc-'+j);
+    var a=document.getElementById('tour-arrow-'+j);
+    if(b)b.style.display='none';
+    if(a)a.textContent=myTours[j]&&myTours[j].desc?'▾':'▸';
+  });
   block.style.display=open?'none':'block';
   arrow.textContent=open?'▸':'▾';
   if(!open){var ta=document.getElementById('tour-textarea-'+i);if(ta)ta.focus();}
@@ -496,6 +504,11 @@ function addTourLib(){
   if(!exists){myTours.push({nom:val,desc:''});saveTours();}
   inp.value='';inp.focus();
   renderToursLib();
+  // Tout fermer après ajout
+  myTours.forEach(function(_,j){
+    var b=document.getElementById('tour-desc-'+j);
+    if(b)b.style.display='none';
+  });
 }
 
 function deleteTourLib(i){
